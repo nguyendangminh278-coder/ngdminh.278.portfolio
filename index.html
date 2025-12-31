@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyen Dang Minh - Intro</title>
+    
+    <title>My Portfolio - Nguyen Dang Minh</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
+
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     
     <style>
@@ -15,6 +18,9 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden; /* Chặn thanh cuộn */
+            display: flex;       
+            justify-content: center;
+            align-items: center;
         }
 
         .portfolio-container {
@@ -23,12 +29,12 @@
             height: 100%;
         }
 
-        /* VIDEO TRÀN MÀN HÌNH */
+        /* VIDEO */
         video {
             width: 100%;
             height: 100%;
-            /* FILL: Kéo dãn video để lấp đầy toàn bộ màn hình (có thể bị méo hình nếu tỉ lệ màn hình khác 16:9) */
-            object-fit: fill; 
+            /* CONTAIN: Giữ nguyên tỷ lệ video gốc, video sẽ nằm gọn trong màn hình mà không bị méo */
+            object-fit: contain; 
             display: block;
         }
 
@@ -42,26 +48,26 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(0,0,0,0.7); /* Nền tối mờ che video lúc đầu */
+            background: rgba(0,0,0,0.7); /* Nền tối mờ */
             z-index: 10;
         }
 
         .manga-btn {
             font-family: 'Bangers', cursive;
-            font-size: 2.5rem; /* Chữ to hơn chút cho ngầu */
+            font-size: 2.5rem;
             padding: 15px 50px;
             cursor: pointer;
             background: #fff;
             border: 4px solid #000;
             color: #000;
             text-transform: uppercase;
-            box-shadow: 10px 10px 0px #000; /* Bóng cứng */
+            box-shadow: 10px 10px 0px #000;
             transition: transform 0.1s, box-shadow 0.1s;
             z-index: 20;
         }
 
         .manga-btn:hover {
-            background: #ffec00; /* Màu vàng nổi bật */
+            background: #ffec00;
             transform: translate(-3px, -3px);
             box-shadow: 13px 13px 0px #000;
         }
@@ -85,8 +91,8 @@
 <body>
 
     <div class="portfolio-container">
-        <video id="introVideo" preload="auto">
-            <source src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ff4bc3d48df1108a10e62d9c4af551ace1dea7a0/000%20finl.mp4" type="video/mp4">
+        <video id="introVideo" preload="auto" playsinline>
+            <source src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/f048991bb7c9a6be4cf3d4dc94fa118f4c6df9dd/intro.mp4" type="video/mp4">
         </video>
 
         <div id="startOverlay" class="overlay">
@@ -102,24 +108,28 @@
         const skipBtn = document.getElementById('skipBtn');
         const overlay = document.getElementById('startOverlay');
 
-        // Hàm chuyển trang
+        // Hàm chuyển sang trang chính
         function goToMainPage() {
             window.location.href = 'main.html';
         }
 
-        // Bắt đầu video
+        // BẮT ĐẦU: Ẩn overlay -> Hiện Skip -> Mở tiếng -> Chạy video
         startBtn.addEventListener('click', () => {
             overlay.style.display = 'none'; 
             skipBtn.style.display = 'block'; 
-            video.play().catch(e => console.log("Trình duyệt chặn autoplay, cần tương tác: " + e));
+            
+            video.muted = false; // Bật tiếng
+            video.play().catch(e => {
+                console.log("Lỗi: " + e);
+            });
         });
 
-        // Bỏ qua video
+        // BẤM SKIP
         skipBtn.addEventListener('click', () => {
             goToMainPage();
         });
 
-        // Hết video tự chuyển
+        // HẾT VIDEO
         video.onended = function() {
             goToMainPage();
         };
