@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>More about me — Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    :root{
+      --navy:  #001c55;
+      --ink:   #001c55;
+      --paper: #ffffff;
+    }
+
+    html, body{ height:100%; }
+    body{
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: ui-rounded, "SF Pro Rounded", "Nunito", "Quicksand",
+                   system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    /* ===== Back/Home button (kiểu workflow: right + giữa màn) ===== */
+    .home-float{
+      position: fixed;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 44px;
+      padding: 0 14px;
+      border-radius: 999px;
+
+      background: #fff;
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 900;
+
+      border: 2px solid var(--navy);
+      box-shadow: 4px 4px 0 0 var(--navy);
+      -webkit-tap-highlight-color: transparent;
+
+      transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease, color .12s ease;
+    }
+    .home-float:hover,
+    .home-float:focus-visible{
+      background: var(--navy);
+      color: #fff;
+      transform: translateY(-50%) translate(-2px,-2px);
+      box-shadow: 8px 8px 0 0 var(--navy);
+      outline: none;
+    }
+    .home-float:active{
+      transform: translateY(-50%);
+      box-shadow: 3px 3px 0 0 var(--navy);
+    }
+
+    /* ===== Full-bleed page base ===== */
+    .canvas { width: 100%; min-height: 100vh; aspect-ratio: auto; }
+    .gallery-wrap { padding: 0; }
+    .gallery-grid { display: block; }
+    .gallery-card { margin: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+    .gallery-card img{
+      display: block;
+      width: 100vw;
+      max-width: none;
+      height: auto;
+      margin-inline: calc(50% - 50vw);
+    }
+    .muted { opacity: .75; font-weight: 600; text-align: center; margin: 12px 0; }
+
+    /* ===== To-top button ===== */
+    .to-top{
+      position: fixed;
+      right: clamp(12px, 2.2vw, 24px);
+      bottom: clamp(12px, 2.2vw, 24px);
+      z-index: 999;
+      width: 56px; height: 56px;
+      display: grid; place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      font-weight: 900;
+      font-size: 20px;
+      text-decoration: none;
+      box-shadow: 6px 6px 0 0 var(--ink);
+      cursor: pointer;
+      opacity: 0; transform: translateY(12px) scale(.96);
+      transition: opacity .18s ease, transform .18s ease, box-shadow .12s ease, background-color .12s ease, color .12s ease, border-color .12s ease;
+    }
+    .to-top.show{ opacity: 1; transform: translateY(0) scale(1); }
+    .to-top:hover,
+    .to-top:focus-visible{
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 10px 10px 0 0 var(--ink);
+      outline: none;
+    }
+    .to-top:active{ transform: translateY(0) scale(.98); box-shadow: 4px 4px 0 0 var(--ink); }
+
+    /* ===== Warp overlay (space-warp effect) ===== */
+    .warp{
+      position: fixed; inset: 0;
+      z-index: 998;                   /* under buttons, above images */
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .15s ease;
+    }
+    .warp::before,
+    .warp::after{
+      content:""; position: absolute; inset: -20% -10%;
+      background:
+        repeating-linear-gradient( 25deg,
+          transparent 0 18px, rgba(255,255,255,.88) 18px 20px, transparent 20px 72px),
+        repeating-linear-gradient(-15deg,
+          transparent 0 22px, rgba(255,255,255,.65) 22px 23px, transparent 23px 78px);
+      filter: blur(0px);
+      transform: scale(1) translate3d(0,0,0);
+    }
+
+    .warp.active{ opacity: 1; }
+    .warp.active::before{ animation: warpZoomA .9s cubic-bezier(.2,.6,.1,1) forwards; }
+    .warp.active::after { animation: warpZoomB .9s cubic-bezier(.2,.6,.1,1) forwards; }
+
+    @keyframes warpZoomA{
+      0%   { transform: scale(1);   filter: blur(0px); }
+      30%  { transform: scale(1.25); filter: blur(1px); }
+      100% { transform: scale(2.6);  filter: blur(2px); }
+    }
+    @keyframes warpZoomB{
+      0%   { transform: scale(1);   filter: blur(0px); }
+      30%  { transform: scale(1.15); filter: blur(.6px); }
+      100% { transform: scale(2.2);  filter: blur(1.8px); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .warp, .warp::before, .warp::after{ animation: none !important; transition: none !important; }
+      .to-top, .home-float{ transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Back/Home: luôn về main -->
+  <a id="backBtn" class="home-float" href="main.html" aria-label="Back to Main">← Home</a>
+
+  <main class="stage">
+    <div class="canvas">
+      <section class="gallery-wrap">
+        <p id="status" class="muted">Loading images from GitHub…</p>
+        <div id="gallery" class="gallery-grid" aria-live="polite"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Warp overlay + To-top button -->
+  <div id="warp" class="warp" aria-hidden="true"></div>
+  <button id="toTop" class="to-top" type="button" title="Back to top" aria-label="Back to top">↑</button>
+
+  <script>
+  (function(){
+    /* ===== Load images from GitHub (38 -> 44 only) ===== */
+    const owner = 'nguyendangminh278-coder';
+    const repo  = 'ngdminh.278.portfolio';
+    const path  = 'layout2/my%20st%E1%BB%8F%E1%BB%B7y';
+    const ref   = '9d4c2f3928086a4fff537aeefadfb07454cc86ff';
+    const api   = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${ref}`;
+
+    const N_MIN = 38;
+    const N_MAX = 44;
+
+    const gallery = document.getElementById('gallery');
+    const status  = document.getElementById('status');
+
+    const isImg = (name) => /\.(png|jpe?g|webp|gif|avif)$/i.test(name || '');
+    function leadingNumber(name){
+      const m = String(name || '').match(/^(\d+)/);
+      return m ? parseInt(m[1], 10) : NaN;
+    }
+    function addCard(item){
+      const fig = document.createElement('figure');
+      fig.className = 'gallery-card';
+
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.alt = item.name || 'image';
+      img.src = item.download_url;
+
+      fig.appendChild(img);
+      gallery.appendChild(fig);
+    }
+
+    fetch(api)
+      .then(r => { if(!r.ok) throw new Error(`GitHub API: ${r.status}`); return r.json(); })
+      .then(list => {
+        const imgs = (Array.isArray(list) ? list : [])
+          .filter(x => x.type === 'file' && isImg(x.name))
+          .map(x => ({ ...x, _n: leadingNumber(x.name) }))
+          .filter(x => Number.isFinite(x._n) && x._n >= N_MIN && x._n <= N_MAX)
+          .sort((a,b) => (a._n - b._n) || String(a.name).localeCompare(String(b.name), undefined, { numeric:true, sensitivity:'base' }));
+
+        if(!imgs.length){
+          status.textContent = `No images found for ${N_MIN}–${N_MAX} in this folder.`;
+          return;
+        }
+
+        status.remove();
+        imgs.forEach(addCard);
+      })
+      .catch(err => {
+        console.error(err);
+        status.textContent = 'Failed to load images from GitHub.';
+      });
+
+    /* ===== To-top + warp effect ===== */
+    const btn   = document.getElementById('toTop');
+    const warp  = document.getElementById('warp');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const onScroll = () => {
+      if (window.scrollY > 300) btn.classList.add('show');
+      else btn.classList.remove('show');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    btn.addEventListener('click', () => {
+      if (!prefersReduced) {
+        warp.classList.add('active');
+        setTimeout(() => warp.classList.remove('active'), 920);
+      }
+      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+    }, { passive: true });
+  })();
+  </script>
+</body>
+</html>

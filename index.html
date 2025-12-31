@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyen Dang Minh - Intro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CẤU HÌNH TRÀN MÀN HÌNH --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #000;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; /* Chặn thanh cuộn */
+        }
+
+        .portfolio-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* VIDEO TRÀN MÀN HÌNH */
+        video {
+            width: 100%;
+            height: 100%;
+            /* FILL: Kéo dãn video để lấp đầy toàn bộ màn hình (có thể bị méo hình nếu tỉ lệ màn hình khác 16:9) */
+            object-fit: fill; 
+            display: block;
+        }
+
+        /* --- GIAO DIỆN NÚT BẤM --- */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.7); /* Nền tối mờ che video lúc đầu */
+            z-index: 10;
+        }
+
+        .manga-btn {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem; /* Chữ to hơn chút cho ngầu */
+            padding: 15px 50px;
+            cursor: pointer;
+            background: #fff;
+            border: 4px solid #000;
+            color: #000;
+            text-transform: uppercase;
+            box-shadow: 10px 10px 0px #000; /* Bóng cứng */
+            transition: transform 0.1s, box-shadow 0.1s;
+            z-index: 20;
+        }
+
+        .manga-btn:hover {
+            background: #ffec00; /* Màu vàng nổi bật */
+            transform: translate(-3px, -3px);
+            box-shadow: 13px 13px 0px #000;
+        }
+
+        .manga-btn:active {
+            transform: translate(5px, 5px);
+            box-shadow: 0px 0px 0px #000;
+        }
+
+        /* Nút Skip nằm góc dưới phải */
+        .skip-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 1.5rem;
+            padding: 10px 30px;
+            box-shadow: 5px 5px 0px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portfolio-container">
+        <video id="introVideo" preload="auto">
+            <source src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ff4bc3d48df1108a10e62d9c4af551ace1dea7a0/000%20finl.mp4" type="video/mp4">
+        </video>
+
+        <div id="startOverlay" class="overlay">
+            <button id="startBtn" class="manga-btn">START!!</button>
+        </div>
+
+        <button id="skipBtn" class="manga-btn skip-btn" style="display: none;">SKIP >></button>
+    </div>
+
+    <script>
+        const video = document.getElementById('introVideo');
+        const startBtn = document.getElementById('startBtn');
+        const skipBtn = document.getElementById('skipBtn');
+        const overlay = document.getElementById('startOverlay');
+
+        // Hàm chuyển trang
+        function goToMainPage() {
+            window.location.href = 'main.html';
+        }
+
+        // Bắt đầu video
+        startBtn.addEventListener('click', () => {
+            overlay.style.display = 'none'; 
+            skipBtn.style.display = 'block'; 
+            video.play().catch(e => console.log("Trình duyệt chặn autoplay, cần tương tác: " + e));
+        });
+
+        // Bỏ qua video
+        skipBtn.addEventListener('click', () => {
+            goToMainPage();
+        });
+
+        // Hết video tự chuyển
+        video.onended = function() {
+            goToMainPage();
+        };
+    </script>
+</body>
+</html>

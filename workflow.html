@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Workflow — Portfolio</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    :root{
+      --navy: #001c55;
+      --paper: #ffffff;
+    }
+
+    body{
+      margin: 0;
+      background: var(--paper);
+      color: var(--navy);
+
+      /* Match main menu font */
+      font-family: ui-rounded, "SF Pro Rounded", "Nunito", "Quicksand",
+                   system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    /* Only one floating Home button — vertical center */
+    .home-float{
+      position: fixed;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 44px;
+      padding: 0 14px;
+      border-radius: 999px;
+
+      background: #fff;
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 900;
+
+      border: 2px solid var(--navy);
+      box-shadow: 4px 4px 0 0 var(--navy);
+      -webkit-tap-highlight-color: transparent;
+
+      transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease, color .12s ease;
+    }
+    .home-float:hover{
+      background: var(--navy);
+      color: #fff;
+      transform: translateY(-50%) translate(-2px,-2px);
+      box-shadow: 8px 8px 0 0 var(--navy);
+    }
+    .home-float:active{
+      transform: translateY(-50%);
+      box-shadow: 3px 3px 0 0 var(--navy);
+    }
+
+    /* Make images slightly smaller + centered (no corner cut) */
+    .how-canvas{
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 18px 0 40px;
+    }
+
+    .img-wrap{
+      width: min(94vw, 1100px);
+      margin: 0 auto;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    .how-img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .how-figure{ margin: 0; }
+
+    /* hotspot stays correct because figure width == image width */
+    .wj-hotspot{
+      position: absolute;
+      left: 5%;
+      top: 12.5%;
+      width: 36%;
+      height: 4.8%;
+      display: block;
+      outline: 0;
+      border-radius: 10px;
+    }
+
+    /* Warp overlay recolored to navy */
+    .warp-bw{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 50% 50%,
+          #ffffff 0 8%,
+          var(--navy) 8% 16%,
+          #ffffff 16% 24%,
+          var(--navy) 24% 32%,
+          #ffffff 32% 40%,
+          var(--navy) 40% 48%,
+          #ffffff 48% 56%,
+          var(--navy) 56% 64%,
+          #ffffff 64% 72%,
+          var(--navy) 72% 80%,
+          #ffffff 80% 88%,
+          var(--navy) 88% 96%,
+          #ffffff 96% 100%);
+      transform: scale(0.9);
+      transition: opacity .15s ease, transform .15s ease;
+      filter: contrast(160%) saturate(0);
+    }
+    .warp-bw.is-on{
+      opacity: 1;
+      animation: warpZoom .6s ease-in forwards;
+    }
+    @keyframes warpZoom{
+      0%   { transform: scale(0.9); filter: blur(0px) contrast(160%) saturate(0); }
+      60%  { transform: scale(1.6); filter: blur(2px) contrast(220%) saturate(0); }
+      100% { transform: scale(2.4); filter: blur(3px) contrast(260%) saturate(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .warp-bw{ animation: none !important; transition: none !important; }
+      .home-float{ transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Only Home button -->
+  <a class="home-float" href="main.html#layout-2" aria-label="Back to Home (Layout 2)">← Home</a>
+
+  <main class="stage">
+    <div class="canvas how-canvas">
+
+      <div class="img-wrap">
+        <img
+          class="how-img"
+          src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/901161973f0171e78e5937923d9a75b14aca7f69/%E1%BA%A2nh%20main/About/How/33.png"
+          alt="My Workflow — page 33"
+          loading="eager"
+        />
+      </div>
+
+      <div class="img-wrap">
+        <img
+          class="how-img"
+          src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/901161973f0171e78e5937923d9a75b14aca7f69/%E1%BA%A2nh%20main/About/How/34.png"
+          alt="My Workflow — page 34"
+          loading="lazy"
+        />
+      </div>
+
+      <figure class="how-figure img-wrap">
+        <img
+          class="how-img"
+          src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/901161973f0171e78e5937923d9a75b14aca7f69/%E1%BA%A2nh%20main/About/How/35.png"
+          alt="My Workflow — page 35 (Work Journey)"
+          loading="lazy"
+        />
+        <a class="wj-hotspot" href="work.html" aria-label="More details in My Work"></a>
+      </figure>
+
+      <div id="warpBW" class="warp-bw" aria-hidden="true"></div>
+    </div>
+  </main>
+
+  <script>
+    // Warp effect when clicking hotspot to work.html
+    (function () {
+      const warp = document.getElementById('warpBW');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      document.querySelectorAll('.wj-hotspot').forEach(a => {
+        a.addEventListener('click', function (e) {
+          if (prefersReduced) return; // normal navigation
+          e.preventDefault();
+          warp.classList.add('is-on');
+          setTimeout(() => { window.location.href = this.href; }, 620);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

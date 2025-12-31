@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Work</title>
+  <style>
+    :root{
+      --ink:#4D4D4D;
+      --paper:#FFFFFF;
+      --chip-h:54px;
+
+      /* ✅ Navy */
+      --navy:#001c55;
+    }
+
+    html,body{
+      height:100%; margin:0; background:var(--paper); color:var(--ink);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      line-height:1.35;
+    }
+
+    /* Chip đồng bộ (hover đen–trắng + ripple) */
+    .chip{
+      display:inline-grid; place-items:center; cursor:pointer;
+      height:var(--chip-h); padding:0 18px;
+      color:var(--ink); background:var(--paper);
+      border:2px solid var(--ink); border-radius:10px;
+      box-shadow:5px 5px 0 0 var(--ink);
+      font-weight:700; text-decoration:none;
+      transition:transform .12s ease, box-shadow .12s ease, color .12s ease, background .12s ease, border-color .12s ease;
+      position:relative; overflow:hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .chip:hover,.chip:focus{
+      transform:translate(-2px,-2px);
+      box-shadow:9px 9px 0 0 var(--ink);
+      outline:none;
+      background:#000; color:#fff;
+    }
+
+    .chip .ripple{
+      position:absolute; width:10px; height:10px; border-radius:999px;
+      background:rgba(77,77,77,.15);
+      transform:translate(-50%,-50%) scale(1);
+      animation:ripple .6s ease-out forwards; pointer-events:none;
+    }
+    @keyframes ripple{ to{ transform:translate(-50%,-50%) scale(16); opacity:0; } }
+
+    /* Back chip cố định */
+    .back-chip{
+      position:fixed; left:14px; top:14px; z-index:10;
+      height:42px;
+    }
+
+    /* ✅ Back to main: nền trắng + viền navy (default) */
+    a.back-chip{
+      background:#fff;
+      color:var(--navy);
+      border-color:var(--navy);
+      box-shadow:5px 5px 0 0 var(--navy);
+    }
+
+    /* ✅ Hover: nền navy + chữ trắng, VIỀN GIỮ NGUYÊN (navy) */
+    a.back-chip:hover,
+    a.back-chip:focus{
+      transform:translate(-2px,-2px);
+      background:var(--navy);
+      color:#fff;
+      border-color:var(--navy);        /* giữ nguyên viền */
+      box-shadow:9px 9px 0 0 var(--navy);
+      outline:none;
+    }
+
+    /* Ripple hợp màu */
+    a.back-chip .ripple{ background:rgba(0,28,85,.18); }
+    a.back-chip:hover .ripple,
+    a.back-chip:focus .ripple{ background:rgba(255,255,255,.25); }
+
+    /* Khung ảnh */
+    .wrap{
+      min-height:100vh;
+      display:grid; place-items:center;
+      padding:64px 10px 12px;
+    }
+    .wrap img{
+      width:min(1400px, 96vw);
+      height:auto; display:block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Bấm về main.html và nhảy tới layout3 / my work -->
+  <a class="chip back-chip" href="main.html#layout3" aria-label="Quay lại main - Layout 3 My Work">
+    ← Back to main
+  </a>
+
+  <main class="wrap">
+    <img
+      src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/14e11636aa6eff84f444bf36e10ff1c077777d91/%E1%BA%A2nh%20main/Work/work.png"
+      alt="My Work"
+      loading="eager"
+    />
+  </main>
+
+  <script>
+    // ripple click cho mọi .chip
+    document.addEventListener('click', function(e){
+      const t = e.target.closest('.chip');
+      if(!t) return;
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      const rect = t.getBoundingClientRect();
+      r.style.left = (e.clientX - rect.left) + 'px';
+      r.style.top  = (e.clientY - rect.top)  + 'px';
+      t.appendChild(r);
+      setTimeout(()=> r.remove(), 650);
+    });
+  </script>
+</body>
+</html>
