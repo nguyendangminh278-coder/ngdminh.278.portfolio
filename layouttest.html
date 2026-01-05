@@ -1,45 +1,253 @@
-/* ===== DARKMODE BACKGROUND: Deep Galaxy (tối + có chiều sâu) ===== */
-.bg-star{
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 1s ease;
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Board 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0d1b2a; /* Màu nền dự phòng */
+            position: relative;
+        }
 
-  /* NỀN TỐI NGÂN HÀ */
-  background:
-    radial-gradient(1200px 800px at 20% 25%, rgba(70, 120, 255, 0.10), transparent 60%),
-    radial-gradient(900px 700px at 75% 35%, rgba(170, 90, 255, 0.10), transparent 62%),
-    radial-gradient(800px 600px at 50% 80%, rgba(40, 200, 255, 0.05), transparent 58%),
-    linear-gradient(to bottom, #04081a 0%, #01030b 55%, #000000 100%);
-}
+        /* --- CẤU HÌNH ẢNH NỀN VÀ NHÂN VẬT --- */
+        .background-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            /* Thay link ảnh nền của bạn vào dòng dưới đây nếu không có file bg.jpg */
+            background-image: url('https://images.unsplash.com/photo-1530053969600-caed2596d242?q=80&w=2574&auto=format&fit=crop'); 
+            background-size: cover;
+            filter: brightness(0.8);
+        }
 
-/* VIGNETTE (viền tối hơn, nhìn “banking/galaxy” hơn) */
-.bg-star::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background: radial-gradient(1400px 900px at 50% 40%,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.55) 65%,
-    rgba(0,0,0,0.90) 100%);
-  opacity: 1;
-}
+        .character-img {
+            position: absolute;
+            top: 10%; 
+            left: 50%;
+            transform: translateX(-50%);
+            height: 90%;
+            z-index: 2;
+            /* Thay link ảnh nhân vật vào dòng dưới */
+            /* Nếu bạn có file ảnh local thì đổi thành src="char.png" */
+        }
 
-/* LỚP “khói/nebula” tối nhẹ để nền có chiều sâu */
-.bg-star::after{
-  content:"";
-  position:absolute;
-  inset:-12%;
-  pointer-events:none;
-  filter: blur(22px);
-  opacity: 0.35;
-  mix-blend-mode: screen;
-  transform: rotate(-12deg);
-  background: linear-gradient(90deg,
-    rgba(255,255,255,0) 0%,
-    rgba(90, 140, 255, 0.10) 22%,
-    rgba(160, 110, 255, 0.10) 50%,
-    rgba(90, 200, 255, 0.08) 76%,
-    rgba(255,255,255,0) 100%);
-}
+        /* --- CẤU HÌNH HIỆU ỨNG KÍNH (GLASSMORPHISM) --- */
+        .glass-box {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15); /* Độ mờ nền */
+            backdrop-filter: blur(12px); /* Độ nhòe kính */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            z-index: 3;
+            transition: transform 0.3s ease;
+        }
+        
+        .glass-box:hover {
+            transform: scale(1.02);
+            border-color: rgba(255, 215, 0, 0.6); /* Viền vàng khi hover */
+        }
+
+        h2 {
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            color: #fff; /* Màu trắng */
+        }
+        
+        .highlight-gold {
+            color: #FFD700; /* Màu vàng kim */
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        p, li {
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* --- VỊ TRÍ CÁC KHỐI (LAYOUT) --- */
+        
+        /* 1. Tiêu đề Vision Board (Góc trái trên cùng) */
+        .title-main {
+            position: absolute;
+            top: 20px; left: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 900;
+            z-index: 3;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* 2. North Star (Góc phải trên cùng) */
+        .north-star {
+            position: absolute;
+            top: 20px; right: 30px;
+            text-align: right;
+            z-index: 3;
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 3. IELTS Box (Trái trên) */
+        .box-ielts {
+            top: 15%; left: 5%; width: 220px;
+        }
+        
+        /* Thanh tiến trình */
+        .progress-container {
+            width: 100%;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            margin: 10px 0;
+            height: 10px;
+        }
+        .progress-bar {
+            width: 90%; /* 90% như trong ảnh */
+            height: 100%;
+            background: linear-gradient(90deg, #f1c40f, #f39c12);
+            border-radius: 10px;
+            box-shadow: 0 0 10px #f39c12;
+        }
+
+        /* 4. BA + Leader (Trái dưới) */
+        .box-ba {
+            top: 50%; left: 5%; width: 240px;
+        }
+
+        /* 5. Internship (Phải trên) */
+        .box-intern {
+            top: 15%; right: 5%; width: 280px;
+        }
+
+        /* 6. Income (Phải giữa) */
+        .box-income {
+            top: 45%; right: 5%; width: 280px;
+        }
+
+        /* 7. Health (Phải dưới) */
+        .box-health {
+            bottom: 8%; right: 5%; width: 280px;
+        }
+
+        /* --- TYPOGRAPHY NGHỆ THUẬT (QUOTES) --- */
+        .quote-curved {
+            position: absolute;
+            font-family: 'Dancing Script', cursive;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.8rem;
+            z-index: 4;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            pointer-events: none;
+        }
+
+        .q-bottom {
+            bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            text-align: center;
+            font-size: 2.2rem;
+        }
+        
+        .q-vertical-left {
+            top: 50%; left: 24%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+        }
+        
+        .q-vertical-right {
+            top: 50%; right: 24%;
+            transform: translate(50%, -50%) rotate(15deg);
+        }
+
+        /* Icon styling */
+        .icon { font-size: 1.2rem; margin-right: 5px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="background-img"></div>
+
+    <div class="title-main">Vision Board 2026</div>
+
+    <div class="north-star">
+        <span>✨ North Star: Stable Job + IELTS 7.0 (May)</span>
+    </div>
+
+    <img src="https://cdna.artstation.com/p/assets/images/images/032/385/876/large/raiko-art-seraphine01.jpg?1606275217" class="character-img" alt="Character">
+
+    <div class="glass-box box-ielts">
+        <h2 class="highlight-gold">IELTS 7.0</h2>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        <div style="font-size: 0.8rem; text-align: right; margin-bottom: 5px;">90%</div>
+        <p><strong>L, R > 8.0</strong></p>
+        <p><strong>S, W > 8.0</strong></p>
+    </div>
+
+    <div class="glass-box box-ba">
+        <h2 class="highlight-gold">BA + Leader</h2>
+        <ul style="list-style: none; margin-top: 10px;">
+            <li style="margin-bottom: 8px;">📊 Social Algorithm</li>
+            <li style="margin-bottom: 8px;">💻 SQL Dashboard</li>
+            <li>📑 Case Study</li>
+        </ul>
+    </div>
+
+    <div class="glass-box box-intern">
+        <h2 class="highlight-gold">Internship</h2>
+        <div style="margin-top: 10px;">
+            <p style="margin-bottom: 8px;"><strong>Q1:</strong> Edu Social Media</p>
+            <p><strong>Q2-Q4:</strong> BA/DA at a Large Company</p>
+        </div>
+    </div>
+
+    <div class="glass-box box-income">
+        <h2 class="highlight-gold">Income 💰</h2>
+        <div style="margin-top: 10px;">
+            <p class="highlight-gold" style="font-size: 1.4rem; font-weight: bold;">100M VND</p>
+            <p style="font-size: 0.9rem; opacity: 0.9;">Target per month: 10M</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">(2M + 5M + 3M breakdown)</p>
+        </div>
+    </div>
+
+    <div class="glass-box box-health">
+        <h2 class="highlight-gold">Health</h2>
+        <ul style="list-style: none; margin-top: 10px;">
+            <li style="margin-bottom: 5px;">⚖️ 90kg &rarr; <strong>80kg</strong></li>
+            <li style="margin-bottom: 5px;">🏃 Running</li>
+            <li>🥗 Reduce belly fat</li>
+        </ul>
+    </div>
+
+    <div class="quote-curved q-vertical-left">Relentless</div>
+    <div class="quote-curved q-vertical-right">Discipline & Strictness</div>
+    <div class="quote-curved q-bottom">
+        "The road I choose, even have to crawl, must keep going"
+        <div style="font-size: 1rem; margin-top: 10px; font-family: sans-serif;">Daily rule: No Zero Day</div>
+    </div>
+
+</body>
+</html>

@@ -16,7 +16,7 @@
     html, body{ height:100%; }
     body{
       margin: 0;
-      background: var(--paper);
+      background: #000; /* nền đen */
       color: var(--ink);
       font-family: ui-rounded, "SF Pro Rounded", "Nunito", "Quicksand",
                    system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
@@ -24,7 +24,7 @@
       text-rendering: geometricPrecision;
     }
 
-    /* ===== Back/Home button (kiểu workflow: right + giữa màn) ===== */
+    /* ===== Back/Home button ===== */
     .home-float{
       position: fixed;
       right: 12px;
@@ -64,19 +64,28 @@
       box-shadow: 3px 3px 0 0 var(--navy);
     }
 
-    /* ===== Full-bleed page base ===== */
+    /* ===== Page base ===== */
     .canvas { width: 100%; min-height: 100vh; aspect-ratio: auto; }
     .gallery-wrap { padding: 0; }
     .gallery-grid { display: block; }
     .gallery-card { margin: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+
+    /* ✅ Ảnh to hơn, gần “tròn 1 trang web” */
     .gallery-card img{
       display: block;
-      width: 100vw;
+      width: min(98vw, 1400px);  /* tăng size */
       max-width: none;
       height: auto;
-      margin-inline: calc(50% - 50vw);
+      margin: 10px auto;         /* ít khoảng cách hơn */
     }
-    .muted { opacity: .75; font-weight: 600; text-align: center; margin: 12px 0; }
+
+    .muted{
+      opacity: .75;
+      font-weight: 600;
+      text-align: center;
+      margin: 12px 0;
+      color: #fff; /* chữ trắng trên nền đen */
+    }
 
     /* ===== To-top button ===== */
     .to-top{
@@ -110,10 +119,10 @@
     }
     .to-top:active{ transform: translateY(0) scale(.98); box-shadow: 4px 4px 0 0 var(--ink); }
 
-    /* ===== Warp overlay (space-warp effect) ===== */
+    /* ===== Warp overlay ===== */
     .warp{
       position: fixed; inset: 0;
-      z-index: 998;                   /* under buttons, above images */
+      z-index: 998;
       pointer-events: none;
       opacity: 0;
       transition: opacity .15s ease;
@@ -153,8 +162,8 @@
 </head>
 
 <body>
-  <!-- Back/Home: luôn về main -->
-  <a id="backBtn" class="home-float" href="main.html" aria-label="Back to Main">← Home</a>
+  <!-- ✅ Home về index.html -->
+  <a id="backBtn" class="home-float" href="index.html" aria-label="Back to Index">← Home</a>
 
   <main class="stage">
     <div class="canvas">
@@ -165,7 +174,6 @@
     </div>
   </main>
 
-  <!-- Warp overlay + To-top button -->
   <div id="warp" class="warp" aria-hidden="true"></div>
   <button id="toTop" class="to-top" type="button" title="Back to top" aria-label="Back to top">↑</button>
 

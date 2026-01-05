@@ -13,12 +13,12 @@
       --paper: #ffffff;
     }
 
+    html, body{ height:100%; }
     body{
       margin: 0;
-      background: var(--paper);
+      background: #000; /* ✅ nền đen */
       color: var(--navy);
 
-      /* Match main menu font */
       font-family: ui-rounded, "SF Pro Rounded", "Nunito", "Quicksand",
                    system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
       -webkit-font-smoothing: antialiased;
@@ -63,31 +63,40 @@
       box-shadow: 3px 3px 0 0 var(--navy);
     }
 
-    /* Make images slightly smaller + centered (no corner cut) */
+    /* ✅ Container dọc + căn giữa toàn bộ */
     .how-canvas{
+      min-height: 100vh;
       overflow: auto;
       display: flex;
       flex-direction: column;
+      align-items: center;   /* ✅ mọi item ra giữa */
+      justify-content: flex-start;
       gap: 0;
-      padding: 18px 0 40px;
+      padding: 10px 0 40px;
     }
 
+    /* ✅ Mỗi ảnh nằm trong wrap căn giữa */
     .img-wrap{
-      width: min(94vw, 1100px);
+      width: min(98vw, 1400px); /* ảnh to */
       margin: 0 auto;
-      padding: 10px 0;
+      padding: 8px 0;
       position: relative;
+
+      display: flex;            /* ✅ đảm bảo ảnh nằm giữa */
+      justify-content: center;
+      align-items: center;
     }
 
+    /* ✅ Ảnh block + không lệch */
     .how-img{
+      display: block;
       width: 100%;
       height: auto;
-      display: block;
     }
 
     .how-figure{ margin: 0; }
 
-    /* hotspot stays correct because figure width == image width */
+    /* hotspot stays correct because figure/img-wrap width == image width */
     .wj-hotspot{
       position: absolute;
       left: 5%;
@@ -143,8 +152,8 @@
 </head>
 
 <body>
-  <!-- Only Home button -->
-  <a class="home-float" href="main.html#layout-2" aria-label="Back to Home (Layout 2)">← Home</a>
+  <!-- ✅ Home về index.html -->
+  <a class="home-float" href="index.html" aria-label="Back to Index">← Home</a>
 
   <main class="stage">
     <div class="canvas how-canvas">

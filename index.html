@@ -1,138 +1,3241 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minh's Portfolio - main.html</title>
+
+  <style id="theme-css">
+    :root {
+      /* --- Config --- */
+      --bubble-count: 8;
+      --bubble-speed: 6s;
+      --ocean-blue: #e0f7fa;
+      --deep-space: #020b26;
+      --led-glow-color: #00f2ff; /* Cyan LED color */
+      --transition-duration: 1.2s;
+
+      
+      --theme-blend: 0; /* 0..1 during mode blending */
+/* --- Menu Fix (Fixed sizes independent of viewport scale) --- */
+      --menu-fixed-size: 56px;
+      --menu-icon-size: 28px;
+
+      /* Default Colors */
+      --bg-ocean-top: #e0f7fa;
+      --bg-ocean-bot: #ffffff;
+
+      /* Project ink (default = navy) */
+      --proj3-ink: var(--navy);
+
+      /* LED glow presets (used mainly in star-mode) */
+      --led-text-glow: 0 0 6px rgba(0, 242, 255, 0.75),
+                       0 0 14px rgba(0, 242, 255, 0.35),
+                       0 0 26px rgba(0, 242, 255, 0.18);
+      --led-img-glow: 0 0 6px rgba(0, 242, 255, 0.55),
+                      0 0 14px rgba(0, 242, 255, 0.28),
+                      0 0 26px rgba(0, 242, 255, 0.16);
+    }
+
+    body {
+      transition: background-color 0.8s ease, color 0.5s ease;
+      background-color: var(--bg-ocean-bot);
+    }
+
+    .section { background: transparent !important; }
+
+    /* =========================================
+       2. BACKGROUND LAYER & ANIMATION
+       ========================================= */
+    #theme-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+      transition: opacity 1s ease;
+    }
+
+    /* ----- OCEAN MODE (Falling Droplets) ----- */
+    .bg-ocean {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, var(--bg-ocean-top), var(--bg-ocean-bot));
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Bubbles falling down */
+    .bubble {
+      position: absolute;
+      top: -100px; /* Start above screen */
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95) 0%, rgba(210,240,255,0.45) 38%, rgba(160,210,255,0.10) 70%, rgba(255,255,255,0.02) 100%);
+      border-radius: 50%;
+      border: 1px solid rgba(180,220,255,0.55);
+      box-shadow: 0 4px 10px rgba(0, 28, 85, 0.1);
+      animation: fallDown var(--bubble-speed) infinite linear;
+    }
+
+    /* Randomize bubbles */
+    .bubble:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-duration: 5s; animation-delay: 0s; }
+    .bubble:nth-child(2) { left: 25%; width: 35px; height: 35px; animation-duration: 7s; animation-delay: 2s; }
+    .bubble:nth-child(3) { left: 45%; width: 15px; height: 15px; animation-duration: 4s; animation-delay: 1s; }
+    .bubble:nth-child(4) { left: 70%; width: 25px; height: 25px; animation-duration: 6s; animation-delay: 3s; }
+    .bubble:nth-child(5) { left: 85%; width: 30px; height: 30px; animation-duration: 5.5s; animation-delay: 0.5s; }
+
+    /* Falling Animation */
+    @keyframes fallDown {
+      0% { transform: translateY(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+        /* ----- STAR MODE BACKGROUND (Galaxy + Constellations) ----- */
+    .bg-star {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, #081235 0%, #02040a 75%, #000 100%);
+      opacity: 0;
+      transition: opacity 1s ease;
+      overflow: hidden;
+    }
+
+    /* ===== LỚP BỤI SAO (COSMIC DUST) ===== */
+    .bg-star::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.06;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ===== DẢI ĐĨA NGÂN HÀ (GALACTIC DISK) ===== */
+    .galactic-disk {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 250%;
+      height: 25%;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(100, 160, 255, 0.08) 20%,
+        rgba(220, 120, 255, 0.10) 50%,
+        rgba(100, 160, 255, 0.08) 80%,
+        transparent 100%);
+      transform: translate(-50%, -50%) rotate(-35deg);
+      filter: blur(80px);
+      mix-blend-mode: screen;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ===== HIỆU ỨNG TINH VÂN (NEBULA) ===== */
+    .nebula-container {
+      position: absolute;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(120px);
+      opacity: 0.25;
+      animation: drift 180s linear infinite;
+    }
+
+    .nebula {
+      position: absolute;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+    }
+    .nebula-1 { top: 15%; left: 25%; width: 50%; height: 40%; background: radial-gradient(circle, #4b0082 0%, transparent 70%); }
+    .nebula-2 { top: 55%; left: 15%; width: 60%; height: 50%; background: radial-gradient(circle, #1a0033 0%, transparent 60%); }
+
+    @keyframes drift {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== SAO BĂNG (TRÊN TRÁI -> DƯỚI PHẢI, CHẬM HƠN) ===== */
+    .shooting-star-v2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 1px;
+      background: #fff;
+      transform: rotate(45deg);
+      pointer-events: none;
+      z-index: 20;
+      opacity: 0;
+    }
+
+    .shooting-star-v2::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 180px;
+      height: 1.2px;
+      background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+      filter: drop-shadow(0 0 4px #fff);
+    }
+
+    @keyframes shooting-animation {
+      0% { transform: translate(-200px, -200px) rotate(45deg); opacity: 0; }
+      1% { opacity: 1; }
+      20% { transform: translate(1200px, 1200px) rotate(45deg); opacity: 0; }
+      100% { transform: translate(1200px, 1200px) rotate(45deg); opacity: 0; }
+    }
+
+    .ss-1 { top: 10%; left: 5%;  animation: shooting-animation 15s infinite; animation-delay: 2s; }
+    .ss-2 { top: -15%; left: 20%; animation: shooting-animation 22s infinite; animation-delay: 8s; }
+    .ss-3 { top: 30%; left: -10%; animation: shooting-animation 18s infinite; animation-delay: 14s; }
+
+    /* ===== 12 CHÒM SAO (CONSTELLATIONS) - NÉT LIỀN & SÁNG RỰC ===== */
+    .constellation {
+      position: absolute;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.95;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+    }
+
+    .c-line {
+      stroke: rgba(255, 255, 255, 0.5);
+      stroke-width: 1.0;
+      fill: none;
+    }
+
+    .c-star {
+      fill: #ffffff;
+      opacity: 1;
+      filter: drop-shadow(0 0 4px #fff);
+    }
+
+    .c-main-star {
+      fill: #ffffff;
+      filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px rgba(100, 200, 255, 1));
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: pulse-star 3s infinite alternate;
+    }
+
+    @keyframes pulse-star {
+      0% { opacity: 0.7; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* BỐ CỤC VỊ TRÍ 12 CHÒM SAO */
+    .aries       { top: 10%; left: 10%; width: 90px; }
+    .taurus      { top: 7%;  left: 35%; width: 130px; }
+    .gemini      { top: 4%;  left: 65%; width: 110px; }
+    .cancer      { top: 22%; left: 88%; width: 100px; }
+    .leo         { top: 52%; left: 88%; width: 140px; }
+    .virgo       { top: 50%; left: 50%; width: 230px; transform: translate(-50%, -50%); opacity: 1; }
+    .libra       { top: 82%; left: 55%; width: 110px; }
+    .scorpio     { top: 75%; left: 22%; width: 160px; }
+    .sagittarius { top: 38%; left: 8%;  width: 140px; }
+    .capricorn   { top: 15%; left: 90%; width: 110px; }
+    .aquarius    { top: 88%; left: 78%; width: 150px; }
+    .pisces      { top: 85%; left: 8%;  width: 140px; }
+
+    /* SAO NỀN NHỎ */
+    .stars-layer {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(0.7px 0.7px at 20% 20%, #fff, transparent),
+        radial-gradient(0.7px 0.7px at 50% 50%, #fff, transparent),
+        radial-gradient(0.7px 0.7px at 80% 80%, #fff, transparent);
+      background-size: 300px 300px;
+      z-index: 2;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* =========================================
+       3. TRANSITION OVERLAY (NEW BLEND v4)
+       ========================================= */
+
+    #transition-overlay{
+      position: fixed; inset: 0;
+      z-index: 99999;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0;
+      /* fade out smoothly after theme swap */
+      transition: opacity 800ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #transition-overlay.active{ opacity: 1; pointer-events: auto; }
+
+    .meteor-wrap{ position: absolute; inset: 0; overflow: hidden; }
+    #meteorCanvas{
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+
+    .meteor{
+      position: absolute;
+      left: 0; top: 0;
+      width: var(--tail, 420px);
+      height: var(--tail-thick, 3px);
+      border-radius: 999px;
+      opacity: 0;
+      will-change: transform, opacity;
+      transform-origin: 0 50%;
+      /* subtle rainbow/iridescent tail */
+      background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255, 210, 230, 0.92) 22%,
+        rgba(255, 250, 205, 0.88) 46%,
+        rgba(210, 250, 255, 0.84) 70%,
+        rgba(235, 210, 255, 0.86) 94%,
+        rgba(255,255,255,0.98) 100%
+      );
+      filter: drop-shadow(0 0 14px rgba(255,255,255,0.62));
+      animation: meteorFly var(--meteor-dur, 900ms) linear forwards;
+    }
+
+    @keyframes meteorFly{
+      0%   { opacity: 0; transform: translate3d(var(--sx), var(--sy), 0) rotate(135deg); }
+      15%  { opacity: 1; }
+      85%  { opacity: 1; }
+      100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) rotate(135deg); }
+    }
+
+/* =========================================
+       4. MENU & BUTTONS (FIXED SIZE FIX)
+       ========================================= */
+    #theme-btn {
+      position: absolute;
+      right: 30px;
+      bottom: 30px;
+      width: var(--menu-fixed-size);
+      height: var(--menu-fixed-size);
+      background: var(--menu-bg);
+      border: 2px solid var(--menu-ink);
+      box-shadow: 4px 4px 0 0 var(--menu-ink);
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 0;
+    }
+
+    #theme-btn svg {
+      width: var(--menu-icon-size);
+      height: var(--menu-icon-size);
+      fill: var(--menu-ink);
+      transition: fill 0.2s;
+    }
+
+    /* Ensure Menu Toggle is also fixed size */
+    .opt-toggle {
+        width: var(--menu-fixed-size) !important;
+        height: var(--menu-fixed-size) !important;
+        border: 2px solid var(--menu-ink) !important;
+        box-shadow: 4px 4px 0 0 var(--menu-ink) !important;
+    }
+
+    #theme-btn:hover { background: var(--menu-ink); }
+    #theme-btn:hover svg { fill: #fff; }
+    #theme-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--menu-ink); }
+
+    /* Icons Toggle */
+    #icon-water { display: block; }
+    #icon-star { display: none; }
+
+    /* =========================================
+       5. STAR MODE ACTIVE STATES
+       ========================================= */
+    body.star-mode .bg-ocean { opacity: 0; }
+    body.star-mode .bg-star { opacity: 1; }
+    body.star-mode #icon-water { display: none; }
+    body.star-mode #icon-star { display: block; }
+
     
-    <title>My Portfolio - Nguyen Dang Minh</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
+    /* =========================================
+       Smooth theme blending during transitions
+       ========================================= */
+    body.theme-blending{
+      /* JS updates this from 0..1 */
+      --theme-blend: 0;
+    }
 
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- CẤU HÌNH TRÀN MÀN HÌNH --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Background crossfade for BOTH directions (no snapping) */
+    body.theme-blending.blend-to-star .bg-star{
+      opacity: var(--theme-blend);
+      transition: none !important;
+    }
+    body.theme-blending.blend-to-star .bg-ocean{
+      opacity: calc(1 - var(--theme-blend));
+      transition: none !important;
+    }
 
-        body {
-            background-color: #000;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden; /* Chặn thanh cuộn */
-            display: flex;       
-            justify-content: center;
-            align-items: center;
-        }
+    body.theme-blending.blend-to-ocean .bg-ocean{
+      opacity: var(--theme-blend);
+      transition: none !important;
+    }
+    body.theme-blending.blend-to-ocean .bg-star{
+      opacity: calc(1 - var(--theme-blend));
+      transition: none !important;
+    }
 
-        .portfolio-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
+    /* Blend menu colors + base text color (supported browsers) */
+    @supports (color: color-mix(in srgb, black, white)) {
+      body.theme-blending.blend-to-star{
+        --menu-bg: color-mix(in srgb,
+          #ffffff calc((1 - var(--theme-blend)) * 100%),
+          #0b1026 calc(var(--theme-blend) * 100%));
+        --menu-ink: color-mix(in srgb,
+          #001c55 calc((1 - var(--theme-blend)) * 100%),
+          #caf0f8 calc(var(--theme-blend) * 100%));
+        color: color-mix(in srgb,
+          #001c55 calc((1 - var(--theme-blend)) * 100%),
+          #ffffff calc(var(--theme-blend) * 100%));
+      }
 
-        /* VIDEO */
-        video {
-            width: 100%;
-            height: 100%;
-            /* CONTAIN: Giữ nguyên tỷ lệ video gốc, video sẽ nằm gọn trong màn hình mà không bị méo */
-            object-fit: contain; 
-            display: block;
-        }
+      body.theme-blending.blend-to-ocean{
+        --menu-bg: color-mix(in srgb,
+          #0b1026 calc((1 - var(--theme-blend)) * 100%),
+          #ffffff calc(var(--theme-blend) * 100%));
+        --menu-ink: color-mix(in srgb,
+          #caf0f8 calc((1 - var(--theme-blend)) * 100%),
+          #001c55 calc(var(--theme-blend) * 100%));
+        color: color-mix(in srgb,
+          #ffffff calc((1 - var(--theme-blend)) * 100%),
+          #001c55 calc(var(--theme-blend) * 100%));
+      }
+    }
+body.star-mode {
+      --navy: #caf0f8;
+      --navy2: #90e0ef;
+      color: #fff;
 
-        /* --- GIAO DIỆN NÚT BẤM --- */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0,0,0,0.7); /* Nền tối mờ */
-            z-index: 10;
-        }
+      --menu-ink: #caf0f8;
+      --menu-bg: #0b1026;
 
-        .manga-btn {
-            font-family: 'Bangers', cursive;
-            font-size: 2.5rem;
-            padding: 15px 50px;
-            cursor: pointer;
-            background: #fff;
-            border: 4px solid #000;
-            color: #000;
-            text-transform: uppercase;
-            box-shadow: 10px 10px 0px #000;
-            transition: transform 0.1s, box-shadow 0.1s;
-            z-index: 20;
-        }
+      /* (3) Project box ink: darker galaxy tone (only used in layout3) */
+      --proj3-ink: #1a2f6b;
 
-        .manga-btn:hover {
-            background: #ffec00;
-            transform: translate(-3px, -3px);
-            box-shadow: 13px 13px 0px #000;
-        }
+      /* (2) My Skills title should be DARK NAVY, with LED outline for visibility */
+      --skill-navy: #001c55;
+    }
 
-        .manga-btn:active {
-            transform: translate(5px, 5px);
-            box-shadow: 0px 0px 0px #000;
-        }
+    /* (1) Stronger LED outline for all "texty" images + consistent glow */
+    body.star-mode img {
+      filter:
+        brightness(1.12)
+        drop-shadow(var(--led-img-glow));
+      transition: filter 0.5s ease;
+    }
 
-        /* Nút Skip nằm góc dưới phải */
-        .skip-btn {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            font-size: 1.5rem;
-            padding: 10px 30px;
-            box-shadow: 5px 5px 0px #000;
-        }
-    </style>
+    /* Stronger LED glow for title images in Star Mode */
+    body.star-mode .title-center img,
+    body.star-mode .title-topleft img{
+      filter: brightness(1.25)
+              drop-shadow(0 0 10px rgba(255,255,255,0.90))
+              drop-shadow(0 0 24px rgba(0,242,255,0.55));
+      transition: filter 0.5s ease;
+    }
+
+    /* MY SKILLS: deep navy fill + WHITE LED glow */
+    body.star-mode .layout5 .l5-title{
+      color: #001c55;                 /* deep navy */
+      --l5-title-color: #001c55;
+      --l5-title-stroke-color: rgba(255,255,255,0.98);
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.95),
+        0 0 18px rgba(255,255,255,0.55),
+        0 0 30px rgba(255,255,255,0.25);
+    }
+
+    /* (1) LED glow outline for ALL actual text elements */
+    body.star-mode .opt-item,
+    body.star-mode .btn-top,
+    body.star-mode .proj3-tab,
+    body.star-mode .social-head,
+    body.star-mode .viewer-head,
+    body.star-mode .viewer-count,
+    body.star-mode .vbtn{
+      text-shadow: var(--led-text-glow);
+    }
+
+    /* Menu colors in Star Mode */
+    body.star-mode .opt-toggle,
+    body.star-mode .opt-item,
+    body.star-mode .btn-top,
+    body.star-mode #theme-btn {
+      background: var(--menu-bg);
+      border-color: var(--menu-ink);
+      color: var(--menu-ink);
+      box-shadow: 4px 4px 0 0 var(--menu-ink);
+    }
+    body.star-mode .opt-toggle img {
+      filter: invert(1) brightness(1.5) contrast(1.1);
+    }
+
+    /* Extra: subtle LED border on hover to feel "outlined" */
+    body.star-mode .opt-item:hover,
+    body.star-mode .btn-top:hover,
+    body.star-mode .proj3-tab:hover,
+    body.star-mode .vbtn:hover{
+      box-shadow:
+        4px 4px 0 0 currentColor,
+        0 0 18px rgba(0, 242, 255, 0.25);
+    }
+  </style>
+
+  <style id="base-css">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root{
+      /* ===== Global scale ===== */
+      --scale: 0.90;
+
+      --card-w: calc(330px * var(--scale));
+      --card-h: calc(504px * var(--scale));
+      --gap:    calc(20px  * var(--scale));
+
+      /* Positions layout 1 */
+      --left-x: 11vw;
+      --left-y: 35vh;
+      --left-offset-x: calc(-40px * var(--scale));
+      --left-offset-y: calc( 20px * var(--scale));
+
+      --right-margin: 9vw;
+      --right-y: 13vh;
+      --right-offset-x: calc( 40px * var(--scale));
+      --right-offset-y: calc(-20px * var(--scale));
+
+      /* PORT */
+      --port-scale: 0.99;
+      --port-shift-x: calc(-12px * var(--scale));
+
+      /* FOLLIO */
+      --follio-scale: 0.954;
+      --follio-nudge-x: calc(-18px * var(--scale));
+      --follio-nudge-y: 0px;
+
+      /* Figure layout 1 */
+      --figure-height: calc(110vh * var(--scale));
+
+      /* Navy */
+      --navy: #001c55;
+      --navy2:#0b2a7a;
+
+      /* ===== Timing layout 1 ===== */
+      --t-cards: 1500ms;
+      --t-text:  1000ms;
+      --t-fig:    500ms;
+
+      --ease: cubic-bezier(.22,1,.36,1);
+      --ease-soft: cubic-bezier(.2,.8,.2,1);
+
+      /* ===== TITLE SCALE ===== */
+      --title-center-scale: 0.81;
+      --title-topleft-scale: 0.90;
+
+      --center-title-shift-x: -10px;
+
+      /* ABOUT ME */
+      --about-scale: calc(var(--title-topleft-scale) * 1.15);
+
+      /* ===== Floating Menu (Navy) ===== */
+      --menu-ink: var(--navy);
+      --menu-bg: #fff;
+
+      /* Scale props for old items (menu fixed size overridden in theme-css) */
+      --menu-scale: 1.3;
+      --menu-icon-scale: 1;
+
+      --menu-stroke: calc(2px * var(--menu-scale));
+      --menu-shadow-x: calc(4px * var(--menu-scale));
+      --menu-shadow-y: calc(4px * var(--menu-scale));
+
+      --menu-btn-size: calc(52px * var(--menu-scale));
+      --menu-radius:   calc(12px * var(--menu-scale));
+      --menu-pad-y:    calc(8px  * var(--menu-scale));
+      --menu-pad-x:    calc(12px * var(--menu-scale));
+      --menu-step:     calc(60px * var(--menu-scale));
+
+      /* ===== Layout 2 fine-tune ===== */
+      --mini-box-scale: 0.60;
+
+      --story-shift-x: 50px;
+      --story-shift-y: 0px;
+      --work-shift-x:  200px;
+      --work-shift-y:  0px;
+
+      --meta-scale: 0.78;
+      --dob-gap-offset: 140px;
+
+      --dob-move-x: 3;
+      --dob-move-y: 3;
+
+      --day-move-x: -3;
+      --day-move-y: 15;
+
+      /* Layout 3 */
+      --proj3-ui-top: 26vh;
+      --proj3-ui-w: min(1600px, 96vw);
+      --proj3-ui-pad: clamp(14px, 2vw, 22px);
+      --proj3-gap: 14px;
+      --proj3-radius: 18px;
+      --proj3-stroke: 3px;
+      --proj3-shadow: 10px;
+
+      /* Layout 7 vars */
+      --l7-stage-max: 1600px;
+      --l7-title-x: clamp(18px, 4vw, 64px);
+      --l7-title-y: clamp(10px, 4.2vh, 42px);
+      --l7-title-w: clamp(520px, 70vw, 1120px);
+      --l7-title-scale: 0.90;
+
+      --l7-withme-x: 0%;
+      --l7-withme-y: 36%;
+      --l7-withme-w: 55%;
+      --l7-withme-scale: 1;
+
+      --l7-follow-x: 59%;
+      --l7-follow-y: 33%;
+      --l7-follow-w: 25%;
+      --l7-follow-scale: 1;
+
+      --l7-follow-pad-top: 26%;
+      --l7-follow-pad-lr: 14%;
+      --l7-follow-pad-bot: 12%;
+      --l7-follow-row-gap: clamp(10px, 1.6vh, 18px);
+
+      --l7-follow-icon: clamp(300px, 7vw, 1000px);
+
+      --l7-withme-pad-top: 10%;
+      --l7-withme-pad-lr: 15%;
+      --l7-withme-pad-bot: 80%;
+      --l7-withme-row-gap: clamp(10px, 1.8vh, 18px);
+
+      --l7-wm-title-w: 100;
+      --l7-wm-mail-w: 100%;
+      --l7-wm-phone-w: 100%;
+      --l7-wm-linkedin-w: 100%;
+
+      --l7-wm-phone-gap: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body{
+      width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      position: relative;
+
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+
+      font-family: ui-rounded, "SF Pro Rounded", "Nunito", "Quicksand",
+                   system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    main{ width: 100%; }
+    .section{
+      position: relative;
+      width: 100%;
+
+      min-height: 100vh;
+      height: auto;
+
+      overflow: hidden;
+
+      background: transparent;
+
+      margin-bottom: 150px;
+    }
+    .section:last-of-type { margin-bottom: 0; }
+
+    /* =========================
+       FLOATING OPTIONS MENU
+       ========================================= */
+    .opt{
+      position: fixed;
+      right: 12px;
+      top: calc(50% + env(safe-area-inset-top, 0px));
+      transform: translateY(-50%);
+      z-index: 9999;
+    }
+
+    .opt-toggle{
+      /* Overridden by theme-css fixed size, but keeping structure */
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+
+      background: var(--menu-bg);
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .opt-toggle img {
+      display: block;
+      width: calc(100% * var(--menu-icon-scale));
+      height: calc(100% * var(--menu-icon-scale));
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .opt-toggle:active{
+      box-shadow: calc(var(--menu-shadow-x) * 0.6) calc(var(--menu-shadow-y) * 0.6) 0 0 var(--menu-ink);
+    }
+    .opt-toggle.spin { animation: spin .45s ease both; }
+    @keyframes spin { to{ transform: rotate(360deg); } }
+
+    .opt-item{
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0) scale(.92);
+
+      min-width: min(calc(150px * var(--menu-scale)), 72vw);
+      max-width: 72vw;
+
+      padding: var(--menu-pad-y) var(--menu-pad-x);
+
+      color: var(--menu-ink);
+      background: var(--menu-bg);
+      text-decoration: none;
+      font-weight: 900;
+
+      font-size: clamp(calc(12px * var(--menu-scale)),
+                       calc(3.4vw * var(--menu-scale)),
+                       calc(14px * var(--menu-scale)));
+
+      border: var(--menu-stroke) solid var(--menu-ink);
+      border-radius: var(--menu-radius);
+      box-shadow: var(--menu-shadow-x) var(--menu-shadow-y) 0 0 var(--menu-ink);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition:
+        opacity .22s ease,
+        transform .26s cubic-bezier(.2,.7,.2,1.2),
+        background-color .18s ease,
+        color .18s ease,
+        border-color .18s ease;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .opt-item:hover{
+      background: var(--menu-ink);
+      color: #fff;
+      border-color: var(--menu-ink);
+    }
+    .opt-item:active{ transform: translate(-50%, 0) scale(.98); }
+
+    .opt-item.top-1{ top: calc(-1 * var(--menu-step)); }
+    .opt-item.top-2{ top: calc(-2 * var(--menu-step)); }
+    .opt-item.top-3{ top: calc(-3 * var(--menu-step)); }
+
+    .opt-item.bot-1{ top: calc( 1 * var(--menu-step)); }
+    .opt-item.bot-2{ top: calc( 2 * var(--menu-step)); }
+    .opt-item.bot-3{ top: calc( 3 * var(--menu-step)); }
+
+    .opt.open .opt-item{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, 0) scale(1);
+    }
+
+    /* Back to top button */
+    .btn-top{
+      position: fixed;
+      right: 12px;
+      bottom: 14px;
+      z-index: 9998;
+
+      width: calc(44px * var(--menu-scale));
+      height: calc(44px * var(--menu-scale));
+      display: none;
+      place-items: center;
+
+      border: var(--menu-stroke) solid var(--menu-ink);
+      border-radius: 999px;
+      background: var(--menu-bg);
+      box-shadow: var(--menu-shadow-x) var(--menu-shadow-y) 0 0 var(--menu-ink);
+
+      font-weight: 900;
+      font-size: calc(16px * var(--menu-scale));
+      text-decoration: none;
+      color: var(--menu-ink);
+      -webkit-tap-highlight-color: transparent;
+      line-height: 1;
+
+      transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+    }
+    .btn-top:hover{
+      background: var(--menu-ink);
+      color: #fff;
+      border-color: var(--menu-ink);
+    }
+    .btn-top.show{ display: grid; }
+
+    /* =========================
+       LAYOUT 2-7 (reveal on scroll)
+       ========================= */
+    .reveal .stage{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
+    .reveal .piece{
+      position: absolute;
+      opacity: 0;
+      filter: blur(8px);
+      transition:
+        opacity 900ms var(--ease),
+        filter 900ms var(--ease);
+      transition-delay: var(--d, 0ms);
+      will-change: opacity, filter;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+
+    .reveal .piece img{
+      display: block;
+      pointer-events: none;
+      -webkit-user-drag: none;
+
+      transform: translateY(18px) scale(0.99);
+      transition: transform 900ms var(--ease);
+      transition-delay: var(--d, 0ms);
+      will-change: transform;
+    }
+
+    .reveal.inview .piece{ opacity: 1; filter: blur(0); }
+    .reveal.inview .piece img{ transform: translateY(0) scale(1); }
+
+    .reveal .piece.is-clickable{ pointer-events: auto; }
+    .reveal .piece.is-clickable img{ pointer-events: auto; cursor: pointer; }
+
+    .title-center{
+      left: 50%;
+      top: calc(clamp(12px, 4.2vh, 42px) - 5px);
+      z-index: 50;
+
+      width: clamp(520px, 72vw, 1080px);
+      transform:
+        translateX(calc(-50% + var(--center-title-shift-x)))
+        scale(var(--title-center-scale));
+      transform-origin: center top;
+    }
+    .title-center img{ width: 100%; height: auto; }
+
+    .title-topleft{
+      left: clamp(18px, 4vw, 64px);
+      top:  clamp(10px, 4.2vh, 42px);
+      width: clamp(520px, 70vw, 1120px);
+      z-index: 50;
+
+      transform: scale(var(--title-topleft-scale));
+      transform-origin: left top;
+    }
+    .title-topleft img{ width: 100%; height: auto; }
+  </style>
+
+  <style id="layout1-css">
+    .layout1 .trace-on{ opacity: 1; transition: opacity 300ms ease; }
+    .layout1.phase-cards .trace-on{ opacity: 0; }
+
+    .layout1 .trace-box{
+      position: absolute;
+      inset: 0;
+      border: 2px solid rgba(0, 28, 85, 0.35);
+      border-radius: 10px;
+      box-shadow:
+        0 0 0 1px rgba(11, 42, 122, 0.20),
+        0 0 16px rgba(0, 28, 85, 0.18);
+      background: rgba(0, 28, 85, 0.03);
+      transition: box-shadow 0.5s ease, border-color 0.5s ease;
+    }
+
+    .layout1 .trace-mask{
+      position: absolute;
+      inset: -12px;
+      background: rgba(0, 28, 85, 0.30);
+      filter: blur(10px);
+      opacity: 0.55;
+
+      -webkit-mask-image: var(--mask-url);
+      mask-image: var(--mask-url);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+    }
+    @supports not ((-webkit-mask-image: url("")) or (mask-image: url(""))) {
+      .layout1 .trace-mask{
+        inset: 0;
+        filter: none;
+        background: transparent;
+        border: 2px solid rgba(0, 28, 85, 0.30);
+        border-radius: 10px;
+      }
+    }
+
+    .layout1 .group{ position: relative; display: flex; gap: var(--gap); align-items: flex-start; }
+
+    .layout1 .left-block{
+      position: absolute;
+      left: var(--left-x);
+      top: var(--left-y);
+      transform: translate(var(--left-offset-x), var(--left-offset-y));
+      z-index: 30;
+    }
+
+    .layout1 .right-block{
+      position: absolute;
+      left: calc(100vw - var(--right-margin) - (var(--card-w) * 2 + var(--gap)) + var(--right-offset-x));
+      top:  calc(var(--right-y) + var(--right-offset-y));
+      z-index: 30;
+    }
+
+    .layout1 .port-title{
+      position: absolute;
+      left: var(--port-shift-x);
+      top: calc(-0.55 * var(--card-h));
+      width: calc(var(--card-w) * 2 + var(--gap));
+      transform: scale(var(--port-scale));
+      transform-origin: left top;
+      z-index: 60;
+    }
+
+    .layout1 .follio-float{
+      position: absolute;
+      left: calc(100vw - var(--right-margin) - (var(--card-w) * 2 + var(--gap)) + var(--right-offset-x));
+      bottom: calc(100vh - (var(--left-y) + var(--left-offset-y) + var(--card-h)));
+      width: calc(var(--card-w) * 2 + var(--gap));
+      transform: translate(var(--follio-nudge-x), var(--follio-nudge-y)) scale(var(--follio-scale));
+      transform-origin: left bottom;
+      z-index: 70;
+      overflow: visible;
+    }
+
+    .layout1 .center-figure{
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      z-index: 90;
+    }
+    .layout1 .center-figure img{
+      height: var(--figure-height);
+      width: auto;
+      display: block;
+      transition: filter 0.5s ease;
+    }
+
+    .layout1 .card{
+      width: var(--card-w);
+      height: var(--card-h);
+      position: relative;
+      background: transparent;
+      border: none;
+      overflow: visible;
+      border-radius: 10px;
+      transition: box-shadow 0.5s ease;
+    }
+
+    .layout1 .asset{
+      opacity: 0;
+      transform: scale(0.985);
+      filter: blur(8px);
+      will-change: opacity, transform, filter;
+    }
+
+    .layout1 .card .asset{
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: fill;
+      transition:
+        opacity 900ms var(--ease),
+        transform 900ms var(--ease),
+        filter 900ms var(--ease);
+      transition-delay: var(--delay, 0ms);
+    }
+    .layout1.phase-cards .card .asset{ opacity: 1; transform: scale(1); filter: blur(0); }
+
+    .layout1 .text-img{
+      width: 100%;
+      height: auto;
+      display: block;
+      transition:
+        opacity var(--t-text) var(--ease),
+        transform var(--t-text) var(--ease),
+        filter var(--t-text) var(--ease);
+      transition-delay: var(--delay, 0ms);
+    }
+    .layout1 .port-title .text-img,
+    .layout1 .follio-float .text-img{
+      opacity: 0;
+      transform: scale(0.985);
+      filter: blur(10px);
+    }
+    .layout1.phase-text .text-img{ opacity: 1; transform: scale(1); filter: blur(0); }
+
+    .layout1 .figure-img{
+      transition:
+        opacity var(--t-fig) var(--ease-soft),
+        transform var(--t-fig) var(--ease-soft),
+        filter var(--t-fig) var(--ease-soft);
+      opacity: 0;
+      transform: scale(0.985);
+      filter: blur(10px);
+    }
+    .layout1.phase-figure .figure-img{ opacity: 1; transform: scale(1); filter: blur(0); }
+
+    /* =========================================
+       DARK MODE / LED GLOW FOR LAYOUT 1
+       ========================================= */
+    body.star-mode .layout1 .card {
+      /* Subtle box glow */
+      box-shadow: 0 0 15px rgba(0, 242, 255, 0.15), inset 0 0 10px rgba(0, 242, 255, 0.05);
+    }
+
+    body.star-mode .layout1 .trace-box {
+        border-color: rgba(202, 240, 248, 0.4);
+        box-shadow: 0 0 12px var(--led-glow-color);
+    }
+
+    /* Glow for Texts (Port / Follio) */
+    body.star-mode .layout1 .text-img {
+      filter: drop-shadow(0 0 5px var(--led-glow-color)) brightness(1.2);
+    }
+
+    /* Glow for Cards content */
+    body.star-mode .layout1 .card .asset {
+        filter: drop-shadow(0 0 3px rgba(0, 242, 255, 0.3));
+    }
+
+    @media (max-height: 720px){
+      :root{ --figure-height: calc(96vh * var(--scale)); }
+    }
+  </style>
+
+  <style id="layout2-css">
+    .layout2 .p-person{
+      left: clamp(18px, 4vw, 52px);
+      top:  clamp(16px, 6vh, 52px);
+      height: clamp(360px, 88vh, 920px);
+      width: auto;
+      z-index: 30;
+    }
+    .layout2 .p-person img{ height: 100%; width: auto; }
+
+    .layout2 .p-about{
+      right: calc(clamp(18px, 4vw, 60px) + 220px);
+      top:   clamp(10px, 4vh, 40px);
+      width: clamp(360px, 46vw, 760px);
+      height: auto;
+      z-index: 50;
+
+      transform: scale(var(--about-scale));
+      transform-origin: right top;
+    }
+    .layout2 .p-about img{ width: 100%; height: auto; }
+
+    .layout2 .p-story{
+      right: calc(clamp(18px, 5vw, 90px) + var(--story-shift-x));
+      top:   calc(clamp(150px, 25vh, 270px) + var(--story-shift-y));
+      width: clamp(520px, 44vw, 920px);
+      height: auto;
+      z-index: 42;
+
+      transform: scale(var(--mini-box-scale));
+      transform-origin: right top;
+    }
+    .layout2 .p-story img{ width: 100%; height: auto; }
+
+    .layout2 .p-workflow{
+      left:  calc(clamp(260px, 28vw, 560px) + var(--work-shift-x));
+      top:   calc(clamp(320px, 54vh, 620px) + var(--work-shift-y));
+      width: clamp(520px, 44vw, 920px);
+      height: auto;
+      z-index: 41;
+
+      transform: scale(var(--mini-box-scale));
+      transform-origin: left top;
+    }
+    .layout2 .p-workflow img{ width: 100%; height: auto; }
+
+    .layout2 .p-dob{
+      left:  calc(clamp(260px, 28vw, 560px) + var(--work-shift-x));
+      top:   calc(clamp(320px, 54vh, 620px) + var(--work-shift-y) - var(--dob-gap-offset));
+      width: clamp(280px, 26vw, 520px);
+      height: auto;
+      z-index: 46;
+
+      transform:
+        translate(calc(var(--dob-move-x) * 1vw), calc(var(--dob-move-y) * 1vh))
+        scale(var(--meta-scale));
+      transform-origin: left top;
+    }
+    .layout2 .p-dob img{ width: 100%; height: auto; }
+
+    .layout2 .p-day{
+      right: calc(clamp(18px, 5vw, 90px) + var(--story-shift-x));
+      top:   calc(clamp(320px, 54vh, 620px) + var(--work-shift-y));
+      width: clamp(260px, 24vw, 500px);
+      height: auto;
+      z-index: 45;
+
+      transform:
+        translate(calc(var(--day-move-x) * 1vw), calc(var(--day-move-y) * 1vh))
+        scale(var(--meta-scale));
+      transform-origin: right top;
+    }
+    .layout2 .p-day img{ width: 100%; height: auto; }
+  </style>
+
+  <style id="layout3-css">
+    .layout3{ background: transparent; }
+    .layout3 .stage{ background: transparent; }
+
+    .layout3 .title-center{
+      top: clamp(6px, 2vh, 18px);
+      transform:
+        translateX(calc(-50% + var(--center-title-shift-x)))
+        scale(0.576);
+      z-index: 70;
+    }
+
+    /* (3) Use project-specific ink, so star-mode can be a darker galaxy tone */
+    .layout3 .proj3-ui{
+      position: absolute;
+      left: 50%;
+      top: var(--proj3-ui-top);
+      width: var(--proj3-ui-w);
+      transform: translateX(-50%) translateY(16px);
+      z-index: 60;
+
+      pointer-events: auto;
+
+      background: rgba(255,255,255,.92);
+      border: var(--proj3-stroke) solid var(--proj3-ink);
+      border-radius: var(--proj3-radius);
+      box-shadow: var(--proj3-shadow) var(--proj3-shadow) 0 0 var(--proj3-ink);
+      padding: var(--proj3-ui-pad);
+
+      max-height: calc(100vh - var(--proj3-ui-top) - 18px);
+      overflow: auto;
+      overscroll-behavior: contain;
+
+      opacity: 0;
+      filter: blur(10px);
+      transition:
+        opacity 700ms var(--ease),
+        filter 700ms var(--ease),
+        transform 700ms var(--ease);
+      transition-delay: 220ms;
+    }
+    .layout3.inview .proj3-ui{
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .proj3-tabs{
+      display:flex;
+      gap: 12px;
+      justify-content:center;
+      align-items:center;
+      flex-wrap: wrap;
+      margin-top: 4px;
+      margin-bottom: 14px;
+    }
+
+    .proj3-tab{
+      appearance: none;
+      border: var(--menu-stroke) solid var(--proj3-ink);
+      background: #fff;
+      color: var(--proj3-ink);
+      font-family: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      box-shadow: 4px 4px 0 0 var(--proj3-ink);
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, box-shadow .12s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .proj3-tab:hover,
+    .proj3-tab:focus-visible{
+      background: var(--proj3-ink);
+      color: #fff;
+      border-color: var(--proj3-ink);
+      outline: none;
+      transform: translate(-2px,-2px);
+      box-shadow: 8px 8px 0 0 var(--proj3-ink);
+    }
+    .proj3-tab:active{
+      transform: translate(0,0);
+      box-shadow: 3px 3px 0 0 var(--proj3-ink);
+    }
+    .proj3-tab.is-active{
+      background: var(--proj3-ink);
+      color: #fff;
+      border-color: var(--proj3-ink);
+    }
+
+    .proj3-panel{ display:none; }
+    .proj3-panel.is-show{ display:block; }
+
+    .proj3-grid{
+      display:grid;
+      gap: var(--proj3-gap);
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .proj3-card{
+      display:block;
+      overflow:hidden;
+      background:#fff;
+
+      border: var(--proj3-stroke) solid var(--proj3-ink);
+      border-radius: 14px;
+      box-shadow: 6px 6px 0 0 var(--proj3-ink);
+      transition: transform .12s ease, box-shadow .12s ease;
+
+      aspect-ratio: 16 / 9;
+      position: relative;
+    }
+    .proj3-card:hover{
+      transform: translate(-2px,-2px);
+      box-shadow: 10px 10px 0 0 var(--proj3-ink);
+    }
+    .proj3-card img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      pointer-events:none;
+      -webkit-user-drag:none;
+    }
+
+    .proj3-card.fit-contain img{
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .social-splits{
+      display: grid;
+      gap: var(--proj3-gap);
+      grid-template-columns: repeat(3, minmax(240px, 1fr));
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .social-splits{ grid-template-columns: 1fr; }
+    }
+
+    .social-block{
+      background: #fff;
+      border: var(--proj3-stroke) solid var(--proj3-ink);
+      border-radius: 16px;
+      box-shadow: 6px 6px 0 0 var(--proj3-ink);
+      overflow: hidden;
+    }
+
+    .social-head{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--proj3-ink);
+      font-weight: 900;
+      color: var(--proj3-ink);
+      background: rgba(0,28,85,.05);
+      letter-spacing: .3px;
+    }
+
+    .social-grid{
+      display:grid;
+      gap: var(--proj3-gap);
+      padding: 12px;
+      grid-template-columns: 1fr;
+    }
+
+    .viewer{
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: none;
+    }
+    .viewer.is-open{ display:block; }
+
+    .viewer-backdrop{
+      position:absolute; inset:0;
+      background: rgba(0,0,0,.65);
+    }
+
+    .viewer-panel{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform: translate(-50%,-50%);
+      width: min(1100px, 92vw);
+      background: #fff;
+      border: 3px solid var(--proj3-ink);
+      border-radius: 18px;
+      box-shadow: 12px 12px 0 0 var(--proj3-ink);
+      overflow:hidden;
+    }
+
+    .viewer-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      background:#fff;
+      border-bottom: 2px solid var(--proj3-ink);
+      font-weight: 900;
+      color: var(--proj3-ink);
+      font-family: inherit;
+    }
+
+    .viewer-body{
+      max-height: 72vh;
+      overflow: auto;
+      background:#fff;
+      padding: 10px;
+      display:grid;
+      place-items:center;
+    }
+
+    .viewer-img{
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display:block;
+    }
+
+    .viewer-foot{
+      display:flex;
+      gap: 10px;
+      justify-content:center;
+      align-items:center;
+      padding: 10px;
+      border-top: 2px solid var(--proj3-ink);
+      background:#fff;
+      flex-wrap: wrap;
+    }
+
+    .vbtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 12px;
+      border: 2px solid var(--proj3-ink);
+      border-radius: 12px;
+      background:#fff;
+      color: var(--proj3-ink);
+      font-weight: 900;
+      cursor:pointer;
+      box-shadow: 4px 4px 0 0 var(--proj3-ink);
+      transition: transform .12s ease, box-shadow .12s ease, background-color .18s ease, color .18s ease;
+      font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .vbtn:hover{
+      transform: translate(-2px,-2px);
+      box-shadow: 8px 8px 0 0 var(--proj3-ink);
+      background: var(--proj3-ink);
+      color:#fff;
+    }
+    .vbtn:active{
+      transform: translate(0,0);
+      box-shadow: 3px 3px 0 0 var(--proj3-ink);
+    }
+
+    .viewer-count{ font-weight: 900; color: var(--proj3-ink); }
+
+    /* Star-mode: add LED outline to project text without changing layout */
+    body.star-mode .layout3 .proj3-ui,
+    body.star-mode .layout3 .social-block,
+    body.star-mode .layout3 .viewer-panel{
+      box-shadow:
+        0 0 20px rgba(0, 242, 255, 0.12),
+        var(--proj3-shadow) var(--proj3-shadow) 0 0 var(--proj3-ink);
+    }
+  </style>
+
+  <style id="layout4-css">
+    .layout4{ background: transparent; }
+    .layout4 .stage{ background: transparent; }
+
+    :root{ --work4-scale: 0.65; }
+
+    .layout4 .work4-list{
+      left: clamp(24px, 6vw, 90px);
+      top:  clamp(120px, 22vh, 220px);
+      width: clamp(360px, 40vw, 560px);
+      z-index: 40;
+
+      transform: scale(var(--work4-scale));
+      transform-origin: left top;
+    }
+
+    .layout4 .work4-stack{
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .layout4 .work4-item{
+      display: block;
+      background: #fff;
+      border: none;
+      box-shadow: none;
+
+      border-radius: 16px;
+      padding: 12px 14px;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, background-color .18s ease;
+    }
+
+    .layout4 .work4-item:hover{
+      transform: translate(-2px,-2px);
+      background: rgba(0,28,85,.03);
+    }
+
+    .layout4 .work4-item:active{ transform: translate(0,0); }
+
+    .layout4 .work4-item img{
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+  </style>
+
+  <style id="layout5-css">
+    .layout5{
+      display: grid;
+      place-items: center;
+
+      --l5-bg: transparent;
+      --l5-stage-max: 1600px;
+      --l5-nav-size: 46px;
+      --l5-nav-right: 18px;
+      --l5-nav-y: 56%;
+      --l5-transition: 420ms;
+
+      --l5-title-left: 6.7%;
+      --l5-title-top: 6.3%;
+      --l5-title-size: clamp(60px, 7.5vw, 130px);
+      --l5-title-color: var(--navy);
+      --l5-title-letter: 1px;
+
+      --l5-title-shadow-x: clamp(4px, .55vw, 12px);
+      --l5-title-shadow-y: clamp(4px, .55vw, 12px);
+      --l5-title-shadow-color: #000;
+      --l5-title-stroke: clamp(2px, .28vw, 7px);
+      --l5-title-stroke-color: #fff;
+
+      --l5-shadow-offset-scale: 0.72;
+    }
+
+    /* (2) Star-mode: MY SKILLS title should be DARK NAVY (not bright),
+       and have LED outline so it still pops on dark background. */
+    body.star-mode .layout5{
+      --l5-title-color: var(--skill-navy);
+      --l5-title-stroke-color: rgba(0, 242, 255, 0.9);
+      --l5-title-shadow-color: rgba(0, 242, 255, 0.28);
+    }
+    body.star-mode .layout5 .l5-title{
+      text-shadow: var(--led-text-glow);
+    }
+
+
+    /* (Reveal) make Layout 5 fade-in like other layouts */
+    .layout5 .l5-title,
+    .layout5 .l5-obj{
+      opacity: 0;
+      filter: blur(10px);
+      transition: opacity 900ms var(--ease), filter 900ms var(--ease);
+    }
+    .layout5 .l5-obj{ transition-delay: 160ms; }
+    .layout5.inview .l5-title,
+    .layout5.inview .l5-obj{
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .layout5 .stage{
+      position: relative;
+      width: min(100%, var(--l5-stage-max));
+      height: auto;
+      margin: 0 auto;
+      background: var(--l5-bg);
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .layout5 .l5-title{
+      position:absolute;
+      left: var(--l5-title-left);
+      top:  var(--l5-title-top);
+      z-index: 20;
+
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      font-weight: 900;
+      font-size: var(--l5-title-size);
+      line-height: 1;
+      letter-spacing: var(--l5-title-letter);
+      text-transform: uppercase;
+      color: var(--l5-title-color);
+
+      display: inline-block;
+      isolation: isolate;
+
+      -webkit-text-stroke: var(--l5-title-stroke) var(--l5-title-stroke-color);
+      paint-order: stroke fill;
+      pointer-events: none;
+    }
+
+    .layout5 .l5-title::before{
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      transform: translate(
+        calc(var(--l5-title-shadow-x) * var(--l5-shadow-offset-scale)),
+        calc(var(--l5-title-shadow-y) * var(--l5-shadow-offset-scale))
+      );
+      color: var(--l5-title-shadow-color);
+      z-index: -2;
+      -webkit-text-stroke: 0 transparent;
+    }
+
+    .layout5 .l5-title::after{
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      transform: translate(
+        calc(var(--l5-title-shadow-x) * var(--l5-shadow-offset-scale) * 0.55),
+        calc(var(--l5-title-shadow-y) * var(--l5-shadow-offset-scale) * 0.55)
+      );
+      color: rgba(0,0,0,.22);
+      z-index: -1;
+      -webkit-text-stroke: 0 transparent;
+    }
+    body.star-mode .layout5 .l5-title::after{
+      color: rgba(0, 242, 255, 0.12);
+    }
+
+    .layout5 .l5-pages{
+      position:absolute; inset:0;
+      display:flex;
+      width:200%;
+      height:100%;
+      transform: translateX(0%);
+      transition: transform var(--l5-transition) ease;
+    }
+    .layout5[data-page="2"] .l5-pages{ transform: translateX(-50%); }
+
+    .layout5 .l5-page{ position: relative; width:50%; height:100%; }
+
+    .layout5 .l5-page-1{
+      --person-left: 0%;
+      --person-top: 35%;
+      --person-w: 54%;
+      --person-scale: 1;
+
+      --box1-left: 64%;
+      --box1-top: 10%;
+      --box1-w: 34%;
+      --box1-scale: 1;
+
+      --box2-left: 53%;
+      --box2-top: 50%;
+      --box2-w: 34%;
+      --box2-scale: 1;
+    }
+
+    .layout5 .l5-page-2{
+      --person-left: 28%;
+      --person-top: 45%;
+      --person-w: 50%;
+      --person-scale: 1;
+
+      --box1-left:66%;
+      --box1-top: 25%;
+      --box1-w: 33%;
+      --box1-scale: 1;
+
+      --box2-left: 5%;
+      --box2-top: 30%;
+      --box2-w: 33%;
+      --box2-scale: 1;
+    }
+
+    .layout5 .l5-obj{
+      position:absolute;
+      height:auto;
+      max-width:none;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+
+    .layout5 .l5-person{
+      left: var(--person-left);
+      top: var(--person-top);
+      width: var(--person-w);
+      transform: scale(var(--person-scale));
+      transform-origin: top left;
+      z-index: 10;
+    }
+    .layout5 .l5-box1{
+      left: var(--box1-left);
+      top: var(--box1-top);
+      width: var(--box1-w);
+      transform: scale(var(--box1-scale));
+      transform-origin: top left;
+      z-index: 5;
+    }
+    .layout5 .l5-box2{
+      left: var(--box2-left);
+      top: var(--box2-top);
+      width: var(--box2-w);
+      transform: scale(var(--box2-scale));
+      transform-origin: top left;
+      z-index: 5;
+    }
+
+    .layout5 .l5-nav{
+      position:absolute;
+      top: var(--l5-nav-y);
+      transform: translateY(-50%);
+      width: var(--l5-nav-size);
+      height: var(--l5-nav-size);
+      border-radius: 999px;
+      border: 2px solid rgba(15,46,79,.35);
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(6px);
+      cursor: pointer;
+      z-index: 50;
+      display:grid;
+      place-items:center;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+    .layout5 .l5-nav:hover{ transform: translateY(-50%) scale(1.06); background:#fff; }
+    .layout5 .l5-nav svg{ width: 18px; height: 18px; }
+
+    .layout5 .l5-btn-next{ right: var(--l5-nav-right); }
+    .layout5 .l5-btn-prev{ left:  18px; }
+
+    .layout5[data-page="1"] .l5-btn-prev{ display:none; }
+    .layout5[data-page="2"] .l5-btn-next{ display:none; }
+
+    .layout5[data-debug="1"] .l5-title,
+    .layout5[data-debug="1"] .l5-obj{ outline:2px dashed rgba(0,0,0,.25); outline-offset:-2px; }
+  </style>
+
+  <style id="layout6-css">
+    .layout6{ background: transparent; }
+    .layout6 .stage{ background: transparent; }
+
+    .layout6{
+      --cer6-title-scale: 0.62;
+      --cer6-title-top: clamp(6px, 2vh, 18px);
+
+      --cer6-wrap-top: 22vh;
+      --cer6-wrap-w: min(1500px, 94vw);
+
+      --cer6-gap: 18px;
+      --cer6-card-radius: 18px;
+      --cer6-stroke: 3px;
+      --cer6-shadow: 8px;
+
+      --cer6-card-pad: 12px;
+    }
+
+    .layout6 .title-center{
+      top: var(--cer6-title-top);
+      transform:
+        translateX(calc(-50% + var(--center-title-shift-x)))
+        scale(var(--cer6-title-scale));
+      transform-origin: center top;
+      z-index: 70;
+    }
+
+    .layout6 .cer6-wrap{
+      position:absolute;
+      left:50%;
+      top: var(--cer6-wrap-top);
+      width: var(--cer6-wrap-w);
+      transform: translateX(-50%) translateY(16px);
+      z-index: 40;
+
+      opacity: 0;
+      filter: blur(10px);
+      transition:
+        opacity 700ms var(--ease),
+        filter 700ms var(--ease),
+        transform 700ms var(--ease);
+      transition-delay: 220ms;
+    }
+    .layout6.inview .cer6-wrap{
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .layout6 .cer6-grid{
+      display:grid;
+      gap: var(--cer6-gap);
+      grid-template-columns: repeat(3, minmax(260px, 1fr));
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .layout6 .cer6-grid{ grid-template-columns: 1fr; }
+    }
+
+    .layout6 .cer6-card{
+      background:#fff;
+      border: var(--cer6-stroke) solid var(--navy);
+      border-radius: var(--cer6-card-radius);
+      box-shadow: var(--cer6-shadow) var(--cer6-shadow) 0 0 var(--navy);
+      overflow:hidden;
+
+      padding: var(--cer6-card-pad);
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .layout6 .cer6-card img{
+      max-width: 100%;
+      height: auto;
+      width: auto;
+      display:block;
+      object-fit: contain;
+      pointer-events:none;
+      -webkit-user-drag:none;
+    }
+  </style>
+
+  <style id="layout7-css">
+    .layout7{
+      background: transparent;
+      display:grid;
+      place-items:center;
+    }
+
+    .layout7 .stage{
+      position:relative;
+      width:min(100%, var(--l7-stage-max));
+      height:100%;
+      margin:0 auto;
+      background: transparent;
+      overflow:hidden;
+    }
+
+    .layout7 .piece > img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .layout7 .p-title{
+      left: var(--l7-title-x);
+      top:  var(--l7-title-y);
+      width: var(--l7-title-w);
+      transform: scale(var(--l7-title-scale));
+      transform-origin: left top;
+      z-index: 50;
+    }
+
+    .layout7 .p-withme{
+      left: var(--l7-withme-x);
+      top:  var(--l7-withme-y);
+      width: var(--l7-withme-w);
+      transform: scale(var(--l7-withme-scale));
+      transform-origin: left top;
+      z-index: 40;
+    }
+
+    .layout7 .p-follow{
+      left: var(--l7-follow-x);
+      top:  var(--l7-follow-y);
+      width: var(--l7-follow-w);
+      transform: scale(var(--l7-follow-scale));
+      transform-origin: left top;
+      z-index: 41;
+    }
+
+    .layout7 .wrap{ position: relative; width: 100%; }
+
+    .layout7 .withme-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      gap: var(--l7-withme-row-gap);
+
+      padding:
+        var(--l7-withme-pad-top)
+        var(--l7-withme-pad-lr)
+        var(--l7-withme-pad-bot)
+        var(--l7-withme-pad-lr);
+
+      pointer-events:auto;
+      align-items: center;
+    }
+
+    .layout7 .wm-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 14px;
+      padding: 6px 8px;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, background-color .18s ease;
+      text-decoration:none;
+    }
+    .layout7 .wm-link:hover{
+      transform: translate(-2px,-2px);
+      background: rgba(0,0,0,.05);
+    }
+    .layout7 .wm-link:active{ transform: translate(0,0); }
+
+    .layout7 .wm-static,
+    .layout7 .wm-static:hover,
+    .layout7 .wm-static:active{
+      transform: none !important;
+      background: transparent !important;
+      cursor: default !important;
+    }
+
+    .layout7 .wm-img{
+      display:block;
+      height:auto;
+      width: 60%;
+      pointer-events:none;
+      -webkit-user-drag:none;
+      transform: none !important;
+      transition: none !important;
+    }
+    .layout7 .wm-title{ width: var(--l7-wm-title-w); }
+    .layout7 .wm-mail{ width: var(--l7-wm-mail-w); }
+    .layout7 .wm-li{ width: var(--l7-wm-linkedin-w); }
+
+    .layout7 .wm-phones{
+      width: 100%;
+      display:flex;
+      justify-content:center;
+      gap: var(--l7-wm-phone-gap);
+    }
+    .layout7 .wm-phones .wm-img{ width: var(--l7-wm-phone-w); }
+
+    .layout7 .follow-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      gap: var(--l7-follow-row-gap);
+
+      padding:
+        var(--l7-follow-pad-top)
+        var(--l7-follow-pad-lr)
+        var(--l7-follow-pad-bot)
+        var(--l7-follow-pad-lr);
+
+      pointer-events:auto;
+    }
+
+    .layout7 .follow-link{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      text-decoration:none;
+      border-radius: 12px;
+      padding: 6px 8px;
+
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, background-color .18s ease;
+    }
+    .layout7 .follow-link:hover{
+      transform: translate(-2px,-2px);
+      background: rgba(0,0,0,.05);
+    }
+    .layout7 .follow-link:active{ transform: translate(0,0); }
+
+    .layout7 .follow-ico{
+      width: var(--l7-follow-icon);
+      height: auto;
+      display:block;
+      flex: 0 0 auto;
+      pointer-events:none;
+      -webkit-user-drag:none;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .layout7[data-debug="1"] .piece{
+      outline: 2px dashed rgba(0,0,0,.25);
+      outline-offset: -2px;
+    }
+  </style>
+
+  <style id="fixed-canvas-css">
+    :root{
+      --stage-w: 1920px;
+      --stage-h: 1080px;
+
+      --vw: calc(var(--stage-w) / 100);
+      --vh: calc(var(--stage-h) / 100);
+    }
+
+    html, body { height: 100%; }
+
+    body{
+      overflow: hidden !important;
+      width: auto !important;
+      min-height: 100% !important;
+    }
+
+    #viewport{
+      position: fixed;
+      inset: 0;
+      overflow: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      z-index: 0;
+    }
+
+    #stage-wrap{
+      position: relative;
+      margin: 0 auto;
+      width: var(--stage-w);
+      height: var(--stage-h);
+    }
+
+    #stage{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: var(--stage-w);
+      transform-origin: top left;
+      will-change: transform;
+      pointer-events: auto;
+    }
+
+    #stage main{ width: var(--stage-w); }
+    #stage .section{
+      width: var(--stage-w) !important;
+      min-height: var(--stage-h) !important;
+      height: auto !important;
+    }
+
+    :root{
+      --left-x: calc(11 * var(--vw));
+      --left-y: calc(35 * var(--vh));
+
+      --right-margin: calc(9 * var(--vw));
+      --right-y: calc(13 * var(--vh));
+
+      --figure-height: calc(110 * var(--vh) * var(--scale));
+
+      --proj3-ui-top: calc(26 * var(--vh));
+      --proj3-ui-w: min(1600px, calc(96 * var(--vw)));
+      --proj3-ui-pad: clamp(14px, calc(2 * var(--vw)), 22px);
+
+      --l7-title-x: clamp(18px, calc(4 * var(--vw)), 64px);
+      --l7-title-y: clamp(10px, calc(4.2 * var(--vh)), 42px);
+      --l7-title-w: clamp(520px, calc(70 * var(--vw)), 1120px);
+
+      --l7-follow-row-gap: clamp(10px, calc(1.6 * var(--vh)), 18px);
+      --l7-withme-row-gap: clamp(10px, calc(1.8 * var(--vh)), 18px);
+
+      --l7-follow-icon: clamp(300px, calc(7 * var(--vw)), 1000px);
+    }
+
+    #stage .title-center{
+      top: calc(clamp(12px, calc(4.2 * var(--vh)), 42px) - 5px) !important;
+      width: clamp(520px, calc(72 * var(--vw)), 1080px) !important;
+    }
+    #stage .title-topleft{
+      left: clamp(18px, calc(4 * var(--vw)), 64px) !important;
+      top:  clamp(10px, calc(4.2 * var(--vh)), 42px) !important;
+      width: clamp(520px, calc(70 * var(--vw)), 1120px) !important;
+    }
+
+    #stage .layout1 .right-block{
+      left: calc(var(--stage-w) - var(--right-margin) - (var(--card-w) * 2 + var(--gap)) + var(--right-offset-x)) !important;
+    }
+    #stage .layout1 .follio-float{
+      left: calc(var(--stage-w) - var(--right-margin) - (var(--card-w) * 2 + var(--gap)) + var(--right-offset-x)) !important;
+      bottom: calc(var(--stage-h) - (var(--left-y) + var(--left-offset-y) + var(--card-h))) !important;
+    }
+
+    #stage .layout2 .p-person{
+      left: clamp(18px, calc(4 * var(--vw)), 52px) !important;
+      top:  clamp(16px, calc(6 * var(--vh)), 52px) !important;
+      height: clamp(360px, calc(88 * var(--vh)), 920px) !important;
+    }
+    #stage .layout2 .p-about{
+      right: calc(clamp(18px, calc(4 * var(--vw)), 60px) + 220px) !important;
+      top:   clamp(10px, calc(4 * var(--vh)), 40px) !important;
+      width: clamp(360px, calc(46 * var(--vw)), 760px) !important;
+    }
+    #stage .layout2 .p-story{
+      right: calc(clamp(18px, calc(5 * var(--vw)), 90px) + var(--story-shift-x)) !important;
+      top:   calc(clamp(150px, calc(25 * var(--vh)), 270px) + var(--story-shift-y)) !important;
+      width: clamp(520px, calc(44 * var(--vw)), 920px) !important;
+    }
+    #stage .layout2 .p-workflow{
+      left:  calc(clamp(260px, calc(28 * var(--vw)), 560px) + var(--work-shift-x)) !important;
+      top:   calc(clamp(320px, calc(54 * var(--vh)), 620px) + var(--work-shift-y)) !important;
+      width: clamp(520px, calc(44 * var(--vw)), 920px) !important;
+    }
+    #stage .layout2 .p-dob{
+      left:  calc(clamp(260px, calc(28 * var(--vw)), 560px) + var(--work-shift-x)) !important;
+      top:   calc(clamp(320px, calc(54 * var(--vh)), 620px) + var(--work-shift-y) - var(--dob-gap-offset)) !important;
+      width: clamp(280px, calc(26 * var(--vw)), 520px) !important;
+
+      transform:
+        translate(calc(var(--dob-move-x) * var(--vw)), calc(var(--dob-move-y) * var(--vh)))
+        scale(var(--meta-scale)) !important;
+    }
+    #stage .layout2 .p-day{
+      right: calc(clamp(18px, calc(5 * var(--vw)), 90px) + var(--story-shift-x)) !important;
+      top:   calc(clamp(320px, calc(54 * var(--vh)), 620px) + var(--work-shift-y)) !important;
+      width: clamp(260px, calc(24 * var(--vw)), 500px) !important;
+
+      transform:
+        translate(calc(var(--day-move-x) * var(--vw)), calc(var(--day-move-y) * var(--vh)))
+        scale(var(--meta-scale)) !important;
+    }
+
+    #stage .layout3 .proj3-ui{
+      max-height: calc(var(--stage-h) - var(--proj3-ui-top) - 18px) !important;
+    }
+
+    #stage .proj3-grid{
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+    }
+    #stage .social-splits{
+      grid-template-columns: repeat(3, minmax(240px, 1fr)) !important;
+    }
+    #stage .layout6 .cer6-grid{
+      grid-template-columns: repeat(3, minmax(260px, 1fr)) !important;
+    }
+
+    #stage .layout4 .work4-list{
+      left: clamp(24px, calc(6 * var(--vw)), 90px) !important;
+      top:  clamp(120px, calc(22 * var(--vh)), 220px) !important;
+      width: clamp(360px, calc(40 * var(--vw)), 560px) !important;
+      transform: scale(var(--work4-scale)) !important;
+      transform-origin: left top !important;
+    }
+
+    #stage .layout5{
+      --l5-title-size: clamp(60px, calc(7.5 * var(--vw)), 130px);
+      --l5-title-shadow-x: clamp(4px, calc(.55 * var(--vw)), 12px);
+      --l5-title-shadow-y: clamp(4px, calc(.55 * var(--vw)), 12px);
+      --l5-title-stroke: clamp(2px, calc(.28 * var(--vw)), 7px);
+    }
+
+    #stage .layout6{
+      --cer6-title-top: clamp(6px, calc(2 * var(--vh)), 18px);
+      --cer6-wrap-top:  calc(22 * var(--vh));
+      --cer6-wrap-w:    min(1500px, calc(94 * var(--vw)));
+    }
+  </style>
 </head>
-<body>
 
-    <div class="portfolio-container">
-        <video id="introVideo" preload="auto" playsinline>
-            <source src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/f048991bb7c9a6be4cf3d4dc94fa118f4c6df9dd/intro.mp4" type="video/mp4">
-        </video>
+<body class="ocean-mode" oncontextmenu="return false;">
 
-        <div id="startOverlay" class="overlay">
-            <button id="startBtn" class="manga-btn">START!!</button>
-        </div>
+  <div id="transition-overlay" aria-hidden="true">
+    <canvas id="meteorCanvas"></canvas>
+    <div class="meteor-wrap" id="meteorWrap"></div>
+  </div>
 
-        <button id="skipBtn" class="manga-btn skip-btn" style="display: none;">SKIP >></button>
+  <div id="theme-bg">
+    <div class="bg-ocean">
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
     </div>
+    <div class="bg-star">
+  <!-- Nền Ngân hà & Tinh vân -->
+  <div class="galactic-disk"></div>
+  <div class="nebula-container">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+  </div>
 
-    <script>
-        const video = document.getElementById('introVideo');
-        const startBtn = document.getElementById('startBtn');
-        const skipBtn = document.getElementById('skipBtn');
-        const overlay = document.getElementById('startOverlay');
+  <!-- Sao băng bay chéo (Trên Trái -> Dưới Phải) -->
+  <div class="shooting-star-v2 ss-1"></div>
+  <div class="shooting-star-v2 ss-2"></div>
+  <div class="shooting-star-v2 ss-3"></div>
 
-        // Hàm chuyển sang trang chính
-        function goToMainPage() {
-            window.location.href = 'main.html';
+  <!-- 1. BẠCH DƯƠNG -->
+  <svg class="constellation aries" viewBox="0 0 100 60">
+    <path class="c-line" d="M10,20 L50,15 L80,40 L90,55" />
+    <circle class="c-star" cx="10" cy="20" r="1" />
+    <circle class="c-main-star" cx="50" cy="15" r="2" />
+    <circle class="c-star" cx="80" cy="40" r="1" />
+    <circle class="c-star" cx="90" cy="55" r="1" />
+  </svg>
+
+  <!-- 2. KIM NGƯU -->
+  <svg class="constellation taurus" viewBox="0 0 140 100">
+    <path class="c-line" d="M10,10 L40,40 L60,50 L90,45 L130,20 M60,50 L70,80" />
+    <circle class="c-main-star" cx="60" cy="50" r="2.2" />
+    <circle class="c-star" cx="10" cy="10" r="1" />
+    <circle class="c-star" cx="130" cy="20" r="1" />
+  </svg>
+
+  <!-- 3. SONG TỬ -->
+  <svg class="constellation gemini" viewBox="0 0 100 100">
+    <path class="c-line" d="M20,10 L25,40 L30,80 M20,10 L50,15 M25,40 L55,45 M30,80 L60,85" />
+    <circle class="c-main-star" cx="20" cy="10" r="1.8" />
+    <circle class="c-main-star" cx="50" cy="15" r="1.8" />
+  </svg>
+
+  <!-- 4. CỰ GIẢI -->
+  <svg class="constellation cancer" viewBox="0 0 100 100">
+    <path class="c-line" d="M50,10 L50,40 L20,70 M50,40 L80,70" />
+    <circle class="c-main-star" cx="50" cy="40" r="1.8" />
+    <circle class="c-star" cx="20" cy="70" r="1" />
+  </svg>
+
+  <!-- 5. SƯ TỬ -->
+  <svg class="constellation leo" viewBox="0 0 150 100">
+    <path class="c-line" d="M140,80 L100,90 L70,70 L80,40 L110,20 L130,40 L110,20" />
+    <circle class="c-main-star" cx="140" cy="80" r="2.5" />
+    <circle class="c-star" cx="70" cy="70" r="1.2" />
+  </svg>
+
+  <!-- 6. XỬ NỮ -->
+  <svg class="constellation virgo" viewBox="0 0 200 180">
+    <path class="c-line" d="M30,140 L70,110 L90,60 L130,40 M70,110 L110,130 L160,110 L180,140 M110,130 L130,160" />
+    <circle class="c-main-star" cx="160" cy="110" r="3.5" />
+    <circle class="c-star" cx="30" cy="140" r="1.5" />
+    <circle class="c-star" cx="70" cy="110" r="1.5" />
+  </svg>
+
+  <!-- 7. THIÊN BÌNH -->
+  <svg class="constellation libra" viewBox="0 0 100 100">
+    <path class="c-line" d="M50,20 L20,50 L40,85 L80,50 L50,20" />
+    <circle class="c-main-star" cx="20" cy="50" r="2" />
+    <circle class="c-main-star" cx="80" cy="50" r="2" />
+  </svg>
+
+  <!-- 8. THIÊN YẾT -->
+  <svg class="constellation scorpio" viewBox="0 0 150 150">
+    <path class="c-line" d="M20,30 L50,40 L70,60 L75,90 L70,120 L50,135" />
+    <circle class="c-main-star" cx="50" cy="40" r="2.8" />
+    <circle class="c-star" cx="20" cy="30" r="1.2" />
+  </svg>
+
+  <!-- 9. NHÂN MÃ -->
+  <svg class="constellation sagittarius" viewBox="0 0 120 100">
+    <path class="c-line" d="M20,50 L50,30 L80,40 L75,70 L45,75 L20,50" />
+    <circle class="c-main-star" cx="50" cy="30" r="2" />
+    <circle class="c-star" cx="80" cy="40" r="1.5" />
+  </svg>
+
+  <!-- 10. MA KẾT -->
+  <svg class="constellation capricorn" viewBox="0 0 120 80">
+    <path class="c-line" d="M10,20 L50,15 L100,30 L110,60 L70,75 L20,60 L10,20" />
+    <circle class="c-main-star" cx="10" cy="20" r="2" />
+    <circle class="c-star" cx="110" cy="60" r="1.2" />
+  </svg>
+
+  <!-- 11. BẢO BÌNH -->
+  <svg class="constellation aquarius" viewBox="0 0 150 100">
+    <path class="c-line" d="M10,40 L40,35 L60,50 L90,45 L130,60" />
+    <circle class="c-main-star" cx="40" cy="35" r="2" />
+    <circle class="c-main-star" cx="90" cy="45" r="2" />
+  </svg>
+
+  <!-- 12. SONG NGƯ -->
+  <svg class="constellation pisces" viewBox="0 0 150 150">
+    <path class="c-line" d="M20,20 L50,50 L100,100 L130,130" />
+    <circle class="c-main-star" cx="100" cy="100" r="2" />
+    <circle class="c-star" cx="20" cy="20" r="1.2" />
+  </svg>
+
+  <div class="stars-layer"></div>
+</div>
+    </div>
+  </div>
+
+  <div class="opt" id="opt" aria-label="Quick menu">
+    <button class="opt-toggle" id="optBtn" aria-label="Options" type="button">
+      <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/146141ca87df3a663bf7006af05083f308d47c8d/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png?raw=true" alt="Menu" draggable="false">
+    </button>
+
+    <a class="opt-item top-3" href="#layout-2" data-target="#layout-2">About Me</a>
+    <a class="opt-item top-2" href="#layout-3" data-target="#layout-3">My Project</a>
+    <a class="opt-item top-1" href="#layout-4" data-target="#layout-4">My Work</a>
+
+    <a class="opt-item bot-1" href="#layout-5" data-target="#layout-5">My Skill</a>
+    <a class="opt-item bot-2" href="#layout-6" data-target="#layout-6">My Cer</a>
+    <a class="opt-item bot-3" href="#layout-7" data-target="#layout-7">Contact</a>
+  </div>
+
+  <a href="#layout-1" class="btn-top" id="backTop" aria-label="Back to top">↑</a>
+
+  <div id="viewport">
+    <div id="stage-wrap">
+      <div id="stage">
+
+        <main>
+          <section class="section layout1" id="layout-1">
+
+            <div class="follio-float">
+              <div class="trace-on" aria-hidden="true">
+                <div class="trace-mask" style="--mask-url:url('https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Follio.png?raw=true');"></div>
+              </div>
+              <img class="asset text-img" style="--delay: 0ms;"
+                src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Follio.png?raw=true"
+                alt="FOLLIO" draggable="false" />
+            </div>
+
+            <div class="left-block">
+              <div class="port-title">
+                <div class="trace-on" aria-hidden="true">
+                  <div class="trace-mask" style="--mask-url:url('https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Porrt.png?raw=true');"></div>
+                </div>
+                <img class="asset text-img" style="--delay: 120ms;"
+                  src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Porrt.png?raw=true"
+                  alt="PORT" draggable="false" />
+              </div>
+
+              <div class="group">
+                <div class="card">
+                  <div class="trace-on trace-box" aria-hidden="true"></div>
+                  <img class="asset" style="--delay: 0ms;"
+                    src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/The%20reader.png?raw=true"
+                    alt="The Reader" draggable="false" />
+                </div>
+
+                <div class="card">
+                  <div class="trace-on trace-box" aria-hidden="true"></div>
+                  <img class="asset" style="--delay: 200ms;"
+                    src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Horoshope.png?raw=true"
+                    alt="Reader's Horoscope" draggable="false" />
+                </div>
+              </div>
+            </div>
+
+            <div class="right-block">
+              <div class="group">
+                <div class="card">
+                  <div class="trace-on trace-box" aria-hidden="true"></div>
+                  <img class="asset" style="--delay: 400ms;"
+                    src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Mar.png?raw=true"
+                    alt="Social Media Marketing" draggable="false" />
+                </div>
+
+                <div class="card">
+                  <div class="trace-on trace-box" aria-hidden="true"></div>
+                  <img class="asset" style="--delay: 600ms;"
+                    src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/BA.png?raw=true"
+                    alt="Business Analytics" draggable="false" />
+                </div>
+              </div>
+            </div>
+
+            <div class="center-figure">
+              <img class="asset figure-img"
+                src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png?raw=true"
+                alt="Minh Center Figure" draggable="false" />
+            </div>
+
+            <button id="theme-btn" aria-label="Toggle Theme">
+              <svg id="icon-water" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C16.9706 22 21 17.9706 21 13C21 10.3809 19.8804 8.02675 18.1064 6.32626C16.4883 4.77526 13.9113 2.50209 12.655 1.40141C12.28 1.07289 11.72 1.07289 11.345 1.40141C10.0887 2.50209 7.5117 4.77526 5.8936 6.32626C4.11964 8.02675 3 10.3809 3 13C3 17.9706 7.02944 22 12 22Z" />
+              </svg>
+              <svg id="icon-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+              </svg>
+            </button>
+          </section>
+
+          <section class="section layout2 reveal" id="layout-2">
+            <div class="stage">
+              <div class="piece p-person" style="--d: 0ms;">
+                <img
+                  data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png?raw=true"
+                  data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/ng%C6%B0%E1%BB%9Di.png?raw=true"
+                  src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png?raw=true"
+                  alt="About Me - Person" draggable="false" />
+              </div>
+
+              <div class="piece p-about" style="--d: 180ms;">
+                <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/About%20me.png?raw=true"
+                  alt="ABOUT ME" draggable="false" />
+              </div>
+
+              <div class="piece p-story is-clickable" style="--d: 260ms;">
+                <img
+                  data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png?raw=true"
+                  data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/Story.png?raw=true"
+                  src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png?raw=true"
+                  alt="MY STORY" draggable="false" />
+              </div>
+
+              <div class="piece p-day" style="--d: 300ms;">
+                <img
+                  data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/day.png?raw=true"
+                  data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/247.png?raw=true"
+                  src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/day.png?raw=true"
+                  alt="WORK 24/7" draggable="false" />
+              </div>
+
+              <div class="piece p-dob" style="--d: 320ms;">
+                <img
+                  data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/DOB_%2027.08.2005.png?raw=true"
+                  data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/DOB.png?raw=true"
+                  src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/DOB_%2027.08.2005.png?raw=true"
+                  alt="DOB 27.08.2005" draggable="false" />
+              </div>
+
+              <div class="piece p-workflow is-clickable" style="--d: 360ms;">
+                <img
+                  data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png?raw=true"
+                  data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/workflow.png?raw=true"
+                  src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png?raw=true"
+                  alt="MY WORKFLOW" draggable="false" />
+              </div>
+            </div>
+          </section>
+
+          <section class="section layout3 reveal" id="layout-3">
+            <div class="stage">
+              <div class="piece title-center" style="--d: 0ms;">
+                <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout3/Project.png?raw=true"
+                  alt="MY PROJECT" draggable="false" />
+              </div>
+
+              <div class="proj3-ui" aria-label="Projects">
+                <div class="proj3-tabs" role="tablist" aria-label="Project categories">
+                  <button class="proj3-tab is-active" type="button" data-tab="marketing" role="tab" aria-selected="true">Marketing</button>
+                  <button class="proj3-tab" type="button" data-tab="social" role="tab" aria-selected="false">Social Media</button>
+                  <button class="proj3-tab" type="button" data-tab="ba" role="tab" aria-selected="false">Business Analysis</button>
+                </div>
+
+                <div class="proj3-panel is-show" id="proj3-marketing" role="tabpanel" aria-label="Marketing projects">
+                  <div class="proj3-grid">
+                    <a class="proj3-card marketing-open" href="#"
+                       aria-label="Open Be marketing case"
+                       data-title="Be — Marketing case"
+                       data-base="https://github.com/nguyendangminh278-coder/portfolio/blob/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/Be/"
+                       data-max="30">
+                      <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/Be/1.png?raw=1"
+                           alt="Be — cover" loading="lazy" draggable="false" />
+                    </a>
+
+                    <a class="proj3-card marketing-open" href="#"
+                       aria-label="Open Marketing Arena"
+                       data-title="Marketing Arena"
+                       data-base="https://github.com/nguyendangminh278-coder/portfolio/blob/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/MARKETING%20AREANA/"
+                       data-max="30">
+                      <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/MARKETING%20AREANA/1.png?raw=1"
+                           alt="Marketing Arena — cover" loading="lazy" draggable="false" />
+                    </a>
+
+                    <a class="proj3-card marketing-open" href="#"
+                       aria-label="Open [BLM] CLOSEUP"
+                       data-title="[BLM] CLOSEUP"
+                       data-base="https://github.com/nguyendangminh278-coder/portfolio/blob/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/"
+                       data-max="30">
+                      <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/1.png?raw=1"
+                           alt="[BLM] CLOSEUP — cover" loading="lazy" draggable="false" />
+                    </a>
+                  </div>
+                </div>
+
+                <div class="proj3-panel" id="proj3-social" role="tabpanel" aria-label="Social Media projects">
+                  <div class="social-splits">
+                    <div class="social-block" aria-label="Facebook">
+                      <div class="social-head">Facebook</div>
+                      <div class="social-grid">
+                        <a class="proj3-card" href="https://www.facebook.com/danhgiatuduybkhntsa" target="_blank" rel="noopener" aria-label="Facebook page 1">
+                          <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/1.png?raw=1"
+                               alt="Facebook 1" loading="lazy" draggable="false">
+                        </a>
+
+                        <a class="proj3-card" href="https://www.facebook.com/groups/danhgiatuduyhust/" target="_blank" rel="noopener" aria-label="Facebook group">
+                          <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/2.png?raw=1"
+                               alt="Facebook 2" loading="lazy" draggable="false">
+                        </a>
+
+                        <a class="proj3-card" href="https://www.facebook.com/tailieuonthidanhgiatuduytsa" target="_blank" rel="noopener" aria-label="Facebook page 2">
+                          <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/3.png?raw=1"
+                               alt="Facebook 3" loading="lazy" draggable="false">
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="social-block" aria-label="TikTok">
+                      <div class="social-head">TikTok</div>
+                      <div class="social-grid">
+                        <a class="proj3-card fit-contain" href="https://www.tiktok.com/@gioitsakhongkho" target="_blank" rel="noopener" aria-label="TikTok">
+                          <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/4.png?raw=1"
+                               alt="TikTok" loading="lazy" draggable="false">
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="social-block" aria-label="YouTube">
+                      <div class="social-head">YouTube</div>
+                      <div class="social-grid">
+                        <a class="proj3-card fit-contain" href="https://www.youtube.com/@qlTSAonHSAEDUCATION" target="_blank" rel="noopener" aria-label="YouTube channel 1">
+                          <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/5.png?raw=1"
+                               alt="YouTube 1" loading="lazy" draggable="false">
+                        </a>
+
+                        <a class="proj3-card fit-contain" href="https://www.youtube.com/@danhgiatuduytsa" target="_blank" rel="noopener" aria-label="YouTube channel 2">
+                          <img src="https://github.com/nguyendangminh278-coder/portfolio/blob/69935af61fb549f6d4de8273c8f0711584024b88/%E1%BA%A2nh%20main/Project/Social%20Media/6.png?raw=1"
+                               alt="YouTube 2" loading="lazy" draggable="false">
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="proj3-panel" id="proj3-ba" role="tabpanel" aria-label="Business Analysis projects">
+                  <div class="proj3-grid">
+                    <a class="proj3-card" href="#" aria-label="Business Analysis project placeholder">
+                      <img src="https://dummyimage.com/1280x720/ffffff/001c55.png&text=Business+Analysis+Project" alt="BA project placeholder" loading="lazy" draggable="false">
+                    </a>
+                    <a class="proj3-card" href="#" aria-label="Business Analysis project placeholder">
+                      <img src="https://dummyimage.com/1280x720/ffffff/001c55.png&text=Business+Analysis+Project" alt="BA project placeholder" loading="lazy" draggable="false">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section layout4 reveal" id="layout-4">
+            <div class="stage">
+              <div class="piece title-center" style="--d: 0ms;">
+                <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/my%20work.png?raw=true"
+                  alt="MY WORK" draggable="false" />
+              </div>
+
+              <div class="piece work4-list is-clickable" style="--d: 180ms;">
+                <div class="work4-stack">
+                  <a class="work4-item" href="work.html" aria-label="HSA - view more detail">
+                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HSA%20EDU.png?raw=true"
+                      alt="HSA EDUCATION" loading="lazy" draggable="false" />
+                  </a>
+
+                  <a class="work4-item" href="work.html" aria-label="HOC IZ SCHOOL - view more detail">
+                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png?raw=true"
+                      alt="HOC IZ SCHOOL" loading="lazy" draggable="false" />
+                  </a>
+
+                  <a class="work4-item" href="work.html" aria-label="ABIT - view more detail">
+                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/ABIT.png?raw=true"
+                      alt="ABIT EDUCATION" loading="lazy" draggable="false" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section layout5 reveal" id="layout-5" data-page="1" data-debug="0">
+            <div class="stage">
+              <div class="l5-title" data-text="MY SKILLS">MY SKILLS</div>
+
+              <div class="l5-pages">
+                <div class="l5-page l5-page-2">
+                  <img class="l5-obj l5-person"
+                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/Ng%C6%B0%E1%BB%9Di.png"
+                       data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/Per5.2.png?raw=true"
+                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/Ng%C6%B0%E1%BB%9Di.png"
+                       alt="Person 5.2" loading="lazy" draggable="false" />
+
+                  <img class="l5-obj l5-box1"
+                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/LK.png"
+                       data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/LK.png?raw=true"
+                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/LK.png"
+                       alt="Leadership skill box" loading="lazy" draggable="false" />
+
+                  <img class="l5-obj l5-box2"
+                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/SK.png"
+                       data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/SK.png?raw=true"
+                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/SK.png"
+                       alt="Soft skill box" loading="lazy" draggable="false" />
+                </div>
+
+                <div class="l5-page l5-page-1">
+                  <img class="l5-obj l5-person"
+                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/ng%C6%B0%E1%BB%9Di.png"
+                       data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/fe880321bdaad3f5689786100401ea161eebfa1c/layout5/5.1%20darkmode/ng%C6%B0%E1%BB%9Di.png?raw=true"
+                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/ng%C6%B0%E1%BB%9Di.png"
+                       alt="Person 5.1" loading="lazy" draggable="false" />
+
+                  <img class="l5-obj l5-box1"
+                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/BA.png"
+                       data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/fe880321bdaad3f5689786100401ea161eebfa1c/layout5/5.1%20darkmode/BA.png?raw=true"
+                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/BA.png"
+                       alt="BA box" loading="lazy" draggable="false" />
+
+                  <img class="l5-obj l5-box2"
+                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/CT.png"
+                       data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/fe880321bdaad3f5689786100401ea161eebfa1c/layout5/5.1%20darkmode/Mar.png?raw=true"
+                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/CT.png"
+                       alt="Content Creator box" loading="lazy" draggable="false" />
+                </div>
+              </div>
+
+              <button class="l5-nav l5-btn-next" type="button" aria-label="Next" data-l5="next">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 18l6-6-6-6"></path>
+                </svg>
+              </button>
+
+              <button class="l5-nav l5-btn-prev" type="button" aria-label="Previous" data-l5="prev">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 18l-6-6 6-6"></path>
+                </svg>
+              </button>
+            </div>
+          </section>
+
+          <section class="section layout6 reveal" id="layout-6">
+            <div class="stage">
+              <div class="piece title-center" style="--d: 0ms;">
+                <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout6/Portlio/Cer.png?raw=true"
+                  alt="MY CERTIFICATE" draggable="false" />
+              </div>
+
+              <div class="cer6-wrap" aria-label="Certificates">
+                <div class="cer6-grid">
+                  <div class="cer6-card">
+                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png?raw=true"
+                      alt="Certificate Mistalent" loading="lazy" draggable="false" />
+                  </div>
+
+                  <div class="cer6-card">
+                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png?raw=true"
+                      alt="Certificate TM" loading="lazy" draggable="false" />
+                  </div>
+
+                  <div class="cer6-card">
+                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/MOS.png?raw=true"
+                      alt="Certificate MOS" loading="lazy" draggable="false" />
+                  </div>
+
+                  <div class="cer6-card" style="
+                      --move-x: -40px;
+                      --move-y: -510px;
+                      --scale-val: 0.8;
+
+                      grid-column: 3;
+                      transform: translate(var(--move-x), var(--move-y)) scale(var(--scale-val));
+                    ">
+                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg?raw=true"
+                      alt="New Certificate" loading="lazy" draggable="false" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section layout7 reveal" id="layout-7" data-debug="0">
+            <div class="stage">
+
+              <div class="piece p-title" style="--d: 0ms;">
+                <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout7/7.1/Contact%20me!.png?raw=true"
+                  alt="CONTACT ME!" draggable="false" />
+              </div>
+
+              <div class="piece p-withme is-clickable" style="--d: 160ms;">
+                <div class="wrap">
+                  <img
+                    data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/frame.png?raw=true"
+                    data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/Frame.png?raw=true"
+                    src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/frame.png?raw=true"
+                    alt="Work with me frame" draggable="false" />
+
+                  <div class="withme-overlay" aria-label="Work with me links">
+                    <div class="wm-link wm-static" aria-hidden="true">
+                      <img class="wm-img wm-title"
+                           data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/title.png?raw=true"
+                           data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/Workwithme.png?raw=true"
+                           src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/title.png?raw=true"
+                           alt="" draggable="false" />
+                    </div>
+
+                    <a class="wm-link" href="mailto:nguyendang.minh.2785@gmail.com" aria-label="Send email">
+                      <img class="wm-img wm-mail"
+                           data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/mail.png?raw=true"
+                           data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/mail.png?raw=true"
+                           src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/mail.png?raw=true"
+                           alt="" draggable="false" />
+                    </a>
+
+                    <div class="wm-phones" aria-label="Phone links">
+                      <a class="wm-link" href="https://zalo.me/0819472550" target="_blank" rel="noopener" aria-label="Zalo 0819472550">
+                        <img class="wm-img"
+                             data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/sdt1.png?raw=true"
+                             data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/sdt1.png?raw=true"
+                             src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/sdt1.png?raw=true"
+                             alt="" draggable="false" />
+                      </a>
+
+                      <a class="wm-link" href="https://zalo.me/0912421336" target="_blank" rel="noopener" aria-label="Zalo 0912421336">
+                        <img class="wm-img"
+                             data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/2d4b31b4fe6974839cca761caeb823a492a1aad8/layout7/7.2/sdt2.png?raw=true"
+                             data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/s%C4%91t%202.png?raw=true"
+                             src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/2d4b31b4fe6974839cca761caeb823a492a1aad8/layout7/7.2/sdt2.png?raw=true"
+                             alt="" draggable="false" />
+                      </a>
+                    </div>
+
+                    <a class="wm-link" href="https://www.linkedin.com/in/nguy%E1%BB%85n-%C4%91%C4%83ng-minh-428874286/" target="_blank" rel="noopener" aria-label="Open LinkedIn">
+                      <img class="wm-img wm-li"
+                           data-light-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/Linkedin.png?raw=true"
+                           data-dark-src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/linkein.png?raw=true"
+                           src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/Linkedin.png?raw=true"
+                           alt="" draggable="false" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="piece p-follow is-clickable" style="--d: 220ms;">
+                <div class="wrap">
+                  <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/Follow%20me.png?raw=true"
+                    alt="Follow me frame" draggable="false" />
+
+                  <div class="follow-overlay" aria-label="Follow links">
+                    <a class="follow-link" href="https://web.facebook.com/dminh2785" target="_blank" rel="noopener" aria-label="Open Facebook 1">
+                      <img class="follow-ico"
+                           src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/Fb1.png?raw=true"
+                           alt="" draggable="false" />
+                    </a>
+
+                    <a class="follow-link" href="https://www.instagram.com/rinteru_d/" target="_blank" rel="noopener" aria-label="Open Instagram">
+                      <img class="follow-ico"
+                           src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/insta.png?raw=true"
+                           alt="" draggable="false" />
+                    </a>
+
+                    <a class="follow-link" href="https://web.facebook.com/LiMiE.onthidaihoc" target="_blank" rel="noopener" aria-label="Open Facebook 2">
+                      <img class="follow-ico"
+                           src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/fb2.png?raw=true"
+                           alt="" draggable="false" />
+                    </a>
+
+                    <a class="follow-link" href="https://www.tiktok.com/@limiedemo1" target="_blank" rel="noopener" aria-label="Open TikTok">
+                      <img class="follow-ico"
+                           src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/tt.png?raw=true"
+                           alt="" draggable="false" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+        </main>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="viewer" id="viewer" aria-hidden="true">
+    <div class="viewer-backdrop" id="viewerClose"></div>
+    <div class="viewer-panel" role="dialog" aria-modal="true" aria-label="Marketing project viewer">
+      <div class="viewer-head">
+        <span id="viewerTitle">Project</span>
+        <button class="vbtn" id="viewerBack" type="button">Back</button>
+      </div>
+      <div class="viewer-body">
+        <img id="viewerImg" class="viewer-img" src="" alt="Slide">
+      </div>
+      <div class="viewer-foot">
+        <button class="vbtn" id="prevBtn" type="button">Prev</button>
+        <span class="viewer-count" id="viewerCount">0 / 0</span>
+        <button class="vbtn" id="nextBtn" type="button">Next</button>
+        <button class="vbtn" id="closeBtn" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script id="fixed-canvas-js">
+  (function(){
+    const BASE_W = 1920;
+    const BASE_H = 1080;
+
+    const viewport = document.getElementById('viewport');
+    const wrap = document.getElementById('stage-wrap');
+    const stage = document.getElementById('stage');
+    if (!viewport || !wrap || !stage) return;
+
+    let raf = 0;
+    let t = 0;
+
+    function getStageContentHeight(){
+      const secs = stage.querySelectorAll('.section');
+      let maxBottom = 0;
+
+      secs.forEach(sec=>{
+        const cs = getComputedStyle(sec);
+        const mb = parseFloat(cs.marginBottom) || 0;
+        const bottom = sec.offsetTop + sec.offsetHeight + mb;
+        if (bottom > maxBottom) maxBottom = bottom;
+      });
+
+      if (!secs.length) maxBottom = stage.scrollHeight || BASE_H;
+      return Math.max(maxBottom, BASE_H);
+    }
+
+    function applyScale(){
+      raf = 0;
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      const s = Math.min(vw / BASE_W, vh / BASE_H);
+      stage.style.transform = `scale(${s})`;
+
+      const stageH = getStageContentHeight();
+
+      wrap.style.width = (BASE_W * s) + 'px';
+      wrap.style.height = (stageH * s) + 'px';
+
+      const scaledH = stageH * s;
+      const padY = Math.max(0, (vh - scaledH) / 2);
+      wrap.style.marginTop = padY + 'px';
+      wrap.style.marginBottom = padY + 'px';
+    }
+
+    function schedule(){
+      if (raf) return;
+      raf = requestAnimationFrame(applyScale);
+    }
+
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(schedule, 40);
+    });
+
+    window.addEventListener('load', schedule);
+    document.addEventListener('DOMContentLoaded', schedule);
+
+    const ro = new ResizeObserver(schedule);
+    ro.observe(stage);
+
+    schedule();
+  })();
+  </script>
+
+  <script id="theme-js">
+  (function(){
+    const themeBtn = document.getElementById('theme-btn');
+    const body = document.body;
+    const overlay = document.getElementById('transition-overlay');
+    const meteorWrap = document.getElementById('meteorWrap');
+    const meteorCanvas = document.getElementById('meteorCanvas');
+    let meteorRAF = 0;
+    let transitionBusy = false;
+
+    function applyThemeAssets(){
+      const isDark = body.classList.contains('star-mode');
+      document.querySelectorAll('img[data-dark-src]').forEach(img=>{
+        const light = img.getAttribute('data-light-src');
+        const dark  = img.getAttribute('data-dark-src');
+        const target = isDark ? dark : light;
+        if (target && img.getAttribute('src') !== target){
+          img.setAttribute('src', target);
+        }
+      });
+    }
+
+    function clearMeteors(){
+      if (meteorRAF) {
+        cancelAnimationFrame(meteorRAF);
+        meteorRAF = 0;
+      }
+      if (meteorWrap) meteorWrap.innerHTML = '';
+      if (meteorCanvas) {
+        const ctx = meteorCanvas.getContext('2d');
+        if (ctx) {
+          ctx.setTransform(1,0,0,1,0,0);
+          ctx.clearRect(0, 0, meteorCanvas.width, meteorCanvas.height);
+        }
+      }
+    }
+
+    function spawnBubbles(count, durationMs){
+      clearMeteors();
+      if (!meteorCanvas) return;
+
+      const ctx = meteorCanvas.getContext("2d");
+      if (!ctx) return;
+
+      const w = window.innerWidth, h = window.innerHeight;
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      meteorCanvas.width  = Math.floor(w * dpr);
+      meteorCanvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const bubbles = Array.from({length: count}, () => ({
+        x: Math.random() * w,
+        y: -50 - Math.random() * h,
+        r: 5 + Math.random() * 25,
+        vy: 200 + Math.random() * 400,
+        opacity: 0.4 + Math.random() * 0.4
+      }));
+
+      const t0 = performance.now();
+      let last = t0;
+
+      function frame(now){
+        const elapsed = now - t0;
+        const dt = Math.min(0.05, (now - last) / 1000); // seconds
+        last = now;
+
+        ctx.clearRect(0, 0, w, h);
+
+        for (const b of bubbles){
+          b.y += b.vy * dt;
+          ctx.beginPath();
+          ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+
+          // pastel blue water bubble
+          const alpha = b.opacity;
+          const grad = ctx.createRadialGradient(b.x - b.r*0.3, b.y - b.r*0.3, b.r*0.2, b.x, b.y, b.r);
+          grad.addColorStop(0, `rgba(255,255,255,${Math.min(0.95, alpha + 0.35)})`);
+          grad.addColorStop(0.35, `rgba(210,240,255,${alpha})`);
+          grad.addColorStop(1, `rgba(160,210,255,0)`);
+
+          ctx.fillStyle = grad;
+          ctx.fill();
+
+          if (b.y > h + 60) b.y = -60;
         }
 
-        // BẮT ĐẦU: Ẩn overlay -> Hiện Skip -> Mở tiếng -> Chạy video
-        startBtn.addEventListener('click', () => {
-            overlay.style.display = 'none'; 
-            skipBtn.style.display = 'block'; 
-            
-            video.muted = false; // Bật tiếng
-            video.play().catch(e => {
-                console.log("Lỗi: " + e);
+        if (elapsed < durationMs + 1000) {
+          meteorRAF = requestAnimationFrame(frame);
+        } else {
+          ctx.clearRect(0, 0, w, h);
+        }
+      }
+      meteorRAF = requestAnimationFrame(frame);
+    }
+
+    function spawnMeteors(count, durationMs){
+      clearMeteors();
+      if (!meteorWrap) return;
+
+      const w = window.innerWidth, h = window.innerHeight;
+      const diag = Math.hypot(w, h);
+      const frag = document.createDocumentFragment();
+
+      for (let i = 0; i < count; i++) {
+        const m = document.createElement('div');
+        m.className = 'meteor';
+
+        // Cover top-left as well: wide start band
+        const sx = (Math.random() * w * 1.5) - (w * 0.3);
+        const sy = (Math.random() * h * 0.6) - (h * 0.4);
+
+        const travel = diag * (1.1 + Math.random() * 0.5);
+        const dx = sx - travel;
+        const dy = sy + travel;
+
+        const dur = 800 + Math.random() * 600;
+        const delay = durationMs > 0 ? Math.random() * Math.max(0, (durationMs - 400)) : 0;
+
+        m.style.setProperty('--sx', sx + 'px');
+        m.style.setProperty('--sy', sy + 'px');
+        m.style.setProperty('--dx', dx + 'px');
+        m.style.setProperty('--dy', dy + 'px');
+        m.style.setProperty('--meteor-dur', dur + 'ms');
+        m.style.animationDelay = delay + 'ms';
+
+        frag.appendChild(m);
+      }
+      meteorWrap.appendChild(frag);
+
+      // Clean DOM meteors after the wave passes
+      setTimeout(() => {
+        if (meteorWrap) meteorWrap.innerHTML = '';
+      }, Math.max(600, durationMs + 450));
+    }
+
+    if (!themeBtn || !overlay) return;
+
+    themeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (transitionBusy) return;
+      transitionBusy = true;
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const DURATION = prefersReduced ? 0 : 2000;
+      const FADE_OUT = prefersReduced ? 0 : 800;
+
+      const goingToDark = !body.classList.contains('star-mode');
+
+      // Show overlay instantly
+      overlay.style.transition = 'none';
+      overlay.style.opacity = '1';
+      overlay.classList.add('active');
+
+      if (!prefersReduced) {
+        if (goingToDark) {
+          spawnMeteors(150, DURATION);
+        } else {
+          spawnBubbles(80, DURATION);
+        }
+      }
+
+      const blendClass = goingToDark ? 'blend-to-star' : 'blend-to-ocean';
+      body.classList.add('theme-blending', blendClass);
+
+      const t0 = performance.now();
+      const tick = (now) => {
+        const p = DURATION ? Math.min(1, (now - t0) / DURATION) : 1;
+        body.style.setProperty('--theme-blend', String(p));
+
+        if (p < 1) {
+          requestAnimationFrame(tick);
+          return;
+        }
+
+        // Theme swapped
+        if (goingToDark) {
+          body.classList.add('star-mode');
+          body.classList.remove('ocean-mode');
+        } else {
+          body.classList.remove('star-mode');
+          body.classList.add('ocean-mode');
+        }
+        applyThemeAssets();
+
+        // Remove blending helpers
+        body.classList.remove('theme-blending', 'blend-to-star', 'blend-to-ocean');
+        body.style.removeProperty('--theme-blend');
+
+        // Fade overlay out smoothly (instead of disappearing instantly)
+        if (FADE_OUT) {
+          overlay.style.transition = `opacity ${FADE_OUT}ms ease`;
+          overlay.style.opacity = '0';
+
+          setTimeout(() => {
+            overlay.classList.remove('active');
+            clearMeteors();
+            transitionBusy = false;
+          }, FADE_OUT);
+        } else {
+          overlay.style.opacity = '0';
+          overlay.classList.remove('active');
+          clearMeteors();
+          transitionBusy = false;
+        }
+      };
+      requestAnimationFrame(tick);
+    });
+
+    // Ensure assets match initial mode
+    applyThemeAssets();
+  })();
+  </script>
+
+  <script id="base-js">
+    (function(){
+      const viewport = document.getElementById('viewport');
+      const revealSections = document.querySelectorAll('#stage .section.reveal');
+      if (!revealSections.length) return;
+
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('inview');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.35, root: viewport || null });
+
+      revealSections.forEach(sec => io.observe(sec));
+    })();
+
+    (function(){
+      const opt = document.getElementById('opt');
+      const optBtn = document.getElementById('optBtn');
+      if (!opt || !optBtn) return;
+
+      optBtn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        opt.classList.toggle('open');
+
+        optBtn.classList.remove('spin');
+        void optBtn.offsetWidth;
+        optBtn.classList.add('spin');
+      });
+
+      opt.querySelectorAll('.opt-item').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetSel = a.getAttribute('data-target') || a.getAttribute('href');
+          const target = targetSel ? document.querySelector(targetSel) : null;
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          opt.classList.remove('open');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!opt.contains(e.target)) opt.classList.remove('open');
+      });
+    })();
+
+    (function(){
+      const viewport = document.getElementById('viewport');
+      const topBtn = document.getElementById('backTop');
+      if (!viewport || !topBtn) return;
+
+      const onScroll = () => {
+        topBtn.classList.toggle('show', viewport.scrollTop > 500);
+      };
+      viewport.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      topBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('#layout-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    })();
+  </script>
+
+  <script id="layout1-js">
+    function parseMs(v, fallback){
+      const n = parseInt(String(v).trim(), 10);
+      return Number.isFinite(n) ? n : fallback;
+    }
+
+    window.addEventListener('load', () => {
+      const root = getComputedStyle(document.documentElement);
+      const tCards = parseMs(root.getPropertyValue('--t-cards'), 1500);
+      const tText  = parseMs(root.getPropertyValue('--t-text'), 1000);
+
+      const layout1 = document.querySelector('.layout1');
+      if (!layout1) return;
+
+      requestAnimationFrame(() => {
+        layout1.classList.add('phase-cards');
+      });
+
+      setTimeout(() => layout1.classList.add('phase-text'),  tCards);
+      setTimeout(() => layout1.classList.add('phase-figure'), tCards + tText);
+    });
+  </script>
+
+  <script id="layout2-js">
+    (function(){
+      const story = document.querySelector('.layout2 .p-story');
+      const workflow = document.querySelector('.layout2 .p-workflow');
+
+      if (story) story.addEventListener('click', () => { window.location.href = 'story.html'; });
+      if (workflow) workflow.addEventListener('click', () => { window.location.href = 'workflow.html'; });
+    })();
+  </script>
+
+  <script id="layout3-tabs-js">
+    (function(){
+      const tabs = Array.from(document.querySelectorAll('.proj3-tab'));
+      if (!tabs.length) return;
+
+      const panels = {
+        marketing: document.getElementById('proj3-marketing'),
+        social: document.getElementById('proj3-social'),
+        ba: document.getElementById('proj3-ba')
+      };
+
+      function setTab(key){
+        tabs.forEach(t=>{
+          const active = t.dataset.tab === key;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        Object.values(panels).forEach(p=>p && p.classList.remove('is-show'));
+        panels[key] && panels[key].classList.add('is-show');
+      }
+
+      tabs.forEach(btn=>{
+        btn.addEventListener('click', ()=> setTab(btn.dataset.tab));
+      });
+
+      setTab('marketing');
+    })();
+  </script>
+
+  <script id="layout3-viewer-js">
+    (function(){
+      const viewer = document.getElementById('viewer');
+      const viewerImg = document.getElementById('viewerImg');
+      const viewerTitle = document.getElementById('viewerTitle');
+      const viewerCount = document.getElementById('viewerCount');
+
+      const closeBtn = document.getElementById('closeBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const viewerBack = document.getElementById('viewerBack');
+      const viewerClose = document.getElementById('viewerClose');
+
+      const viewport = document.getElementById('viewport');
+      let prevOverflow = '';
+
+      if (!viewer || !viewerImg || !viewerTitle || !viewerCount) return;
+
+      let slides = [];
+      let idx = 0;
+
+      function renderSlide(){
+        if (!slides.length){
+          viewerImg.alt = 'No image found';
+          viewerImg.src = '';
+          viewerCount.textContent = '0 / 0';
+          return;
+        }
+        viewerImg.src = slides[idx];
+        viewerCount.textContent = (idx + 1) + ' / ' + slides.length;
+      }
+
+      function openViewer(title, baseURL, maxN){
+        viewerTitle.textContent = title || 'Project';
+        slides = [];
+        idx = 0;
+
+        const maxTry = parseInt(maxN, 10) || 30;
+
+        for (let i = 1; i <= maxTry; i++){
+          const url = `${baseURL}${i}.png?raw=1`;
+          const img = new Image();
+          img.onload = () => {
+            slides.push(url);
+            slides.sort((a,b)=>{
+              const na = parseInt((a.match(/\/(\d+)\.png\?/i)||[])[1]||'0',10);
+              const nb = parseInt((b.match(/\/(\d+)\.png\?/i)||[])[1]||'0',10);
+              return na - nb;
             });
-        });
+            renderSlide();
+          };
+          img.onerror = () => {};
+          img.src = url;
+        }
 
-        // BẤM SKIP
-        skipBtn.addEventListener('click', () => {
-            goToMainPage();
-        });
+        viewer.classList.add('is-open');
+        if (viewport){
+          prevOverflow = viewport.style.overflow;
+          viewport.style.overflow = 'hidden';
+        }
+      }
 
-        // HẾT VIDEO
-        video.onended = function() {
-            goToMainPage();
-        };
-    </script>
+      function closeViewer(){
+        viewer.classList.remove('is-open');
+        if (viewport){
+          viewport.style.overflow = prevOverflow || '';
+        }
+        slides = [];
+        idx = 0;
+        viewerImg.src = '';
+        viewerCount.textContent = '0 / 0';
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', ()=>{
+        if (!slides.length) return;
+        idx = (idx - 1 + slides.length) % slides.length;
+        renderSlide();
+      });
+
+      if (nextBtn) nextBtn.addEventListener('click', ()=>{
+        if (!slides.length) return;
+        idx = (idx + 1) % slides.length;
+        renderSlide();
+      });
+
+      [closeBtn, viewerBack, viewerClose].forEach(el=>{
+        if (!el) return;
+        el.addEventListener('click', closeViewer);
+      });
+
+      document.addEventListener('keydown', (e)=>{
+        if (!viewer.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeViewer();
+        if (e.key === 'ArrowLeft' && prevBtn) prevBtn.click();
+        if (e.key === 'ArrowRight' && nextBtn) nextBtn.click();
+      });
+
+      document.querySelectorAll('.marketing-open').forEach(card=>{
+        card.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const title = card.getAttribute('data-title') || 'Project';
+          const base  = card.getAttribute('data-base');
+          const max   = card.getAttribute('data-max') || '30';
+          if (!base) return;
+          openViewer(title, base, max);
+        });
+      });
+    })();
+  </script>
+
+  <script id="layout5-js">
+    (function(){
+      const root = document.getElementById('layout-5');
+      if(!root) return;
+
+      const btnNext = root.querySelector('[data-l5="next"]');
+      const btnPrev = root.querySelector('[data-l5="prev"]');
+
+      const setPage = (n) => { root.dataset.page = String(n); };
+
+      btnNext && btnNext.addEventListener('click', () => setPage(2));
+      btnPrev && btnPrev.addEventListener('click', () => setPage(1));
+    })();
+  </script>
+
 </body>
 </html>
