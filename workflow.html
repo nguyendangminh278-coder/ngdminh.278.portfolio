@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Workflow — Portfolio</title>
+
+  <title>Dang Minh Workflow in Work</title>
+
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
 
   <link rel="stylesheet" href="styles.css" />
 
@@ -198,7 +202,7 @@
 
       document.querySelectorAll('.wj-hotspot').forEach(a => {
         a.addEventListener('click', function (e) {
-          if (prefersReduced) return; // normal navigation
+          if (prefersReduced) return;
           e.preventDefault();
           warp.classList.add('is-on');
           setTimeout(() => { window.location.href = this.href; }, 620);
