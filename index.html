@@ -708,8 +708,9 @@ body.star-mode {
 
     .opt-item{
       position: absolute;
-      left: 50%;
-      transform: translate(-50%, 0) scale(.92);
+      left: auto;
+      right: calc(100% + 10px);
+      transform: translate(0, 0) scale(.92);
 
       min-width: min(calc(150px * var(--menu-scale)), 72vw);
       max-width: 72vw;
@@ -748,7 +749,7 @@ body.star-mode {
       color: #fff;
       border-color: var(--menu-ink);
     }
-    .opt-item:active{ transform: translate(-50%, 0) scale(.98); }
+    .opt-item:active{ transform: translate(0, 0) scale(.98); }
 
     .opt-item.top-1{ top: calc(-1 * var(--menu-step)); }
     .opt-item.top-2{ top: calc(-2 * var(--menu-step)); }
@@ -761,7 +762,7 @@ body.star-mode {
     .opt.open .opt-item{
       opacity: 1;
       pointer-events: auto;
-      transform: translate(-50%, 0) scale(1);
+      transform: translate(0, 0) scale(1);
     }
 
     /* Back to top button */
@@ -1836,6 +1837,39 @@ body.star-mode {
     }
     .layout7 .wm-link:active{ transform: translate(0,0); }
 
+    /* Text links for extra websites in Contact Me */
+    .layout7 .wm-text{
+      width: 100%;
+      justify-content: center;
+      font-weight: 900;
+      font-size: clamp(12px, 1.6vh, 14px);
+      color: var(--menu-ink);
+      border: 2px solid var(--menu-ink);
+      box-shadow: 4px 4px 0 0 var(--menu-ink);
+      background: rgba(255,255,255,0.85);
+      padding: 8px 10px;
+    }
+    body.star-mode .layout7 .wm-text{
+      background: rgba(11,16,38,0.65);
+    }
+
+    /* Place website buttons below the Work-with-me frame */
+    .layout7 .wm-sites{
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, 12px);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      pointer-events: auto;
+    }
+    .layout7 .wm-sites .wm-text{
+      width: min(92%, 520px);
+    }
+
     .layout7 .wm-static,
     .layout7 .wm-static:hover,
     .layout7 .wm-static:active{
@@ -2449,6 +2483,7 @@ body.star-mode {
                       <img src="https://dummyimage.com/1280x720/ffffff/001c55.png&text=Business+Analysis+Project" alt="BA project placeholder" loading="lazy" draggable="false">
                     </a>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -2640,7 +2675,19 @@ body.star-mode {
                            src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/Linkedin.png?raw=true"
                            alt="" draggable="false" />
                     </a>
+
                   </div>
+
+                  <div class="wm-sites" aria-label="My websites">
+                    <a class="wm-link wm-text" href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/" target="_blank" rel="noopener" aria-label="Open astrology website">
+                      Trang web tử vi
+                    </a>
+
+                    <a class="wm-link wm-text" href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ" target="_blank" rel="noopener" aria-label="Open Prompt and HTML collection">
+                      Prompt &amp; HTML collection
+                    </a>
+                  </div>
+
                 </div>
               </div>
 
