@@ -611,6 +611,13 @@ body.star-mode {
       --l7-follow-w: 25%;
       --l7-follow-scale: 1;
 
+
+
+      --l7-sites-r: clamp(6px, 1.2vw, 18px);
+      --l7-sites-y: 52%;
+      --l7-sites-w: clamp(200px, 13vw, 232px);
+      --l7-sites-scale: 1;
+
       --l7-follow-pad-top: 26%;
       --l7-follow-pad-lr: 14%;
       --l7-follow-pad-bot: 12%;
@@ -1453,8 +1460,8 @@ body.star-mode {
 
       --l5-bg: transparent;
       --l5-stage-max: 1600px;
-      --l5-nav-size: 46px;
-      --l5-nav-right: 18px;
+      --l5-nav-size: 72px;
+      --l5-nav-right: 24px;
       --l5-nav-y: 56%;
       --l5-transition: 420ms;
 
@@ -1483,6 +1490,23 @@ body.star-mode {
     body.star-mode .layout5 .l5-title{
       text-shadow: var(--led-text-glow);
     }
+
+    /* Star-mode: keep nav buttons readable on dark background */
+    body.star-mode .layout5 .l5-nav{
+      border-color: rgba(0, 242, 255, 0.78);
+      background: rgba(11, 16, 38, 0.66);
+      color: rgba(0, 242, 255, 0.95);
+      box-shadow:
+        0 0 0 2px rgba(0, 242, 255, 0.14),
+        0 14px 34px rgba(0,0,0,.55);
+    }
+    body.star-mode .layout5 .l5-nav:hover{
+      background: rgba(11, 16, 38, 0.82);
+      box-shadow:
+        0 0 0 2px rgba(0, 242, 255, 0.18),
+        0 18px 42px rgba(0,0,0,.62);
+    }
+
 
 
     /* (Reveal) make Layout 5 fade-in like other layouts */
@@ -1646,20 +1670,35 @@ body.star-mode {
       width: var(--l5-nav-size);
       height: var(--l5-nav-size);
       border-radius: 999px;
-      border: 2px solid rgba(15,46,79,.35);
-      background: rgba(255,255,255,.85);
-      backdrop-filter: blur(6px);
+
+      /* Bigger + clearer (Skill navigation) */
+      border: 3px solid rgba(15,46,79,.62);
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(8px);
+
+      color: var(--navy);
+      box-shadow: 0 10px 26px rgba(0,0,0,.16);
+
       cursor: pointer;
       z-index: 50;
       display:grid;
       place-items:center;
-      transition: transform 150ms ease, background 150ms ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+
+      transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
     }
-    .layout5 .l5-nav:hover{ transform: translateY(-50%) scale(1.06); background:#fff; }
-    .layout5 .l5-nav svg{ width: 18px; height: 18px; }
+    .layout5 .l5-nav:hover{ transform: translateY(-50%) scale(1.08); background:#fff; box-shadow: 0 14px 34px rgba(0,0,0,.20); }
+    .layout5 .l5-nav:active{ transform: translateY(-50%) scale(0.98); }
+    .layout5 .l5-nav:focus-visible{
+      outline: 4px solid rgba(0, 170, 255, .35);
+      outline-offset: 3px;
+    }
+    .layout5 .l5-nav svg{ width: 26px; height: 26px; }
+
 
     .layout5 .l5-btn-next{ right: var(--l5-nav-right); }
-    .layout5 .l5-btn-prev{ left:  18px; }
+    .layout5 .l5-btn-prev{ left:  var(--l5-nav-right); }
 
     .layout5[data-page="1"] .l5-btn-prev{ display:none; }
     .layout5[data-page="2"] .l5-btn-next{ display:none; }
@@ -1676,7 +1715,7 @@ body.star-mode {
       --cer6-title-scale: 0.62;
       --cer6-title-top: clamp(6px, 2vh, 18px);
 
-      --cer6-wrap-top: 22vh;
+      --cer6-wrap-top: 18vh;
       --cer6-wrap-w: min(1500px, 94vw);
 
       --cer6-gap: 18px;
@@ -1721,7 +1760,7 @@ body.star-mode {
     .layout6 .cer6-grid{
       display:grid;
       gap: var(--cer6-gap);
-      grid-template-columns: repeat(3, minmax(260px, 1fr));
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
       align-items: start;
     }
     @media (max-width: 980px){
@@ -1737,20 +1776,89 @@ body.star-mode {
 
       padding: var(--cer6-card-pad);
 
+      height: clamp(220px, 34vh, 380px);
+      min-height: 0;
+
       display:flex;
       align-items:center;
       justify-content:center;
     }
 
     .layout6 .cer6-card img{
+      width: 100%;
+      height: 100%;
       max-width: 100%;
-      height: auto;
-      width: auto;
+      max-height: 100%;
       display:block;
       object-fit: contain;
       pointer-events:none;
       -webkit-user-drag:none;
     }
+
+    /* Replace MOS with 2 IMAGE thumbnails (JPG) */
+    .layout6 .cer6-card--duo{
+      display:block;
+      padding: 14px;
+      height: clamp(220px, 34vh, 380px);
+      min-height: 0;
+    }
+    .layout6 .cer6-duo{
+      width: 100%;
+      height: 100%;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+    @media (max-width: 980px){
+      .layout6 .cer6-duo{ grid-template-columns: 1fr; }
+    }
+
+    .layout6 .cer6-thumb{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      aspect-ratio: auto;
+      border-radius: 14px;
+      overflow:hidden;
+      background: #f6f7fb;
+      border: 2px solid rgba(15,46,79,.16);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    body.star-mode .layout6 .cer6-thumb{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(0, 242, 255, .18);
+    }
+    .layout6 .cer6-thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display:block;
+      pointer-events:none;
+      -webkit-user-drag:none;
+    }
+
+    .layout6 .cer6-open{
+      position:absolute;
+      right: 10px;
+      bottom: 10px;
+      z-index: 3;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      background: rgba(15,46,79,.92);
+      color: #fff;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 10px 22px rgba(0,0,0,.22);
+      transition: transform 140ms ease, filter 140ms ease;
+    }
+    .layout6 .cer6-open:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+
   </style>
 
   <style id="layout7-css">
@@ -1800,6 +1908,119 @@ body.star-mode {
       transform: scale(var(--l7-follow-scale));
       transform-origin: left top;
       z-index: 41;
+    }
+
+
+
+    .layout7 .p-sites{
+      right: var(--l7-sites-r);
+      top:  var(--l7-sites-y);
+      width: var(--l7-sites-w);
+      transform: scale(var(--l7-sites-scale));
+      transform-origin: right top;
+      z-index: 42;
+    }
+
+    .layout7 .sites-card{
+      pointer-events:auto;
+      border: 3px solid var(--menu-ink);
+      box-shadow: 8px 8px 0 0 var(--menu-ink);
+      border-radius: 26px;
+      background: rgba(255,255,255,0.90);
+      padding: 16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      backdrop-filter: blur(4px);
+    }
+    body.star-mode .layout7 .sites-card{
+      background: rgba(11,16,38,0.68);
+    }
+
+    .layout7 .sites-title{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      font-weight: 1000;
+      font-size: clamp(18px, 2.6vh, 24px);
+      letter-spacing: .6px;
+      color: var(--menu-ink);
+      text-transform: uppercase;
+      line-height: 1;
+      padding: 2px 0 6px;
+    }
+
+    .layout7 .sites-badge{
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      border: 2px solid var(--menu-ink);
+      box-shadow: 4px 4px 0 0 var(--menu-ink);
+      background: rgba(255,255,255,0.82);
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+    }
+    body.star-mode .layout7 .sites-badge{
+      background: rgba(255,255,255,0.12);
+    }
+    .layout7 .sites-badge svg{ width: 22px; height: 22px; }
+
+    .layout7 .site-btn{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border: 2px solid var(--menu-ink);
+      box-shadow: 5px 5px 0 0 var(--menu-ink);
+      background: rgba(255,255,255,0.88);
+      color: var(--menu-ink);
+      text-decoration:none;
+      font-weight: 950;
+      font-size: clamp(14px, 2.1vh, 18px);
+      letter-spacing: .2px;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, background-color .18s ease, filter .18s ease;
+      line-height: 1.15;
+    }
+    body.star-mode .layout7 .site-btn{
+      background: rgba(255,255,255,0.10);
+    }
+    .layout7 .site-btn:hover{
+      transform: translate(-2px,-2px);
+      background: rgba(0,0,0,0.05);
+      filter: brightness(1.02);
+    }
+    .layout7 .site-btn:active{ transform: translate(0,0); }
+
+    .layout7 .site-ico{
+      width: 26px;
+      height: 26px;
+      flex: 0 0 auto;
+    }
+    .layout7 .site-text{ display:block; }
+    .layout7 .site-arrow{
+      margin-left: auto;
+      font-size: 18px;
+      font-weight: 1000;
+      opacity: .9;
+    }
+
+    @media (max-width: 980px){
+      .layout7 .p-sites{
+        left: 50%;
+        right: auto;
+        top: 86%;
+        width: min(92%, 560px);
+        transform: translateX(-50%) scale(1);
+        transform-origin: center top;
+      }
+      .layout7 .sites-title{
+        font-size: clamp(16px, 2.4vh, 22px);
+      }
     }
 
     .layout7 .wrap{ position: relative; width: 100%; }
@@ -2021,6 +2242,11 @@ body.star-mode {
       --l7-withme-row-gap: clamp(10px, calc(1.8 * var(--vh)), 18px);
 
       --l7-follow-icon: clamp(300px, calc(7 * var(--vw)), 1000px);
+
+
+      --l7-sites-r: clamp(6px, calc(1.2 * var(--vw)), 18px);
+      --l7-sites-w: clamp(200px, calc(13 * var(--vw)), 232px);
+
     }
 
     #stage .title-center{
@@ -2091,7 +2317,11 @@ body.star-mode {
       grid-template-columns: repeat(3, minmax(240px, 1fr)) !important;
     }
     #stage .layout6 .cer6-grid{
-      grid-template-columns: repeat(3, minmax(260px, 1fr)) !important;
+      grid-template-columns: repeat(2, minmax(260px, 1fr)) !important;
+    }
+
+    @media (max-width: 980px){
+      #stage .layout6 .cer6-grid{ grid-template-columns: 1fr !important; }
     }
 
     #stage .layout4 .work4-list{
@@ -2111,7 +2341,7 @@ body.star-mode {
 
     #stage .layout6{
       --cer6-title-top: clamp(6px, calc(2 * var(--vh)), 18px);
-      --cer6-wrap-top:  calc(22 * var(--vh));
+      --cer6-wrap-top:  calc(18 * var(--vh));
       --cer6-wrap-w:    min(1500px, calc(94 * var(--vw)));
     }
   </style>
@@ -2564,13 +2794,13 @@ body.star-mode {
               </div>
 
               <button class="l5-nav l5-btn-next" type="button" aria-label="Next" data-l5="next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                   <path d="M9 18l6-6-6-6"></path>
                 </svg>
               </button>
 
               <button class="l5-nav l5-btn-prev" type="button" aria-label="Previous" data-l5="prev">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                   <path d="M15 18l-6-6 6-6"></path>
                 </svg>
               </button>
@@ -2580,36 +2810,37 @@ body.star-mode {
           <section class="section layout6 reveal" id="layout-6">
             <div class="stage">
               <div class="piece title-center" style="--d: 0ms;">
-                <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout6/Portlio/Cer.png?raw=true"
+                <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout6/Portlio/Cer.png"
                   alt="MY CERTIFICATE" draggable="false" />
               </div>
 
               <div class="cer6-wrap" aria-label="Certificates">
                 <div class="cer6-grid">
                   <div class="cer6-card">
-                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png?raw=true"
+                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png"
                       alt="Certificate Mistalent" loading="lazy" draggable="false" />
                   </div>
 
                   <div class="cer6-card">
-                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png?raw=true"
+                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png"
                       alt="Certificate TM" loading="lazy" draggable="false" />
                   </div>
 
-                  <div class="cer6-card">
-                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/MOS.png?raw=true"
-                      alt="Certificate MOS" loading="lazy" draggable="false" />
+                  <div class="cer6-card cer6-card--duo">
+                    <div class="cer6-duo" aria-label="MOS results">
+                      <div class="cer6-thumb">
+                        <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg" alt="MOS Result 1" loading="lazy" draggable="false" />
+                        <a class="cer6-open" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg" target="_blank" rel="noopener">Open</a>
+                      </div>
+                      <div class="cer6-thumb">
+                        <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg" alt="MOS Result 2" loading="lazy" draggable="false" />
+                        <a class="cer6-open" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg" target="_blank" rel="noopener">Open</a>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="cer6-card" style="
-                      --move-x: -40px;
-                      --move-y: -510px;
-                      --scale-val: 0.8;
-
-                      grid-column: 3;
-                      transform: translate(var(--move-x), var(--move-y)) scale(var(--scale-val));
-                    ">
-                    <img src="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg?raw=true"
+                  <div class="cer6-card">
+                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg"
                       alt="New Certificate" loading="lazy" draggable="false" />
                   </div>
                 </div>
@@ -2677,17 +2908,6 @@ body.star-mode {
                     </a>
 
                   </div>
-
-                  <div class="wm-sites" aria-label="My websites">
-                    <a class="wm-link wm-text" href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/" target="_blank" rel="noopener" aria-label="Open astrology website">
-                      Trang web tử vi
-                    </a>
-
-                    <a class="wm-link wm-text" href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ" target="_blank" rel="noopener" aria-label="Open Prompt and HTML collection">
-                      Prompt &amp; HTML collection
-                    </a>
-                  </div>
-
                 </div>
               </div>
 
@@ -2723,6 +2943,43 @@ body.star-mode {
                   </div>
                 </div>
               </div>
+
+              <div class="piece p-sites is-clickable" style="--d: 260ms;">
+                <div class="sites-card" aria-label="My websites">
+                  <div class="sites-title">
+                    <span class="sites-badge" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20Z"/>
+                        <path d="M2 12h20"/>
+                        <path d="M12 2c3 3 3 17 0 20"/>
+                        <path d="M12 2c-3 3-3 17 0 20"/>
+                      </svg>
+                    </span>
+                    <span>MY WEBSITES</span>
+                  </div>
+
+                  <a class="site-btn" href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/" target="_blank" rel="noopener" aria-label="Open Trang web tử vi">
+                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20Z"/>
+                      <path d="M2 12h20"/>
+                      <path d="M12 2c3 3 3 17 0 20"/>
+                    </svg>
+                    <span class="site-text">Trang web tử vi</span>
+                    <span class="site-arrow" aria-hidden="true">↗</span>
+                  </a>
+
+                  <a class="site-btn" href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ" target="_blank" rel="noopener" aria-label="Open Prompt and HTML collection">
+                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M16 18l6-6-6-6"/>
+                      <path d="M8 6l-6 6 6 6"/>
+                      <path d="M14 4l-4 16"/>
+                    </svg>
+                    <span class="site-text">Prompt &amp; HTML collection</span>
+                    <span class="site-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </div>
+
 
             </div>
           </section>
