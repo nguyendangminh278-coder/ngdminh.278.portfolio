@@ -615,7 +615,7 @@ body.star-mode {
 
       --l7-sites-r: clamp(6px, 1.2vw, 18px);
       --l7-sites-y: 52%;
-      --l7-sites-w: clamp(200px, 13vw, 232px);
+      --l7-sites-w: clamp(260px, 18vw, 340px);
       --l7-sites-scale: 1;
 
       --l7-follow-pad-top: 26%;
@@ -1258,6 +1258,75 @@ body.star-mode {
     .proj3-card.fit-contain img{
       object-fit: contain;
       background: #fff;
+    }
+
+    .proj3-link-card{
+      aspect-ratio: auto;
+      min-height: 220px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--proj3-ink);
+      background: rgba(0,28,85,.04);
+    }
+
+    .proj3-link-card:hover{
+      background: rgba(0,28,85,.08);
+    }
+
+    .proj3-link-top{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .proj3-link-badge{
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      border: 2px solid var(--proj3-ink);
+      box-shadow: 4px 4px 0 0 var(--proj3-ink);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 900;
+      flex: 0 0 auto;
+      background: #fff;
+    }
+
+    .proj3-link-title{
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .proj3-link-desc{
+      font-size: 14px;
+      line-height: 1.5;
+      opacity: .88;
+    }
+
+    .proj3-link-url{
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 800;
+      word-break: break-word;
+      opacity: .78;
+    }
+
+    body.star-mode .layout3 .proj3-link-card{
+      background: rgba(255,255,255,.08);
+    }
+
+    body.star-mode .layout3 .proj3-link-card:hover{
+      background: rgba(255,255,255,.12);
+    }
+
+    body.star-mode .layout3 .proj3-link-badge{
+      background: rgba(255,255,255,.10);
     }
 
     .social-splits{
@@ -2622,6 +2691,7 @@ body.star-mode {
                   <button class="proj3-tab is-active" type="button" data-tab="marketing" role="tab" aria-selected="true">Marketing</button>
                   <button class="proj3-tab" type="button" data-tab="social" role="tab" aria-selected="false">Social Media</button>
                   <button class="proj3-tab" type="button" data-tab="ba" role="tab" aria-selected="false">Business Analysis</button>
+                  <button class="proj3-tab" type="button" data-tab="website" role="tab" aria-selected="false">Trang web</button>
                 </div>
 
                 <div class="proj3-panel is-show" id="proj3-marketing" role="tabpanel" aria-label="Marketing projects">
@@ -2706,11 +2776,109 @@ body.star-mode {
 
                 <div class="proj3-panel" id="proj3-ba" role="tabpanel" aria-label="Business Analysis projects">
                   <div class="proj3-grid">
+                    <a class="proj3-card proj3-link-card"
+                       href="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a304a66dbdc7a63afbab965fe96c61d803198739/%5BPH%E1%BA%A6N%20B%5D%20%5BOPTION%20A%5D%20%5B3%20CON%20G%C3%80%20TOP%201%5D.pbix"
+                       target="_blank" rel="noopener"
+                       aria-label="Open Business Analysis Power BI project">
+                      <div>
+                        <div class="proj3-link-top">
+                          <span class="proj3-link-badge">📊</span>
+                          <div class="proj3-link-title">Business Analysis Power BI</div>
+                        </div>
+                        <div class="proj3-link-desc">
+                          File Power BI (.pbix) cho project Business Analysis của bạn.
+                        </div>
+                      </div>
+                      <div class="proj3-link-url">GitHub PBIX Project ↗</div>
+                    </a>
+
                     <a class="proj3-card" href="#" aria-label="Business Analysis project placeholder">
                       <img src="https://dummyimage.com/1280x720/ffffff/001c55.png&text=Business+Analysis+Project" alt="BA project placeholder" loading="lazy" draggable="false">
                     </a>
-                    <a class="proj3-card" href="#" aria-label="Business Analysis project placeholder">
-                      <img src="https://dummyimage.com/1280x720/ffffff/001c55.png&text=Business+Analysis+Project" alt="BA project placeholder" loading="lazy" draggable="false">
+                  </div>
+
+                </div>
+
+                <div class="proj3-panel" id="proj3-website" role="tabpanel" aria-label="Website projects">
+                  <div class="proj3-grid">
+                    <a class="proj3-card proj3-link-card"
+                       href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/"
+                       target="_blank" rel="noopener"
+                       aria-label="Open Trang web tử vi">
+                      <div>
+                        <div class="proj3-link-top">
+                          <span class="proj3-link-badge">🌐</span>
+                          <div class="proj3-link-title">Trang web tử vi</div>
+                        </div>
+                        <div class="proj3-link-desc">
+                          Website xem tử vi và trải nghiệm nội dung chiêm tinh.
+                        </div>
+                      </div>
+                      <div class="proj3-link-url">nguyendangminh278-coder.github.io/reader-bandosao-tuvi/ ↗</div>
+                    </a>
+
+                    <a class="proj3-card proj3-link-card"
+                       href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ"
+                       target="_blank" rel="noopener"
+                       aria-label="Open Prompt and HTML collection">
+                      <div>
+                        <div class="proj3-link-top">
+                          <span class="proj3-link-badge">💻</span>
+                          <div class="proj3-link-title">Prompt &amp; HTML Collection</div>
+                        </div>
+                        <div class="proj3-link-desc">
+                          Bộ sưu tập prompt và HTML phục vụ học tập, sáng tạo và thử nghiệm giao diện.
+                        </div>
+                      </div>
+                      <div class="proj3-link-url">Prompt &amp; HTML collection ↗</div>
+                    </a>
+
+                    <a class="proj3-card proj3-link-card"
+                       href="https://superagento.github.io/Student-survey/"
+                       target="_blank" rel="noopener"
+                       aria-label="Open Student Survey">
+                      <div>
+                        <div class="proj3-link-top">
+                          <span class="proj3-link-badge">📋</span>
+                          <div class="proj3-link-title">Student Survey</div>
+                        </div>
+                        <div class="proj3-link-desc">
+                          Website khảo sát sinh viên, thu thập dữ liệu và hiển thị biểu mẫu trực quan.
+                        </div>
+                      </div>
+                      <div class="proj3-link-url">superagento.github.io/Student-survey/ ↗</div>
+                    </a>
+
+                    <a class="proj3-card proj3-link-card"
+                       href="https://superagento.github.io/canifaS_tr-ng-i-nonstop/"
+                       target="_blank" rel="noopener"
+                       aria-label="Open CANIFA S website">
+                      <div>
+                        <div class="proj3-link-top">
+                          <span class="proj3-link-badge">🎨</span>
+                          <div class="proj3-link-title">CANIFA S</div>
+                        </div>
+                        <div class="proj3-link-desc">
+                          Website trình bày concept, hình ảnh và trải nghiệm thương hiệu thời trang.
+                        </div>
+                      </div>
+                      <div class="proj3-link-url">superagento.github.io/canifaS_tr-ng-i-nonstop/ ↗</div>
+                    </a>
+
+                    <a class="proj3-card proj3-link-card"
+                       href="https://ielts-practice-hub.onrender.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcTdSeWZwVnp6bDFiQ1Y1THNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6WwtCp5m0SSPUVwg31dnSn2HEd3-xWiLxL_JN932GMlGtDwpzj_zF0TQkEQw_aem_tZYSSddov1yLXlZi2g5Rmg"
+                       target="_blank" rel="noopener"
+                       aria-label="Open IELTS Practice Hub">
+                      <div>
+                        <div class="proj3-link-top">
+                          <span class="proj3-link-badge">📚</span>
+                          <div class="proj3-link-title">IELTS Practice Hub</div>
+                        </div>
+                        <div class="proj3-link-desc">
+                          Nền tảng luyện tập IELTS với định hướng học và thực hành trực tuyến.
+                        </div>
+                      </div>
+                      <div class="proj3-link-url">ielts-practice-hub.onrender.com ↗</div>
                     </a>
                   </div>
 
@@ -2975,6 +3143,41 @@ body.star-mode {
                       <path d="M14 4l-4 16"/>
                     </svg>
                     <span class="site-text">Prompt &amp; HTML collection</span>
+                    <span class="site-arrow" aria-hidden="true">↗</span>
+                  </a>
+
+                  <a class="site-btn" href="https://superagento.github.io/Student-survey/" target="_blank" rel="noopener" aria-label="Open Student Survey">
+                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M8 6h13"/>
+                      <path d="M8 12h13"/>
+                      <path d="M8 18h13"/>
+                      <path d="M3 6h.01"/>
+                      <path d="M3 12h.01"/>
+                      <path d="M3 18h.01"/>
+                    </svg>
+                    <span class="site-text">Student Survey</span>
+                    <span class="site-arrow" aria-hidden="true">↗</span>
+                  </a>
+
+                  <a class="site-btn" href="https://superagento.github.io/canifaS_tr-ng-i-nonstop/" target="_blank" rel="noopener" aria-label="Open CANIFA S">
+                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M4 20h16"/>
+                      <path d="M6 16V8"/>
+                      <path d="M10 16V4"/>
+                      <path d="M14 16v-6"/>
+                      <path d="M18 16v-3"/>
+                    </svg>
+                    <span class="site-text">CANIFA S</span>
+                    <span class="site-arrow" aria-hidden="true">↗</span>
+                  </a>
+
+                  <a class="site-btn" href="https://ielts-practice-hub.onrender.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcTdSeWZwVnp6bDFiQ1Y1THNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6WwtCp5m0SSPUVwg31dnSn2HEd3-xWiLxL_JN932GMlGtDwpzj_zF0TQkEQw_aem_tZYSSddov1yLXlZi2g5Rmg" target="_blank" rel="noopener" aria-label="Open IELTS Practice Hub">
+                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 20V10"/>
+                      <path d="M18 20V4"/>
+                      <path d="M6 20v-6"/>
+                    </svg>
+                    <span class="site-text">IELTS Practice Hub</span>
                     <span class="site-arrow" aria-hidden="true">↗</span>
                   </a>
                 </div>
@@ -3395,7 +3598,8 @@ body.star-mode {
       const panels = {
         marketing: document.getElementById('proj3-marketing'),
         social: document.getElementById('proj3-social'),
-        ba: document.getElementById('proj3-ba')
+        ba: document.getElementById('proj3-ba'),
+        website: document.getElementById('proj3-website')
       };
 
       function setTab(key){
