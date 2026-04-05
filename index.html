@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minh's Portfolio - main.html</title>
-
-  <style id="theme-css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Minh's Portfolio - main.html</title>
+<style id="theme-css">
     :root {
       /* --- Config --- */
       --bubble-count: 8;
@@ -494,8 +494,7 @@ body.star-mode {
         0 0 18px rgba(0, 242, 255, 0.25);
     }
   </style>
-
-  <style id="base-css">
+<style id="base-css">
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root{
@@ -674,14 +673,15 @@ body.star-mode {
     }
     .section:last-of-type { margin-bottom: 0; }
 
+
     /* =========================
        FLOATING OPTIONS MENU
        ========================================= */
     .opt{
       position: fixed;
-      right: 12px;
-      top: calc(50% + env(safe-area-inset-top, 0px));
-      transform: translateY(-50%);
+      left: 50%;
+      top: calc(20px + env(safe-area-inset-top, 0px));
+      transform: translateX(-50%);
       z-index: 9999;
     }
 
@@ -697,6 +697,8 @@ body.star-mode {
       -webkit-tap-highlight-color: transparent;
       padding: 0;
       overflow: hidden;
+      position: relative;
+      z-index: 3;
     }
 
     .opt-toggle img {
@@ -715,9 +717,8 @@ body.star-mode {
 
     .opt-item{
       position: absolute;
-      left: auto;
-      right: calc(100% + 10px);
-      transform: translate(0, 0) scale(.92);
+      top: 50%;
+      transform: translateY(-50%) scale(.92);
 
       min-width: min(calc(150px * var(--menu-scale)), 72vw);
       max-width: 72vw;
@@ -745,7 +746,9 @@ body.star-mode {
         transform .26s cubic-bezier(.2,.7,.2,1.2),
         background-color .18s ease,
         color .18s ease,
-        border-color .18s ease;
+        border-color .18s ease,
+        left .26s ease,
+        right .26s ease;
       text-align: center;
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
@@ -756,23 +759,26 @@ body.star-mode {
       color: #fff;
       border-color: var(--menu-ink);
     }
-    .opt-item:active{ transform: translate(0, 0) scale(.98); }
+    .opt-item:active{ transform: translateY(-50%) scale(.98); }
 
-    .opt-item.top-1{ top: calc(-1 * var(--menu-step)); }
-    .opt-item.top-2{ top: calc(-2 * var(--menu-step)); }
-    .opt-item.top-3{ top: calc(-3 * var(--menu-step)); }
+    /* 3 item bên trái */
+    .opt-item.top-1{ right: calc(100% + 18px); }
+    .opt-item.top-2{ right: calc(100% + 18px + 190px); }
+    .opt-item.top-3{ right: calc(100% + 18px + 380px); }
 
-    .opt-item.bot-1{ top: calc( 1 * var(--menu-step)); }
-    .opt-item.bot-2{ top: calc( 2 * var(--menu-step)); }
-    .opt-item.bot-3{ top: calc( 3 * var(--menu-step)); }
+    /* 3 item bên phải */
+    .opt-item.bot-1{ left: calc(100% + 18px); }
+    .opt-item.bot-2{ left: calc(100% + 18px + 190px); }
+    .opt-item.bot-3{ left: calc(100% + 18px + 380px); }
 
     .opt.open .opt-item{
       opacity: 1;
       pointer-events: auto;
-      transform: translate(0, 0) scale(1);
+      transform: translateY(-50%) scale(1);
     }
 
     /* Back to top button */
+
     .btn-top{
       position: fixed;
       right: 12px;
@@ -869,8 +875,7 @@ body.star-mode {
     }
     .title-topleft img{ width: 100%; height: auto; }
   </style>
-
-  <style id="layout1-css">
+<style id="layout1-css">
     .layout1 .trace-on{ opacity: 1; transition: opacity 300ms ease; }
     .layout1.phase-cards .trace-on{ opacity: 0; }
 
@@ -1051,8 +1056,7 @@ body.star-mode {
       :root{ --figure-height: calc(96vh * var(--scale)); }
     }
   </style>
-
-  <style id="layout2-css">
+<style id="layout2-css">
     .layout2 .p-person{
       left: clamp(18px, 4vw, 52px);
       top:  clamp(16px, 6vh, 52px);
@@ -1126,8 +1130,7 @@ body.star-mode {
     }
     .layout2 .p-day img{ width: 100%; height: auto; }
   </style>
-
-  <style id="layout3-css">
+<style id="layout3-css">
     .layout3{ background: transparent; }
     .layout3 .stage{ background: transparent; }
 
@@ -1470,8 +1473,7 @@ body.star-mode {
         var(--proj3-shadow) var(--proj3-shadow) 0 0 var(--proj3-ink);
     }
   </style>
-
-  <style id="layout4-css">
+<style id="layout4-css">
     .layout4{ background: transparent; }
     .layout4 .stage{ background: transparent; }
 
@@ -1521,8 +1523,7 @@ body.star-mode {
       -webkit-user-drag: none;
     }
   </style>
-
-  <style id="layout5-css">
+<style id="layout5-css">
     .layout5{
       display: grid;
       place-items: center;
@@ -1775,8 +1776,7 @@ body.star-mode {
     .layout5[data-debug="1"] .l5-title,
     .layout5[data-debug="1"] .l5-obj{ outline:2px dashed rgba(0,0,0,.25); outline-offset:-2px; }
   </style>
-
-  <style id="layout6-css">
+<style id="layout6-css">
     .layout6{ background: transparent; }
     .layout6 .stage{ background: transparent; }
 
@@ -1929,8 +1929,7 @@ body.star-mode {
     .layout6 .cer6-open:hover{ transform: translateY(-1px); filter: brightness(1.05); }
 
   </style>
-
-  <style id="layout7-css">
+<style id="layout7-css">
     .layout7{
       background: transparent;
       display:grid;
@@ -2238,8 +2237,7 @@ body.star-mode {
       outline-offset: -2px;
     }
   </style>
-
-  <style id="fixed-canvas-css">
+<style id="fixed-canvas-css">
     :root{
       --stage-w: 1920px;
       --stage-h: 1080px;
@@ -2414,804 +2412,858 @@ body.star-mode {
       --cer6-wrap-w:    min(1500px, calc(94 * var(--vw)));
     }
   </style>
+
+<style id="final-fixes-css">
+  /* ===== Layout 2: original placement + typewriter on enter ===== */
+  .layout2{overflow:hidden;}
+  .layout2 .a2-stage{position:relative;width:100%;min-height:100vh;}
+  .layout2 .a2-piece{position:absolute;opacity:0;filter:blur(8px);transform:translateY(18px) scale(.99);transition:opacity 900ms var(--ease),filter 900ms var(--ease),transform 900ms var(--ease);transition-delay:var(--d,0ms);will-change:opacity,filter,transform;}
+  .layout2.inview .a2-piece{opacity:1;filter:blur(0);transform:none;}
+  .layout2 .a2-piece img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;pointer-events:none;}
+  .layout2 .a2-person{left:clamp(18px,4vw,52px);top:clamp(16px,6vh,52px);height:clamp(360px,88vh,920px);width:auto;z-index:30;}
+  .layout2 .a2-person img{height:100%;width:auto;max-width:none;object-fit:contain;}
+  .layout2 .a2-about{right:calc(clamp(18px,4vw,60px) + 220px);top:clamp(10px,4vh,40px);width:clamp(360px,46vw,760px);z-index:50;transform:scale(var(--about-scale));transform-origin:right top;}
+  .layout2.inview .a2-about{transform:scale(var(--about-scale));}
+  .layout2 .a2-story{right:calc(clamp(18px,5vw,90px) + var(--story-shift-x));top:calc(clamp(150px,25vh,270px) + var(--story-shift-y));width:clamp(520px,44vw,920px);z-index:42;transform:scale(var(--mini-box-scale));transform-origin:right top;cursor:pointer;}
+  .layout2.inview .a2-story{transform:scale(var(--mini-box-scale));}
+  .layout2 .a2-workflow{left:calc(clamp(260px,28vw,560px) + var(--work-shift-x));top:calc(clamp(320px,54vh,620px) + var(--work-shift-y));width:clamp(520px,44vw,920px);z-index:41;transform:scale(var(--mini-box-scale));transform-origin:left top;cursor:pointer;}
+  .layout2.inview .a2-workflow{transform:scale(var(--mini-box-scale));}
+  .layout2 .a2-dob{left:calc(clamp(260px,28vw,560px) + var(--work-shift-x));top:calc(clamp(320px,54vh,620px) + var(--work-shift-y) - var(--dob-gap-offset));width:clamp(280px,26vw,520px);z-index:46;transform:translate(calc(var(--dob-move-x) * 1vw), calc(var(--dob-move-y) * 1vh)) scale(var(--meta-scale));transform-origin:left top;}
+  .layout2.inview .a2-dob{transform:translate(calc(var(--dob-move-x) * 1vw), calc(var(--dob-move-y) * 1vh)) scale(var(--meta-scale));}
+  .layout2 .a2-day{right:calc(clamp(18px,5vw,90px) + var(--story-shift-x));top:calc(clamp(320px,54vh,620px) + var(--work-shift-y));width:clamp(280px,25vw,530px);z-index:45;transform:translate(calc(var(--day-move-x) * 1vw), calc(var(--day-move-y) * 1vh)) scale(var(--meta-scale));transform-origin:right top;}
+  .layout2.inview .a2-day{transform:translate(calc(var(--day-move-x) * 1vw), calc(var(--day-move-y) * 1vh)) scale(var(--meta-scale));}
+  .layout2 .a2-text-block{display:flex;flex-direction:column;justify-content:center;color:var(--navy);white-space:nowrap;pointer-events:none;}
+  .layout2 .a2-day{text-align:right;align-items:flex-end;}
+  .layout2 .a2-typing-line{display:flex;align-items:flex-end;gap:4px;}
+  .layout2 .a2-right{justify-content:flex-end;text-align:right;}
+  .layout2 .a2-typing{font-size:clamp(20px,2.5vw,48px);font-weight:800;letter-spacing:-1px;line-height:1.1;display:inline-block;min-height:1.2em;}
+  .layout2 .a2-cursor{display:inline-block;width:3px;height:.9em;background:currentColor;animation:a2blink 1s step-end infinite;}
+  .layout2 .a2-cursor.hide{display:none;}
+  .layout2 .a2-subtext{font-size:clamp(12px,1.5vw,24px);font-weight:600;margin-top:6px;opacity:0;transform:translateY(10px);transition:all .6s var(--ease);}
+  .layout2 .a2-subtext.show{opacity:1;transform:translateY(0);}
+  .layout2 .pink{color:#ff66b2;}
+  @keyframes a2blink{0%,100%{opacity:1}50%{opacity:0}}
+  body.star-mode .layout2 .a2-text-block{color:#ffffff;text-shadow:0 0 8px rgba(0,242,255,.28);}
+  body.star-mode .layout2 .a2-cursor{background:#ffffff;}
+  @media (max-width:1200px){
+    .layout2 .a2-about{right:clamp(16px,3vw,36px);width:clamp(300px,42vw,620px);transform:none;}
+    .layout2.inview .a2-about{transform:none;}
+    .layout2 .a2-story{right:clamp(18px,4vw,48px);transform:none;}
+    .layout2.inview .a2-story{transform:none;}
+    .layout2 .a2-workflow,.layout2 .a2-dob{left:clamp(240px,26vw,420px);}
+  }
+  @media (max-width:900px){
+    .layout2 .a2-person{left:10px;top:30px;height:58vh;}
+    .layout2 .a2-about{right:18px;top:22px;width:52vw;}
+    .layout2 .a2-story{right:18px;top:28vh;width:44vw;}
+    .layout2 .a2-dob{left:42vw;top:46vh;width:auto;transform:none;}
+    .layout2.inview .a2-dob{transform:none;}
+    .layout2 .a2-workflow{left:42vw;top:60vh;width:42vw;transform:none;}
+    .layout2.inview .a2-workflow{transform:none;}
+    .layout2 .a2-day{right:18px;top:78vh;width:auto;transform:none;}
+    .layout2.inview .a2-day{transform:none;}
+  }
+
+  /* ===== Layout 3: restore layout-3.html tab effect ===== */
+  .layout3 .proj3-tabs{position:relative;display:inline-flex;align-items:center;gap:8px;padding:6px;border:2px solid var(--proj3-ink);border-radius:999px;background:#edf2f7;max-width:100%;overflow:auto hidden;scrollbar-width:none;margin:0 auto 18px;}
+  .layout3 .proj3-tabs::-webkit-scrollbar{display:none;}
+  .layout3 .tab-indicator{position:absolute;top:6px;left:6px;height:calc(100% - 12px);border-radius:999px;background:var(--proj3-ink);transition:left .35s ease,width .35s ease;z-index:1;}
+  .layout3 .proj3-tab{position:relative;z-index:2;border:none;background:transparent;color:var(--proj3-ink);height:42px;padding:0 16px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;white-space:nowrap;cursor:pointer;border-radius:999px;box-shadow:none !important;transform:none !important;}
+  .layout3 .proj3-tab:hover,.layout3 .proj3-tab:focus-visible{background:transparent;color:#fff;outline:none;}
+  .layout3 .proj3-tab.is-active{color:#fff;}
+  .layout3 .proj3-panel{display:none;animation:proj3SlideUp .35s var(--ease) forwards;}
+  .layout3 .proj3-panel.is-show{display:block;}
+  @keyframes proj3SlideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .layout3 .proj3-card{background:#fff;border:2px solid var(--proj3-ink);border-radius:16px;box-shadow:4px 4px 0 0 var(--proj3-ink);overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s var(--ease);} 
+  .layout3 .proj3-card:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 0 var(--proj3-ink);} 
+  .layout3 .proj3-link-card{min-height:210px;padding:24px;display:flex;flex-direction:column;gap:16px;background:#fff;color:var(--proj3-ink);} 
+  .layout3 .proj3-link-badge{width:48px;height:48px;display:grid;place-items:center;border:2px solid var(--proj3-ink);border-radius:12px;box-shadow:3px 3px 0 0 var(--proj3-ink);background:#fff;flex:0 0 auto;font-size:24px;} 
+  .layout3 .proj3-link-title{font-size:20px;line-height:1.2;font-weight:800;color:var(--proj3-ink);} 
+  .layout3 .proj3-link-desc{font-size:14px;line-height:1.6;color:#64748b;} 
+  .layout3 .proj3-link-url{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;font-weight:800;color:#425a9c;line-height:1.4;word-break:break-word;} 
+  .layout3 .proj3-pill{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:#eef5ff;color:#0b2a7a;font-size:11px;font-weight:900;line-height:1;white-space:nowrap;margin-left:8px;border:1px solid rgba(11,42,122,.15);} 
+  .layout3 .proj3-link-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;} 
+  body.star-mode .layout3 .proj3-pill{background:rgba(202,240,248,.14);color:#caf0f8;border-color:rgba(202,240,248,.28);} 
+
+  /* ===== Layout 4 exact component ===== */
+  .layout4{display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+  .layout4 .w4m-container{max-width:900px;width:100%;margin:0 auto;color:#1a2a48;font-family:Inter, ui-rounded, "SF Pro Rounded", system-ui, sans-serif;line-height:1.4;}
+  .layout4 .w4m-header,.layout4 .w4m-evolution,.layout4 .w4m-item{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(0.19,1,0.22,1);} 
+  .layout4.inview .w4m-header,.layout4.inview .w4m-evolution,.layout4.inview .w4m-item{opacity:1;transform:translateY(0);} 
+  .layout4 .w4m-evolution{transition-delay:.1s;} .layout4 .w4m-item{transition-delay:.2s;} 
+  .layout4 .w4m-header{text-align:center;margin-bottom:35px;} 
+  .layout4 .w4m-title-img{max-width:260px;margin:0 auto;} .layout4 .w4m-title-img img{width:100%;display:block;filter:drop-shadow(0 3px 6px rgba(0,0,0,.05));}
+  .layout4 .w4m-evolution{background:linear-gradient(135deg,#ffffff 0%,#f0f4ff 100%);border:1px solid rgba(255,255,255,.5);border-radius:24px;padding:20px;margin-bottom:20px;box-shadow:0 10px 30px rgba(0,28,85,.04);} 
+  .layout4 .w4m-evo-head{display:flex;align-items:center;gap:10px;margin-bottom:15px;padding-left:10px;} 
+  .layout4 .w4m-badge{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;background:#0b2a7a;color:#fff;padding:3px 8px;border-radius:999px;} 
+  .layout4 .w4m-evo-title{font-size:11px;font-weight:600;color:#666;text-transform:uppercase;} 
+  .layout4 .w4m-evo-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:15px;} 
+  .layout4 .w4m-subcard{text-decoration:none;display:block;background:#fff;padding:12px;border-radius:16px;border:1px solid transparent;transition:all .3s ease;} 
+  .layout4 .w4m-subcard:hover{border-color:#0b2a7a;transform:translateY(-4px);box-shadow:0 5px 15px rgba(0,0,0,.05);} 
+  .layout4 .w4m-subcard img{width:100%;display:block;border-radius:8px;} 
+  .layout4 .w4m-phase{display:block;font-size:10px;font-weight:700;margin-top:8px;color:#999;text-align:center;} 
+  .layout4 .w4m-subcard:hover .w4m-phase{color:#0b2a7a;} 
+  .layout4 .w4m-arrow{color:#cbd5e1;font-size:28px;display:flex;align-items:center;justify-content:center;} 
+  .layout4 .w4m-workgrid{display:grid;grid-template-columns:1fr;max-width:440px;margin:0 auto;} 
+  .layout4 .w4m-item{text-decoration:none;background:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.5);border-radius:20px;padding:15px;box-shadow:0 8px 20px rgba(0,0,0,.02);transition:all .4s cubic-bezier(0.19,1,0.22,1);} 
+  .layout4 .w4m-item:hover{transform:translateY(-6px);background:#fff;border-color:#0b2a7a;} 
+  .layout4 .w4m-item img{width:100%;display:block;border-radius:10px;} 
+  .layout4 .w4m-item-foot{margin-top:10px;display:flex;justify-content:space-between;align-items:center;padding:0 5px;} 
+  .layout4 .w4m-category{font-size:10px;font-weight:700;color:#0b2a7a;text-transform:uppercase;} 
+  .layout4 .w4m-more{font-size:11px;color:#888;} 
+  @media (max-width:600px){.layout4 .w4m-evo-grid{grid-template-columns:1fr;}.layout4 .w4m-arrow{transform:rotate(90deg);margin:10px 0;}}
+
+  /* ===== Layout 5 exact old version + wider outer boxes ===== */
+  .layout5{display:flex;align-items:center;justify-content:center;padding:20px;overflow:visible;}
+  .layout5 .s5-wrap{width:min(1380px,100%);}
+  .layout5 .s5-title{position:relative;margin:0 0 10px 4%;font-size:clamp(46px,6vw,100px);font-weight:900;color:#001c55;text-transform:uppercase;-webkit-text-stroke:2px #fff;letter-spacing:-2px;opacity:0;transform:translateY(-20px);transition:all 1s cubic-bezier(.22,1,.36,1);z-index:10;}
+  .layout5.inview .s5-title{opacity:1;transform:translateY(0);} 
+  .layout5 .s5-stage{position:relative;width:100%;max-width:1380px;aspect-ratio:16/10;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:visible;} 
+  .layout5 .s5-obj{position:absolute;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .8s cubic-bezier(.22,1,.36,1);filter:drop-shadow(0 10px 20px rgba(0,0,0,.1));user-select:none;-webkit-user-drag:none;opacity:0;} 
+  .layout5 .s5-person{width:46%;z-index:5;transform:scale(.8);} 
+  .layout5.inview .s5-person{transform:scale(1);opacity:1;} 
+  .layout5 .s5-box{z-index:20;} 
+  .layout5 .s5-box-ba{width:min(31%,430px);left:0%;top:16%;transform:translate(-40px,-30px);} 
+  .layout5 .s5-box-lk{width:min(31%,430px);right:0%;top:16%;transform:translate(40px,-30px);} 
+  .layout5 .s5-box-ct{width:min(32%,440px);left:-1%;bottom:6%;transform:translate(-54px,48px);} 
+  .layout5 .s5-box-sk{width:min(35%,470px);right:-1%;bottom:6%;transform:translate(54px,48px);} 
+  .layout5.inview .s5-box{opacity:1;transform:translate(0,0);} 
+  .layout5.inview .s5-box-ba{transition-delay:.2s;animation:s5Float 4s ease-in-out infinite;} 
+  .layout5.inview .s5-box-lk{transition-delay:.35s;animation:s5Float 4.5s ease-in-out infinite reverse;} 
+  .layout5.inview .s5-box-ct{transition-delay:.5s;animation:s5Float 5s ease-in-out infinite;} 
+  .layout5.inview .s5-box-sk{transition-delay:.65s;animation:s5Float 3.8s ease-in-out infinite reverse;} 
+  @keyframes s5Float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+  .layout5 .s5-box:hover{transform:scale(1.07)!important;z-index:100;filter:drop-shadow(0 15px 30px rgba(0,0,0,.2));} 
+  @media (max-width:768px){
+    .layout5 .s5-stage{aspect-ratio:auto;height:auto;padding-top:30px;display:flex;flex-direction:column;align-items:center;gap:18px;}
+    .layout5 .s5-obj{position:relative;width:90%!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;opacity:0;margin-bottom:0;}
+    .layout5.inview .s5-obj{opacity:1;}
+    .layout5 .s5-person{order:-1;width:75%!important;margin-bottom:20px;}
+    .layout5 .s5-title{margin:0 auto 30px;text-align:center;left:0;font-size:36px;}
+  }
+
+  /* ===== Layout 6: marquee only, no hidden background ===== */
+  .layout6{display:flex;align-items:center;justify-content:center;padding:30px 0;overflow:hidden;}
+  .layout6 .c6-wrap{width:100%;}
+  .layout6 .c6-title{display:flex;justify-content:center;align-items:center;opacity:0;transform:translateY(18px);transition:all .8s cubic-bezier(.22,1,.36,1);margin-bottom:24px;}
+  .layout6.inview .c6-title{opacity:1;transform:translateY(0);} 
+  .layout6 .c6-title img{width:min(340px,78vw);height:auto;display:block;filter:drop-shadow(0 10px 20px rgba(0,0,0,.08));}
+  .layout6 .c6-marquee-shell{width:100%;overflow:hidden;}
+  .layout6 .c6-marquee-track{display:flex;width:max-content;animation:c6Marquee 28s linear infinite;gap:22px;align-items:center;}
+  .layout6 .c6-marquee-track:hover{animation-play-state:paused;}
+  .layout6 .c6-group{display:flex;gap:22px;align-items:center;padding-right:22px;}
+  .layout6 .c6-card{flex:0 0 auto;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.84);border:1px solid rgba(255,255,255,.9);border-radius:24px;padding:12px;box-shadow:0 12px 24px rgba(0,28,85,.06);text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;}
+  .layout6 .c6-card:hover{transform:translateY(-6px);box-shadow:0 18px 30px rgba(0,28,85,.10);} 
+  .layout6 .c6-single{width:280px;height:380px;}
+  .layout6 .c6-wide{width:500px;height:380px;}
+  .layout6 .c6-duo-card{width:500px;height:380px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background:rgba(255,255,255,.84);} 
+  .layout6 .c6-duo-cell{display:flex;align-items:center;justify-content:center;background:#fff;border-radius:18px;padding:10px;} 
+  .layout6 .c6-card img,.layout6 .c6-duo-cell img{width:100%;height:100%;object-fit:contain;display:block;} 
+  @keyframes c6Marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  @media (max-width:768px){
+    .layout6 .c6-group{gap:14px;padding-right:14px;}
+    .layout6 .c6-single{width:220px;height:300px;}
+    .layout6 .c6-wide,.layout6 .c6-duo-card{width:390px;height:300px;}
+    .layout6 .c6-duo-card{gap:8px;}
+  }
+
+  /* ===== Layout 7: exact layout-7.html bento version ===== */
+  .layout7{display:flex;align-items:center;justify-content:center;padding:30px 20px 40px;}
+  .layout7 .ct7-shell{width:min(1220px,100%);font-family:"Plus Jakarta Sans",ui-rounded,"SF Pro Rounded",system-ui,sans-serif;color:#1e293b;}
+  .layout7 .ct7-header{margin-bottom:28px;display:flex;justify-content:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(.22,1,.36,1);} 
+  .layout7.inview .ct7-header{opacity:1;transform:translateY(0);} 
+  .layout7 .ct7-header img{width:min(500px,90vw);height:auto;display:block;}
+  .layout7 .ct7-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;opacity:0;transform:translateY(24px);transition:all .8s cubic-bezier(.22,1,.36,1) .1s;} 
+  .layout7.inview .ct7-grid{opacity:1;transform:translateY(0);} 
+  .layout7 .ct7-card{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.5);box-shadow:0 10px 40px -10px rgba(0,0,0,.08);border-radius:2rem;padding:2rem;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease;} 
+  .layout7 .ct7-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -10px rgba(0,28,85,.15);} 
+  .layout7 .ct7-work{display:flex;flex-direction:column;justify-content:space-between;grid-column:1 / span 1;} 
+  .layout7 .ct7-work-top{display:flex;align-items:center;gap:12px;margin-bottom:28px;} 
+  .layout7 .ct7-iconbox{width:48px;height:48px;border-radius:1rem;background:#dbeafe;color:#2563eb;display:grid;place-items:center;flex:0 0 auto;} 
+  .layout7 .ct7-svg{width:24px;height:24px;} 
+  .layout7 h2{font-size:2rem;font-weight:800;color:#001c55;margin:0;} 
+  .layout7 .ct7-stack{display:flex;flex-direction:column;gap:16px;} 
+  .layout7 .ct7-row{display:flex;align-items:center;gap:16px;padding:16px;border-radius:1.25rem;text-decoration:none;color:inherit;border:1px solid transparent;transition:all .25s ease;} 
+  .layout7 .ct7-row:hover{background:#f8fafc;border-color:#e2e8f0;} 
+  .layout7 .ct7-miniicon{width:40px;height:40px;border-radius:999px;background:#f1f5f9;display:grid;place-items:center;color:#334155;flex:0 0 auto;} 
+  .layout7 .ct7-kicker{font-size:.82rem;font-weight:700;color:#94a3b8;text-transform:uppercase;margin:0 0 2px;} 
+  .layout7 .ct7-strong{margin:0;font-size:1rem;font-weight:800;color:#001c55;} 
+  .layout7 .ct7-phone-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;} 
+  .layout7 .ct7-phone{background:#f8fafc;border-color:#eef2f7;} 
+  .layout7 .ct7-phone .ct7-miniicon{background:#fff;color:#3b82f6;box-shadow:0 1px 2px rgba(0,0,0,.04);} 
+  .layout7 .ct7-linkedin{margin-top:24px;width:100%;padding:18px 22px;border-radius:1.25rem;background:#0e76a8;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;transition:filter .25s ease,transform .25s ease;} 
+  .layout7 .ct7-linkedin:hover{filter:brightness(.94);transform:translateY(-2px);} 
+  .layout7 .ct7-ln{width:22px;height:22px;fill:currentColor;}
+  .layout7 .ct7-follow{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;} 
+  .layout7 .ct7-avatar{width:82px;height:82px;border-radius:999px;overflow:hidden;border:4px solid #fff;box-shadow:0 10px 20px rgba(0,0,0,.10);margin-bottom:16px;background:#e2e8f0;} 
+  .layout7 .ct7-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;transform:scale(1.8) translateY(18%);} 
+  .layout7 .ct7-sub{font-size:.95rem;color:#64748b;margin:8px 0 26px;} 
+  .layout7 .ct7-social-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;} 
+  .layout7 .ct7-social{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px 14px;border-radius:1.25rem;text-decoration:none;transition:all .25s ease;font-weight:800;color:inherit;} 
+  .layout7 .ct7-social-icon{font-size:2.3rem;line-height:1;} 
+  .layout7 .ct7-social-label{text-transform:uppercase;font-size:.82rem;letter-spacing:.06em;color:#475569;} 
+  .layout7 .ct7-social.fb{background:rgba(59,130,246,.08);color:#1877F2;} .layout7 .ct7-social.fb:hover{background:#1877F2;color:#fff;} .layout7 .ct7-social.fb:hover .ct7-social-label{color:#fff;} 
+  .layout7 .ct7-social.ig{background:rgba(236,72,153,.08);color:#E1306C;} .layout7 .ct7-social.ig:hover{background:linear-gradient(135deg,#f09433,#e6683c,#bc1888);color:#fff;} .layout7 .ct7-social.ig:hover .ct7-social-label{color:#fff;} 
+  .layout7 .ct7-social.tt{background:rgba(15,23,42,.05);color:#000;} .layout7 .ct7-social.tt:hover{background:#000;color:#fff;} .layout7 .ct7-social.tt:hover .ct7-social-label{color:#fff;} 
+  .layout7 .ct7-sites{grid-column:1 / span 2;} 
+  .layout7 .ct7-sites-head{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid #e5e7eb;} 
+  .layout7 .ct7-sites-badge{width:40px;height:40px;border-radius:12px;background:#001c55;color:#fff;display:grid;place-items:center;flex:0 0 auto;} 
+  .layout7 .ct7-sites-head h2{text-transform:uppercase;letter-spacing:.02em;font-size:2rem;} 
+  .layout7 .ct7-sites-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;} 
+  .layout7 .ct7-site-btn{display:flex;align-items:center;gap:16px;justify-content:space-between;padding:20px;border-radius:1.25rem;border:2px solid #e8eef5;background:#fff;text-decoration:none;color:#001c55;transition:all .25s ease;font-weight:800;}
+  .layout7 .ct7-site-btn:hover{border-color:#001c55;box-shadow:0 12px 20px rgba(0,28,85,.08);transform:translateY(-2px);} 
+  .layout7 .ct7-site-ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.1rem;font-weight:900;flex:0 0 auto;} 
+  .layout7 .ct7-site-ico.violet{background:#eef2ff;color:#4f46e5;} .layout7 .ct7-site-ico.green{background:#ecfdf5;color:#059669;} .layout7 .ct7-site-ico.amber{background:#fffbeb;color:#d97706;} .layout7 .ct7-site-ico.rose{background:#fff1f2;color:#e11d48;} .layout7 .ct7-site-ico.cyan{background:#ecfeff;color:#0891b2;} 
+  .layout7 .ct7-site-text{display:block;font-weight:800;color:#001c55;} 
+  .layout7 .ct7-site-copy{display:flex;flex-direction:column;align-items:flex-start;gap:4px;flex:1;} 
+  .layout7 .ct7-site-note{font-size:.78rem;font-weight:800;color:#0e7490;padding:4px 10px;border-radius:999px;background:#ecfeff;border:1px solid rgba(14,116,144,.14);} 
+  .layout7 .ct7-site-arrow{color:#cbd5e1;font-size:1.2rem;font-weight:900;} 
+  .layout7 .ct7-site-wide{grid-column:span 2;} 
+  @media (max-width:980px){.layout7 .ct7-grid{grid-template-columns:1fr;}.layout7 .ct7-sites{grid-column:auto;}.layout7 .ct7-phone-grid{grid-template-columns:1fr;}.layout7 .ct7-sites-grid{grid-template-columns:1fr 1fr;}.layout7 .ct7-site-wide{grid-column:auto;}}
+  @media (max-width:640px){.layout7 .ct7-card{padding:1.35rem;}.layout7 h2,.layout7 .ct7-sites-head h2{font-size:1.5rem;}.layout7 .ct7-sites-grid{grid-template-columns:1fr;}.layout7 .ct7-site-btn{padding:16px;gap:12px;}}
+</style>
+
+  <style id="shared-title-size-fix">
+    /* Equalize title sizes for layouts 2-7 (except layout 1), matching Contact Me sizing */
+    .shared-title-same{
+      left: var(--l7-title-x) !important;
+      top: var(--l7-title-y) !important;
+      width: var(--l7-title-w) !important;
+      transform: scale(var(--l7-title-scale)) !important;
+      transform-origin: left top !important;
+    }
+    .shared-title-same img{
+      width: 100% !important;
+      height: auto !important;
+      display: block !important;
+    }
+
+    /* Layout 3 originally centers the title; force same size while keeping a neat horizontal fit */
+    .layout3 .title-center.shared-title-same{
+      left: var(--l7-title-x) !important;
+      top: var(--l7-title-y) !important;
+      transform: scale(var(--l7-title-scale)) !important;
+    }
+
+    /* Layout 5 uses text instead of an image in some versions; normalize its scale to Contact Me footprint */
+    .layout5 .l5-title.shared-title-same{
+      top: var(--l7-title-y) !important;
+      left: var(--l7-title-x) !important;
+      font-size: clamp(84px, 9vw, 170px) !important;
+      transform: none !important;
+      -webkit-text-stroke: 0 !important;
+      letter-spacing: -2px !important;
+    }
+
+    /* Layout 6 title block */
+    .layout6 .shared-title-same{
+      max-width: none !important;
+      width: var(--l7-title-w) !important;
+      margin: 0 !important;
+      transform: scale(var(--l7-title-scale)) !important;
+      transform-origin: left top !important;
+    }
+  </style>
+
+
+<style id="targeted-size-fix-v8">
+  /* Only enlarge the title images for My Work and My Certificate */
+  .layout4 .w4m-title-img{max-width:520px !important;}
+  .layout6 .c6-title img{width:min(680px, 92vw) !important;}
+
+  /* Only enlarge My Story + My Workflow boxes in Layout 2 */
+  .layout2 .p-story{
+    transform: scale(calc(var(--mini-box-scale) * 2)) !important;
+    transform-origin: right top !important;
+  }
+  .layout2 .p-workflow{
+    transform: scale(calc(var(--mini-box-scale) * 2)) !important;
+    transform-origin: left top !important;
+  }
+
+  /* Keep the responsive intent while doubling the certificate title on small screens too */
+  @media (max-width: 768px){
+    .layout6 .c6-title img{width:min(680px, 94vw) !important;}
+  }
+</style>
+
+
+<style id="layout2-only-position-fix-v9">
+  /* ONLY Layout 2 adjustments */
+  .layout2 .a2-story{
+    width: clamp(480px, 29vw, 540px) !important;
+    top: calc(clamp(150px, 25vh, 270px) + 42px) !important;
+    transform: none !important;
+    transform-origin: right top !important;
+  }
+  .layout2.inview .a2-story{
+    transform: none !important;
+  }
+
+  .layout2 .a2-workflow{
+    width: clamp(480px, 29vw, 540px) !important;
+    top: calc(clamp(320px, 54vh, 620px) + 40px) !important;
+    transform: none !important;
+    transform-origin: left top !important;
+  }
+  .layout2.inview .a2-workflow{
+    transform: none !important;
+  }
+
+  /* Move DOB block upward a bit and slightly left */
+  .layout2 .a2-dob{
+    top: calc(clamp(320px, 54vh, 620px) + 40px - var(--dob-gap-offset)) !important;
+    transform: translate(1vw, -1vh) scale(var(--meta-scale)) !important;
+  }
+  .layout2.inview .a2-dob{
+    transform: translate(1vw, -1vh) scale(var(--meta-scale)) !important;
+  }
+
+  /* Move WORKING 24/7 block downward */
+  .layout2 .a2-day{
+    top: calc(clamp(320px, 54vh, 620px) + 40px) !important;
+    transform: translate(calc(var(--day-move-x) * 1vw), 22vh) scale(var(--meta-scale)) !important;
+  }
+  .layout2.inview .a2-day{
+    transform: translate(calc(var(--day-move-x) * 1vw), 22vh) scale(var(--meta-scale)) !important;
+  }
+</style>
+
 </head>
-
 <body class="ocean-mode" oncontextmenu="return false;">
-
-  <div id="transition-overlay" aria-hidden="true">
-    <canvas id="meteorCanvas"></canvas>
-    <div class="meteor-wrap" id="meteorWrap"></div>
-  </div>
-
-  <div id="theme-bg">
-    <div class="bg-ocean">
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-    </div>
-    <div class="bg-star">
-  <!-- Nền Ngân hà & Tinh vân -->
-  <div class="galactic-disk"></div>
-  <div class="nebula-container">
-    <div class="nebula nebula-1"></div>
-    <div class="nebula nebula-2"></div>
-  </div>
-
-  <!-- Sao băng bay chéo (Trên Trái -> Dưới Phải) -->
-  <div class="shooting-star-v2 ss-1"></div>
-  <div class="shooting-star-v2 ss-2"></div>
-  <div class="shooting-star-v2 ss-3"></div>
-
-  <!-- 1. BẠCH DƯƠNG -->
-  <svg class="constellation aries" viewBox="0 0 100 60">
-    <path class="c-line" d="M10,20 L50,15 L80,40 L90,55" />
-    <circle class="c-star" cx="10" cy="20" r="1" />
-    <circle class="c-main-star" cx="50" cy="15" r="2" />
-    <circle class="c-star" cx="80" cy="40" r="1" />
-    <circle class="c-star" cx="90" cy="55" r="1" />
-  </svg>
-
-  <!-- 2. KIM NGƯU -->
-  <svg class="constellation taurus" viewBox="0 0 140 100">
-    <path class="c-line" d="M10,10 L40,40 L60,50 L90,45 L130,20 M60,50 L70,80" />
-    <circle class="c-main-star" cx="60" cy="50" r="2.2" />
-    <circle class="c-star" cx="10" cy="10" r="1" />
-    <circle class="c-star" cx="130" cy="20" r="1" />
-  </svg>
-
-  <!-- 3. SONG TỬ -->
-  <svg class="constellation gemini" viewBox="0 0 100 100">
-    <path class="c-line" d="M20,10 L25,40 L30,80 M20,10 L50,15 M25,40 L55,45 M30,80 L60,85" />
-    <circle class="c-main-star" cx="20" cy="10" r="1.8" />
-    <circle class="c-main-star" cx="50" cy="15" r="1.8" />
-  </svg>
-
-  <!-- 4. CỰ GIẢI -->
-  <svg class="constellation cancer" viewBox="0 0 100 100">
-    <path class="c-line" d="M50,10 L50,40 L20,70 M50,40 L80,70" />
-    <circle class="c-main-star" cx="50" cy="40" r="1.8" />
-    <circle class="c-star" cx="20" cy="70" r="1" />
-  </svg>
-
-  <!-- 5. SƯ TỬ -->
-  <svg class="constellation leo" viewBox="0 0 150 100">
-    <path class="c-line" d="M140,80 L100,90 L70,70 L80,40 L110,20 L130,40 L110,20" />
-    <circle class="c-main-star" cx="140" cy="80" r="2.5" />
-    <circle class="c-star" cx="70" cy="70" r="1.2" />
-  </svg>
-
-  <!-- 6. XỬ NỮ -->
-  <svg class="constellation virgo" viewBox="0 0 200 180">
-    <path class="c-line" d="M30,140 L70,110 L90,60 L130,40 M70,110 L110,130 L160,110 L180,140 M110,130 L130,160" />
-    <circle class="c-main-star" cx="160" cy="110" r="3.5" />
-    <circle class="c-star" cx="30" cy="140" r="1.5" />
-    <circle class="c-star" cx="70" cy="110" r="1.5" />
-  </svg>
-
-  <!-- 7. THIÊN BÌNH -->
-  <svg class="constellation libra" viewBox="0 0 100 100">
-    <path class="c-line" d="M50,20 L20,50 L40,85 L80,50 L50,20" />
-    <circle class="c-main-star" cx="20" cy="50" r="2" />
-    <circle class="c-main-star" cx="80" cy="50" r="2" />
-  </svg>
-
-  <!-- 8. THIÊN YẾT -->
-  <svg class="constellation scorpio" viewBox="0 0 150 150">
-    <path class="c-line" d="M20,30 L50,40 L70,60 L75,90 L70,120 L50,135" />
-    <circle class="c-main-star" cx="50" cy="40" r="2.8" />
-    <circle class="c-star" cx="20" cy="30" r="1.2" />
-  </svg>
-
-  <!-- 9. NHÂN MÃ -->
-  <svg class="constellation sagittarius" viewBox="0 0 120 100">
-    <path class="c-line" d="M20,50 L50,30 L80,40 L75,70 L45,75 L20,50" />
-    <circle class="c-main-star" cx="50" cy="30" r="2" />
-    <circle class="c-star" cx="80" cy="40" r="1.5" />
-  </svg>
-
-  <!-- 10. MA KẾT -->
-  <svg class="constellation capricorn" viewBox="0 0 120 80">
-    <path class="c-line" d="M10,20 L50,15 L100,30 L110,60 L70,75 L20,60 L10,20" />
-    <circle class="c-main-star" cx="10" cy="20" r="2" />
-    <circle class="c-star" cx="110" cy="60" r="1.2" />
-  </svg>
-
-  <!-- 11. BẢO BÌNH -->
-  <svg class="constellation aquarius" viewBox="0 0 150 100">
-    <path class="c-line" d="M10,40 L40,35 L60,50 L90,45 L130,60" />
-    <circle class="c-main-star" cx="40" cy="35" r="2" />
-    <circle class="c-main-star" cx="90" cy="45" r="2" />
-  </svg>
-
-  <!-- 12. SONG NGƯ -->
-  <svg class="constellation pisces" viewBox="0 0 150 150">
-    <path class="c-line" d="M20,20 L50,50 L100,100 L130,130" />
-    <circle class="c-main-star" cx="100" cy="100" r="2" />
-    <circle class="c-star" cx="20" cy="20" r="1.2" />
-  </svg>
-
-  <div class="stars-layer"></div>
+<div aria-hidden="true" id="transition-overlay">
+<canvas id="meteorCanvas"></canvas>
+<div class="meteor-wrap" id="meteorWrap"></div>
 </div>
-    </div>
-  </div>
+<div id="theme-bg">
+<div class="bg-ocean">
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+</div>
+<div class="bg-star">
+<!-- Nền Ngân hà & Tinh vân -->
+<div class="galactic-disk"></div>
+<div class="nebula-container">
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+</div>
+<!-- Sao băng bay chéo (Trên Trái -> Dưới Phải) -->
+<div class="shooting-star-v2 ss-1"></div>
+<div class="shooting-star-v2 ss-2"></div>
+<div class="shooting-star-v2 ss-3"></div>
+<!-- 1. BẠCH DƯƠNG -->
+<svg class="constellation aries" viewbox="0 0 100 60">
+<path class="c-line" d="M10,20 L50,15 L80,40 L90,55"></path>
+<circle class="c-star" cx="10" cy="20" r="1"></circle>
+<circle class="c-main-star" cx="50" cy="15" r="2"></circle>
+<circle class="c-star" cx="80" cy="40" r="1"></circle>
+<circle class="c-star" cx="90" cy="55" r="1"></circle>
+</svg>
+<!-- 2. KIM NGƯU -->
+<svg class="constellation taurus" viewbox="0 0 140 100">
+<path class="c-line" d="M10,10 L40,40 L60,50 L90,45 L130,20 M60,50 L70,80"></path>
+<circle class="c-main-star" cx="60" cy="50" r="2.2"></circle>
+<circle class="c-star" cx="10" cy="10" r="1"></circle>
+<circle class="c-star" cx="130" cy="20" r="1"></circle>
+</svg>
+<!-- 3. SONG TỬ -->
+<svg class="constellation gemini" viewbox="0 0 100 100">
+<path class="c-line" d="M20,10 L25,40 L30,80 M20,10 L50,15 M25,40 L55,45 M30,80 L60,85"></path>
+<circle class="c-main-star" cx="20" cy="10" r="1.8"></circle>
+<circle class="c-main-star" cx="50" cy="15" r="1.8"></circle>
+</svg>
+<!-- 4. CỰ GIẢI -->
+<svg class="constellation cancer" viewbox="0 0 100 100">
+<path class="c-line" d="M50,10 L50,40 L20,70 M50,40 L80,70"></path>
+<circle class="c-main-star" cx="50" cy="40" r="1.8"></circle>
+<circle class="c-star" cx="20" cy="70" r="1"></circle>
+</svg>
+<!-- 5. SƯ TỬ -->
+<svg class="constellation leo" viewbox="0 0 150 100">
+<path class="c-line" d="M140,80 L100,90 L70,70 L80,40 L110,20 L130,40 L110,20"></path>
+<circle class="c-main-star" cx="140" cy="80" r="2.5"></circle>
+<circle class="c-star" cx="70" cy="70" r="1.2"></circle>
+</svg>
+<!-- 6. XỬ NỮ -->
+<svg class="constellation virgo" viewbox="0 0 200 180">
+<path class="c-line" d="M30,140 L70,110 L90,60 L130,40 M70,110 L110,130 L160,110 L180,140 M110,130 L130,160"></path>
+<circle class="c-main-star" cx="160" cy="110" r="3.5"></circle>
+<circle class="c-star" cx="30" cy="140" r="1.5"></circle>
+<circle class="c-star" cx="70" cy="110" r="1.5"></circle>
+</svg>
+<!-- 7. THIÊN BÌNH -->
+<svg class="constellation libra" viewbox="0 0 100 100">
+<path class="c-line" d="M50,20 L20,50 L40,85 L80,50 L50,20"></path>
+<circle class="c-main-star" cx="20" cy="50" r="2"></circle>
+<circle class="c-main-star" cx="80" cy="50" r="2"></circle>
+</svg>
+<!-- 8. THIÊN YẾT -->
+<svg class="constellation scorpio" viewbox="0 0 150 150">
+<path class="c-line" d="M20,30 L50,40 L70,60 L75,90 L70,120 L50,135"></path>
+<circle class="c-main-star" cx="50" cy="40" r="2.8"></circle>
+<circle class="c-star" cx="20" cy="30" r="1.2"></circle>
+</svg>
+<!-- 9. NHÂN MÃ -->
+<svg class="constellation sagittarius" viewbox="0 0 120 100">
+<path class="c-line" d="M20,50 L50,30 L80,40 L75,70 L45,75 L20,50"></path>
+<circle class="c-main-star" cx="50" cy="30" r="2"></circle>
+<circle class="c-star" cx="80" cy="40" r="1.5"></circle>
+</svg>
+<!-- 10. MA KẾT -->
+<svg class="constellation capricorn" viewbox="0 0 120 80">
+<path class="c-line" d="M10,20 L50,15 L100,30 L110,60 L70,75 L20,60 L10,20"></path>
+<circle class="c-main-star" cx="10" cy="20" r="2"></circle>
+<circle class="c-star" cx="110" cy="60" r="1.2"></circle>
+</svg>
+<!-- 11. BẢO BÌNH -->
+<svg class="constellation aquarius" viewbox="0 0 150 100">
+<path class="c-line" d="M10,40 L40,35 L60,50 L90,45 L130,60"></path>
+<circle class="c-main-star" cx="40" cy="35" r="2"></circle>
+<circle class="c-main-star" cx="90" cy="45" r="2"></circle>
+</svg>
+<!-- 12. SONG NGƯ -->
+<svg class="constellation pisces" viewbox="0 0 150 150">
+<path class="c-line" d="M20,20 L50,50 L100,100 L130,130"></path>
+<circle class="c-main-star" cx="100" cy="100" r="2"></circle>
+<circle class="c-star" cx="20" cy="20" r="1.2"></circle>
+</svg>
+<div class="stars-layer"></div>
+</div>
+</div>
 
-  <div class="opt" id="opt" aria-label="Quick menu">
-    <button class="opt-toggle" id="optBtn" aria-label="Options" type="button">
-      <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/146141ca87df3a663bf7006af05083f308d47c8d/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png" alt="Menu" draggable="false">
-    </button>
-
-    <a class="opt-item top-3" href="#layout-2" data-target="#layout-2">About Me</a>
-    <a class="opt-item top-2" href="#layout-3" data-target="#layout-3">My Project</a>
-    <a class="opt-item top-1" href="#layout-4" data-target="#layout-4">My Work</a>
-
-    <a class="opt-item bot-1" href="#layout-5" data-target="#layout-5">My Skill</a>
-    <a class="opt-item bot-2" href="#layout-6" data-target="#layout-6">My Cer</a>
-    <a class="opt-item bot-3" href="#layout-7" data-target="#layout-7">Contact</a>
-  </div>
-
-  <a href="#layout-1" class="btn-top" id="backTop" aria-label="Back to top">↑</a>
-
-  <div id="viewport">
-    <div id="stage-wrap">
-      <div id="stage">
-
-        <main>
-          <section class="section layout1" id="layout-1">
-
-            <div class="follio-float">
-              <div class="trace-on" aria-hidden="true">
-                <div class="trace-mask" style="--mask-url:url('https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Follio.png');"></div>
-              </div>
-              <img class="asset text-img" style="--delay: 0ms;"
-                src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Follio.png"
-                alt="FOLLIO" draggable="false" />
-            </div>
-
-            <div class="left-block">
-              <div class="port-title">
-                <div class="trace-on" aria-hidden="true">
-                  <div class="trace-mask" style="--mask-url:url('https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Porrt.png');"></div>
-                </div>
-                <img class="asset text-img" style="--delay: 120ms;"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Porrt.png"
-                  alt="PORT" draggable="false" />
-              </div>
-
-              <div class="group">
-                <div class="card">
-                  <div class="trace-on trace-box" aria-hidden="true"></div>
-                  <img class="asset" style="--delay: 0ms;"
-                    src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/The%20reader.png"
-                    alt="The Reader" draggable="false" />
-                </div>
-
-                <div class="card">
-                  <div class="trace-on trace-box" aria-hidden="true"></div>
-                  <img class="asset" style="--delay: 200ms;"
-                    src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Horoshope.png"
-                    alt="Reader's Horoscope" draggable="false" />
-                </div>
-              </div>
-            </div>
-
-            <div class="right-block">
-              <div class="group">
-                <div class="card">
-                  <div class="trace-on trace-box" aria-hidden="true"></div>
-                  <img class="asset" style="--delay: 400ms;"
-                    src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Mar.png"
-                    alt="Social Media Marketing" draggable="false" />
-                </div>
-
-                <div class="card">
-                  <div class="trace-on trace-box" aria-hidden="true"></div>
-                  <img class="asset" style="--delay: 600ms;"
-                    src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/BA.png"
-                    alt="Business Analytics" draggable="false" />
-                </div>
-              </div>
-            </div>
-
-            <div class="center-figure">
-              <img class="asset figure-img"
-                src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png"
-                alt="Minh Center Figure" draggable="false" />
-            </div>
-
-            <button id="theme-btn" aria-label="Toggle Theme">
-              <svg id="icon-water" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C16.9706 22 21 17.9706 21 13C21 10.3809 19.8804 8.02675 18.1064 6.32626C16.4883 4.77526 13.9113 2.50209 12.655 1.40141C12.28 1.07289 11.72 1.07289 11.345 1.40141C10.0887 2.50209 7.5117 4.77526 5.8936 6.32626C4.11964 8.02675 3 10.3809 3 13C3 17.9706 7.02944 22 12 22Z" />
-              </svg>
-              <svg id="icon-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-              </svg>
-            </button>
-          </section>
-
-          <section class="section layout2 reveal" id="layout-2">
-            <div class="stage">
-              <div class="piece p-person" style="--d: 0ms;">
-                <img
-                  data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png"
-                  data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/ng%C6%B0%E1%BB%9Di.png"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png"
-                  alt="About Me - Person" draggable="false" />
-              </div>
-
-              <div class="piece p-about" style="--d: 180ms;">
-                <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/About%20me.png"
-                  alt="ABOUT ME" draggable="false" />
-              </div>
-
-              <div class="piece p-story is-clickable" style="--d: 260ms;">
-                <img
-                  data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png"
-                  data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/Story.png"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png"
-                  alt="MY STORY" draggable="false" />
-              </div>
-
-              <div class="piece p-day" style="--d: 300ms;">
-                <img
-                  data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/day.png"
-                  data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/247.png"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/day.png"
-                  alt="WORK 24/7" draggable="false" />
-              </div>
-
-              <div class="piece p-dob" style="--d: 320ms;">
-                <img
-                  data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/DOB_%2027.08.2005.png"
-                  data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/DOB.png"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/DOB_%2027.08.2005.png"
-                  alt="DOB 27.08.2005" draggable="false" />
-              </div>
-
-              <div class="piece p-workflow is-clickable" style="--d: 360ms;">
-                <img
-                  data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png"
-                  data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/workflow.png"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png"
-                  alt="MY WORKFLOW" draggable="false" />
-              </div>
-            </div>
-          </section>
-
-          <section class="section layout3 reveal" id="layout-3">
-            <div class="stage">
-              <div class="piece title-center" style="--d: 0ms;">
-                <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout3/Project.png"
-                  alt="MY PROJECT" draggable="false" />
-              </div>
-
-              <div class="proj3-ui" aria-label="Projects">
-                <div class="proj3-tabs" role="tablist" aria-label="Project categories">
-                  <button class="proj3-tab is-active" type="button" data-tab="marketing" role="tab" aria-selected="true">Marketing</button>
-                  <button class="proj3-tab" type="button" data-tab="social" role="tab" aria-selected="false">Social Media</button>
-                  <button class="proj3-tab" type="button" data-tab="ba" role="tab" aria-selected="false">Business Analysis</button>
-                  <button class="proj3-tab" type="button" data-tab="website" role="tab" aria-selected="false">Trang web</button>
-                </div>
-
-                <div class="proj3-panel is-show" id="proj3-marketing" role="tabpanel" aria-label="Marketing projects">
-                  <div class="proj3-grid">
-                    <a class="proj3-card marketing-open" href="#"
-                       aria-label="Open Be marketing case"
-                       data-title="Be — Marketing case"
-                       data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/Be/"
-                       data-max="30">
-                      <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/Be/1.png"
-                           alt="Be — cover" loading="lazy" draggable="false" />
-                    </a>
-
-                    <a class="proj3-card marketing-open" href="#"
-                       aria-label="Open Marketing Arena"
-                       data-title="Marketing Arena"
-                       data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/MARKETING%20AREANA/"
-                       data-max="30">
-                      <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/MARKETING%20AREANA/1.png"
-                           alt="Marketing Arena — cover" loading="lazy" draggable="false" />
-                    </a>
-
-                    <a class="proj3-card marketing-open" href="#"
-                       aria-label="Open [BLM] CLOSEUP"
-                       data-title="[BLM] CLOSEUP"
-                       data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/"
-                       data-max="30">
-                      <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/1.png"
-                           alt="[BLM] CLOSEUP — cover" loading="lazy" draggable="false" />
-                    </a>
-                  </div>
-                </div>
-
-                <div class="proj3-panel" id="proj3-social" role="tabpanel" aria-label="Social Media projects">
-                  <div class="social-splits">
-                    <div class="social-block" aria-label="Facebook">
-                      <div class="social-head">Facebook</div>
-                      <div class="social-grid">
-                        <a class="proj3-card" href="https://www.facebook.com/danhgiatuduybkhntsa" target="_blank" rel="noopener" aria-label="Facebook page 1">
-                          <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/1.png"
-                               alt="Facebook 1" loading="lazy" draggable="false">
-                        </a>
-
-                        <a class="proj3-card" href="https://www.facebook.com/groups/danhgiatuduyhust/" target="_blank" rel="noopener" aria-label="Facebook group">
-                          <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/2.png"
-                               alt="Facebook 2" loading="lazy" draggable="false">
-                        </a>
-
-                        <a class="proj3-card" href="https://www.facebook.com/tailieuonthidanhgiatuduytsa" target="_blank" rel="noopener" aria-label="Facebook page 2">
-                          <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/3.png"
-                               alt="Facebook 3" loading="lazy" draggable="false">
-                        </a>
-                      </div>
-                    </div>
-
-                    <div class="social-block" aria-label="TikTok">
-                      <div class="social-head">TikTok</div>
-                      <div class="social-grid">
-                        <a class="proj3-card fit-contain" href="https://www.tiktok.com/@gioitsakhongkho" target="_blank" rel="noopener" aria-label="TikTok">
-                          <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/4.png"
-                               alt="TikTok" loading="lazy" draggable="false">
-                        </a>
-                      </div>
-                    </div>
-
-                    <div class="social-block" aria-label="YouTube">
-                      <div class="social-head">YouTube</div>
-                      <div class="social-grid">
-                        <a class="proj3-card fit-contain" href="https://www.youtube.com/@qlTSAonHSAEDUCATION" target="_blank" rel="noopener" aria-label="YouTube channel 1">
-                          <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/5.png"
-                               alt="YouTube 1" loading="lazy" draggable="false">
-                        </a>
-
-                        <a class="proj3-card fit-contain" href="https://www.youtube.com/@danhgiatuduytsa" target="_blank" rel="noopener" aria-label="YouTube channel 2">
-                          <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/69935af61fb549f6d4de8273c8f0711584024b88/%E1%BA%A2nh%20main/Project/Social%20Media/6.png"
-                               alt="YouTube 2" loading="lazy" draggable="false">
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="proj3-panel" id="proj3-ba" role="tabpanel" aria-label="Business Analysis projects">
-                  <div class="proj3-grid">
-                    <a class="proj3-card proj3-link-card"
-                       href="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a304a66dbdc7a63afbab965fe96c61d803198739/%5BPH%E1%BA%A6N%20B%5D%20%5BOPTION%20A%5D%20%5B3%20CON%20G%C3%80%20TOP%201%5D.pbix"
-                       target="_blank" rel="noopener"
-                       aria-label="Open Business Analysis Power BI project">
-                      <div>
-                        <div class="proj3-link-top">
-                          <span class="proj3-link-badge">📊</span>
-                          <div class="proj3-link-title">Business Analysis Power BI</div>
-                        </div>
-                        <div class="proj3-link-desc">
+<div aria-label="Quick menu" class="opt" id="opt">
+<button aria-label="Options" class="opt-toggle" id="optBtn" type="button">
+<img alt="Menu" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/146141ca87df3a663bf7006af05083f308d47c8d/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png"/>
+</button>
+<a class="opt-item top-1" data-target="#layout-2" href="#layout-2">About Me</a>
+<a class="opt-item top-2" data-target="#layout-4" href="#layout-4">My Work</a>
+<a class="opt-item top-3" data-target="#layout-6" href="#layout-6">My Cer</a>
+<a class="opt-item bot-1" data-target="#layout-3" href="#layout-3">My Project</a>
+<a class="opt-item bot-2" data-target="#layout-5" href="#layout-5">My Skill</a>
+<a class="opt-item bot-3" data-target="#layout-7" href="#layout-7">Contact</a>
+</div>
+<a aria-label="Back to top" class="btn-top" href="#layout-1" id="backTop">↑</a>
+<div id="viewport">
+<div id="stage-wrap">
+<div id="stage">
+<main>
+<section class="section layout1" id="layout-1">
+<div class="follio-float">
+<div aria-hidden="true" class="trace-on">
+<div class="trace-mask" style="--mask-url:url('https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Follio.png');"></div>
+</div>
+<img alt="FOLLIO" class="asset text-img" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Follio.png" style="--delay: 0ms;">
+</img></div>
+<div class="left-block">
+<div class="port-title">
+<div aria-hidden="true" class="trace-on">
+<div class="trace-mask" style="--mask-url:url('https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Porrt.png');"></div>
+</div>
+<img alt="PORT" class="asset text-img" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Porrt.png" style="--delay: 120ms;"/>
+</div>
+<div class="group">
+<div class="card">
+<div aria-hidden="true" class="trace-on trace-box"></div>
+<img alt="The Reader" class="asset" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/The%20reader.png" style="--delay: 0ms;"/>
+</div>
+<div class="card">
+<div aria-hidden="true" class="trace-on trace-box"></div>
+<img alt="Reader's Horoscope" class="asset" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Horoshope.png" style="--delay: 200ms;"/>
+</div>
+</div>
+</div>
+<div class="right-block">
+<div class="group">
+<div class="card">
+<div aria-hidden="true" class="trace-on trace-box"></div>
+<img alt="Social Media Marketing" class="asset" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/Mar.png" style="--delay: 400ms;"/>
+</div>
+<div class="card">
+<div aria-hidden="true" class="trace-on trace-box"></div>
+<img alt="Business Analytics" class="asset" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/BA.png" style="--delay: 600ms;"/>
+</div>
+</div>
+</div>
+<div class="center-figure">
+<img alt="Minh Center Figure" class="asset figure-img" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png"/>
+</div>
+<button aria-label="Toggle Theme" id="theme-btn">
+<svg id="icon-water" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 22C16.9706 22 21 17.9706 21 13C21 10.3809 19.8804 8.02675 18.1064 6.32626C16.4883 4.77526 13.9113 2.50209 12.655 1.40141C12.28 1.07289 11.72 1.07289 11.345 1.40141C10.0887 2.50209 7.5117 4.77526 5.8936 6.32626C4.11964 8.02675 3 10.3809 3 13C3 17.9706 7.02944 22 12 22Z"></path>
+</svg>
+<svg id="icon-star" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"></path>
+</svg>
+</button>
+</section>
+<section class="section layout2 reveal" id="layout-2">
+<div class="a2-stage">
+<div class="a2-piece a2-person" style="--d:0ms;">
+<img alt="About Me - Person" data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/ng%C6%B0%E1%BB%9Di.png" data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png"/>
+</div>
+<div class="a2-piece a2-about" style="--d:180ms;">
+<img alt="ABOUT ME" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/About%20me.png"/>
+</div>
+<div class="a2-piece a2-dob a2-text-block" style="--d:260ms;">
+<div class="a2-typing-line">
+<span class="a2-typing" data-text="DOB: 27.08.2005"></span>
+<span class="a2-cursor"></span>
+</div>
+<div class="a2-subtext"><span class="pink">♍ Virgo</span></div>
+</div>
+<div class="a2-piece a2-story a2-clickable" data-href="story.html" style="--d:280ms;">
+<img alt="MY STORY" data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/Story.png" data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png"/>
+</div>
+<div class="a2-piece a2-workflow a2-clickable" data-href="workflow.html" style="--d:340ms;">
+<img alt="MY WORKFLOW" data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/workflow.png" data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png"/>
+</div>
+<div class="a2-piece a2-day a2-text-block" style="--d:360ms;">
+<div class="a2-typing-line a2-right">
+<span class="a2-typing" data-text="WORKING 24/7"></span>
+<span class="a2-cursor"></span>
+</div>
+<div class="a2-subtext a2-right"><span class="pink">3,42 hours/day</span></div>
+</div>
+</div>
+</section>
+<section class="section layout3 reveal" id="layout-3">
+<div class="stage">
+<div class="piece title-center" style="--d: 0ms;">
+<img alt="MY PROJECT" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout3/Project.png"/>
+</div>
+<div aria-label="Projects" class="proj3-ui">
+<div aria-label="Project categories" class="proj3-tabs" role="tablist"><span aria-hidden="true" class="tab-indicator" id="tabIndicator"></span>
+<button aria-selected="true" class="proj3-tab is-active" data-tab="marketing" role="tab" type="button">Marketing</button>
+<button aria-selected="false" class="proj3-tab" data-tab="social" role="tab" type="button">Social Media</button>
+<button aria-selected="false" class="proj3-tab" data-tab="ba" role="tab" type="button">Business Analysis</button>
+<button aria-selected="false" class="proj3-tab" data-tab="website" role="tab" type="button">Trang web</button>
+</div>
+<div aria-label="Marketing projects" class="proj3-panel is-show" id="proj3-marketing" role="tabpanel">
+<div class="proj3-grid">
+<a aria-label="Open Be marketing case" class="proj3-card marketing-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/Be/" data-max="30" data-title="Be — Marketing case" href="#">
+<img alt="Be — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/Be/1.png"/>
+</a>
+<a aria-label="Open Marketing Arena" class="proj3-card marketing-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/MARKETING%20AREANA/" data-max="30" data-title="Marketing Arena" href="#">
+<img alt="Marketing Arena — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/MARKETING%20AREANA/1.png"/>
+</a>
+<a aria-label="Open [BLM] CLOSEUP" class="proj3-card marketing-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/" data-max="30" data-title="[BLM] CLOSEUP" href="#">
+<img alt="[BLM] CLOSEUP — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/1.png"/>
+</a>
+</div>
+</div>
+<div aria-label="Social Media projects" class="proj3-panel" id="proj3-social" role="tabpanel">
+<div class="social-splits">
+<div aria-label="Facebook" class="social-block">
+<div class="social-head">Facebook</div>
+<div class="social-grid">
+<a aria-label="Facebook page 1" class="proj3-card" href="https://www.facebook.com/danhgiatuduybkhntsa" rel="noopener" target="_blank">
+<img alt="Facebook 1" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/1.png"/>
+</a>
+<a aria-label="Facebook group" class="proj3-card" href="https://www.facebook.com/groups/danhgiatuduyhust/" rel="noopener" target="_blank">
+<img alt="Facebook 2" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/2.png"/>
+</a>
+<a aria-label="Facebook page 2" class="proj3-card" href="https://www.facebook.com/tailieuonthidanhgiatuduytsa" rel="noopener" target="_blank">
+<img alt="Facebook 3" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/3.png"/>
+</a>
+</div>
+</div>
+<div aria-label="TikTok" class="social-block">
+<div class="social-head">TikTok</div>
+<div class="social-grid">
+<a aria-label="TikTok" class="proj3-card fit-contain" href="https://www.tiktok.com/@gioitsakhongkho" rel="noopener" target="_blank">
+<img alt="TikTok" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/4.png"/>
+</a>
+</div>
+</div>
+<div aria-label="YouTube" class="social-block">
+<div class="social-head">YouTube</div>
+<div class="social-grid">
+<a aria-label="YouTube channel 1" class="proj3-card fit-contain" href="https://www.youtube.com/@qlTSAonHSAEDUCATION" rel="noopener" target="_blank">
+<img alt="YouTube 1" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/5.png"/>
+</a>
+<a aria-label="YouTube channel 2" class="proj3-card fit-contain" href="https://www.youtube.com/@danhgiatuduytsa" rel="noopener" target="_blank">
+<img alt="YouTube 2" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/69935af61fb549f6d4de8273c8f0711584024b88/%E1%BA%A2nh%20main/Project/Social%20Media/6.png"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div aria-label="Business Analysis projects" class="proj3-panel" id="proj3-ba" role="tabpanel">
+<div class="proj3-grid">
+<a aria-label="Open Business Analysis Power BI project" class="proj3-card proj3-link-card" href="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a304a66dbdc7a63afbab965fe96c61d803198739/%5BPH%E1%BA%A6N%20B%5D%20%5BOPTION%20A%5D%20%5B3%20CON%20G%C3%80%20TOP%201%5D.pbix" rel="noopener" target="_blank">
+<div>
+<div class="proj3-link-top">
+<span class="proj3-link-badge">📊</span>
+<div class="proj3-link-title">Business Analysis Power BI</div>
+</div>
+<div class="proj3-link-desc">
                           File Power BI (.pbix) cho project Business Analysis của bạn.
                         </div>
-                      </div>
-                      <div class="proj3-link-url">GitHub PBIX Project ↗</div>
-                    </a>
-
-                    <a class="proj3-card" href="#" aria-label="Business Analysis project placeholder">
-                      <img src="https://dummyimage.com/1280x720/ffffff/001c55.png&text=Business+Analysis+Project" alt="BA project placeholder" loading="lazy" draggable="false">
-                    </a>
-                  </div>
-
-                </div>
-
-                <div class="proj3-panel" id="proj3-website" role="tabpanel" aria-label="Website projects">
-                  <div class="proj3-grid">
-                    <a class="proj3-card proj3-link-card"
-                       href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/"
-                       target="_blank" rel="noopener"
-                       aria-label="Open Trang web tử vi">
-                      <div>
-                        <div class="proj3-link-top">
-                          <span class="proj3-link-badge">🌐</span>
-                          <div class="proj3-link-title">Trang web tử vi</div>
-                        </div>
-                        <div class="proj3-link-desc">
+</div>
+<div class="proj3-link-url">GitHub PBIX Project ↗</div>
+</a>
+<a aria-label="Business Analysis project placeholder" class="proj3-card" href="#">
+<img alt="BA project placeholder" draggable="false" loading="lazy" src="https://dummyimage.com/1280x720/ffffff/001c55.png&amp;text=Business+Analysis+Project"/>
+</a>
+</div>
+</div>
+<div aria-label="Website projects" class="proj3-panel" id="proj3-website" role="tabpanel">
+<div class="proj3-grid">
+<a aria-label="Open Trang web tử vi" class="proj3-card proj3-link-card" href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/" rel="noopener" target="_blank">
+<div>
+<div class="proj3-link-top">
+<span class="proj3-link-badge">🌐</span>
+<div class="proj3-link-title">Trang web tử vi</div>
+</div>
+<div class="proj3-link-desc">
                           Website xem tử vi và trải nghiệm nội dung chiêm tinh.
                         </div>
-                      </div>
-                      <div class="proj3-link-url">nguyendangminh278-coder.github.io/reader-bandosao-tuvi/ ↗</div>
-                    </a>
-
-                    <a class="proj3-card proj3-link-card"
-                       href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ"
-                       target="_blank" rel="noopener"
-                       aria-label="Open Prompt and HTML collection">
-                      <div>
-                        <div class="proj3-link-top">
-                          <span class="proj3-link-badge">💻</span>
-                          <div class="proj3-link-title">Prompt &amp; HTML Collection</div>
-                        </div>
-                        <div class="proj3-link-desc">
+</div>
+<div class="proj3-link-url">nguyendangminh278-coder.github.io/reader-bandosao-tuvi/ ↗</div>
+</a>
+<a aria-label="Open Prompt and HTML collection" class="proj3-card proj3-link-card" href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ" rel="noopener" target="_blank">
+<div>
+<div class="proj3-link-top">
+<span class="proj3-link-badge">💻</span>
+<div class="proj3-link-title">Prompt &amp; HTML Collection</div>
+</div>
+<div class="proj3-link-desc">
                           Bộ sưu tập prompt và HTML phục vụ học tập, sáng tạo và thử nghiệm giao diện.
                         </div>
-                      </div>
-                      <div class="proj3-link-url">Prompt &amp; HTML collection ↗</div>
-                    </a>
-
-                    <a class="proj3-card proj3-link-card"
-                       href="https://superagento.github.io/Student-survey/"
-                       target="_blank" rel="noopener"
-                       aria-label="Open Student Survey">
-                      <div>
-                        <div class="proj3-link-top">
-                          <span class="proj3-link-badge">📋</span>
-                          <div class="proj3-link-title">Student Survey</div>
-                        </div>
-                        <div class="proj3-link-desc">
+</div>
+<div class="proj3-link-url">Prompt &amp; HTML collection ↗</div>
+</a>
+<a aria-label="Open Student Survey" class="proj3-card proj3-link-card" href="https://superagento.github.io/Student-survey/" rel="noopener" target="_blank">
+<div>
+<div class="proj3-link-top">
+<span class="proj3-link-badge">📋</span>
+<div class="proj3-link-title">Student Survey</div>
+</div>
+<div class="proj3-link-desc">
                           Website khảo sát sinh viên, thu thập dữ liệu và hiển thị biểu mẫu trực quan.
                         </div>
-                      </div>
-                      <div class="proj3-link-url">superagento.github.io/Student-survey/ ↗</div>
-                    </a>
-
-                    <a class="proj3-card proj3-link-card"
-                       href="https://superagento.github.io/canifaS_tr-ng-i-nonstop/"
-                       target="_blank" rel="noopener"
-                       aria-label="Open CANIFA S website">
-                      <div>
-                        <div class="proj3-link-top">
-                          <span class="proj3-link-badge">🎨</span>
-                          <div class="proj3-link-title">CANIFA S</div>
-                        </div>
-                        <div class="proj3-link-desc">
+</div>
+<div class="proj3-link-url">superagento.github.io/Student-survey/ ↗</div>
+</a>
+<a aria-label="Open CANIFA S website" class="proj3-card proj3-link-card" href="https://superagento.github.io/canifaS_tr-ng-i-nonstop/" rel="noopener" target="_blank">
+<div>
+<div class="proj3-link-top">
+<span class="proj3-link-badge">🎨</span>
+<div class="proj3-link-title">CANIFA S</div>
+</div>
+<div class="proj3-link-desc">
                           Website trình bày concept, hình ảnh và trải nghiệm thương hiệu thời trang.
                         </div>
-                      </div>
-                      <div class="proj3-link-url">superagento.github.io/canifaS_tr-ng-i-nonstop/ ↗</div>
-                    </a>
-
-                    <a class="proj3-card proj3-link-card"
-                       href="https://ielts-practice-hub.onrender.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcTdSeWZwVnp6bDFiQ1Y1THNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6WwtCp5m0SSPUVwg31dnSn2HEd3-xWiLxL_JN932GMlGtDwpzj_zF0TQkEQw_aem_tZYSSddov1yLXlZi2g5Rmg"
-                       target="_blank" rel="noopener"
-                       aria-label="Open IELTS Practice Hub">
-                      <div>
-                        <div class="proj3-link-top">
-                          <span class="proj3-link-badge">📚</span>
-                          <div class="proj3-link-title">IELTS Practice Hub</div>
-                        </div>
-                        <div class="proj3-link-desc">
-                          Nền tảng luyện tập IELTS với định hướng học và thực hành trực tuyến.
-                        </div>
-                      </div>
-                      <div class="proj3-link-url">ielts-practice-hub.onrender.com ↗</div>
-                    </a>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="section layout4 reveal" id="layout-4">
-            <div class="stage">
-              <div class="piece title-center" style="--d: 0ms;">
-                <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/my%20work.png"
-                  alt="MY WORK" draggable="false" />
-              </div>
-
-              <div class="piece work4-list is-clickable" style="--d: 180ms;">
-                <div class="work4-stack">
-                  <a class="work4-item" href="work.html" aria-label="HSA - view more detail">
-                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HSA%20EDU.png"
-                      alt="HSA EDUCATION" loading="lazy" draggable="false" />
-                  </a>
-
-                  <a class="work4-item" href="work.html" aria-label="HOC IZ SCHOOL - view more detail">
-                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png"
-                      alt="HOC IZ SCHOOL" loading="lazy" draggable="false" />
-                  </a>
-
-                  <a class="work4-item" href="work.html" aria-label="ABIT - view more detail">
-                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/ABIT.png"
-                      alt="ABIT EDUCATION" loading="lazy" draggable="false" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="section layout5 reveal" id="layout-5" data-page="1" data-debug="0">
-            <div class="stage">
-              <div class="l5-title" data-text="MY SKILLS">MY SKILLS</div>
-
-              <div class="l5-pages">
-                <div class="l5-page l5-page-2">
-                  <img class="l5-obj l5-person"
-                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/Ng%C6%B0%E1%BB%9Di.png"
-                       data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/Per5.2.png"
-                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/Ng%C6%B0%E1%BB%9Di.png"
-                       alt="Person 5.2" loading="lazy" draggable="false" />
-
-                  <img class="l5-obj l5-box1"
-                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/LK.png"
-                       data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/LK.png"
-                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/LK.png"
-                       alt="Leadership skill box" loading="lazy" draggable="false" />
-
-                  <img class="l5-obj l5-box2"
-                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/SK.png"
-                       data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/SK.png"
-                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/SK.png"
-                       alt="Soft skill box" loading="lazy" draggable="false" />
-                </div>
-
-                <div class="l5-page l5-page-1">
-                  <img class="l5-obj l5-person"
-                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/ng%C6%B0%E1%BB%9Di.png"
-                       data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout5/5.1%20darkmode/ng%C6%B0%E1%BB%9Di.png"
-                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/ng%C6%B0%E1%BB%9Di.png"
-                       alt="Person 5.1" loading="lazy" draggable="false" />
-
-                  <img class="l5-obj l5-box1"
-                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/BA.png"
-                       data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout5/5.1%20darkmode/BA.png"
-                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/BA.png"
-                       alt="BA box" loading="lazy" draggable="false" />
-
-                  <img class="l5-obj l5-box2"
-                       data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/CT.png"
-                       data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout5/5.1%20darkmode/Mar.png"
-                       src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/CT.png"
-                       alt="Content Creator box" loading="lazy" draggable="false" />
-                </div>
-              </div>
-
-              <button class="l5-nav l5-btn-next" type="button" aria-label="Next" data-l5="next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M9 18l6-6-6-6"></path>
-                </svg>
-              </button>
-
-              <button class="l5-nav l5-btn-prev" type="button" aria-label="Previous" data-l5="prev">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M15 18l-6-6 6-6"></path>
-                </svg>
-              </button>
-            </div>
-          </section>
-
-          <section class="section layout6 reveal" id="layout-6">
-            <div class="stage">
-              <div class="piece title-center" style="--d: 0ms;">
-                <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout6/Portlio/Cer.png"
-                  alt="MY CERTIFICATE" draggable="false" />
-              </div>
-
-              <div class="cer6-wrap" aria-label="Certificates">
-                <div class="cer6-grid">
-                  <div class="cer6-card">
-                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png"
-                      alt="Certificate Mistalent" loading="lazy" draggable="false" />
-                  </div>
-
-                  <div class="cer6-card">
-                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png"
-                      alt="Certificate TM" loading="lazy" draggable="false" />
-                  </div>
-
-                  <div class="cer6-card cer6-card--duo">
-                    <div class="cer6-duo" aria-label="MOS results">
-                      <div class="cer6-thumb">
-                        <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg" alt="MOS Result 1" loading="lazy" draggable="false" />
-                        <a class="cer6-open" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg" target="_blank" rel="noopener">Open</a>
-                      </div>
-                      <div class="cer6-thumb">
-                        <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg" alt="MOS Result 2" loading="lazy" draggable="false" />
-                        <a class="cer6-open" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg" target="_blank" rel="noopener">Open</a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="cer6-card">
-                    <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg"
-                      alt="New Certificate" loading="lazy" draggable="false" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="section layout7 reveal" id="layout-7" data-debug="0">
-            <div class="stage">
-
-              <div class="piece p-title" style="--d: 0ms;">
-                <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout7/7.1/Contact%20me!.png"
-                  alt="CONTACT ME!" draggable="false" />
-              </div>
-
-              <div class="piece p-withme is-clickable" style="--d: 160ms;">
-                <div class="wrap">
-                  <img
-                    data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/frame.png"
-                    data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/Frame.png"
-                    src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/frame.png"
-                    alt="Work with me frame" draggable="false" />
-
-                  <div class="withme-overlay" aria-label="Work with me links">
-                    <div class="wm-link wm-static" aria-hidden="true">
-                      <img class="wm-img wm-title"
-                           data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/title.png"
-                           data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/Workwithme.png"
-                           src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/title.png"
-                           alt="" draggable="false" />
-                    </div>
-
-                    <a class="wm-link" href="mailto:nguyendang.minh.2785@gmail.com" aria-label="Send email">
-                      <img class="wm-img wm-mail"
-                           data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/mail.png"
-                           data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/mail.png"
-                           src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/mail.png"
-                           alt="" draggable="false" />
-                    </a>
-
-                    <div class="wm-phones" aria-label="Phone links">
-                      <a class="wm-link" href="https://zalo.me/0819472550" target="_blank" rel="noopener" aria-label="Zalo 0819472550">
-                        <img class="wm-img"
-                             data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/sdt1.png"
-                             data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/sdt1.png"
-                             src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/sdt1.png"
-                             alt="" draggable="false" />
-                      </a>
-
-                      <a class="wm-link" href="https://zalo.me/0912421336" target="_blank" rel="noopener" aria-label="Zalo 0912421336">
-                        <img class="wm-img"
-                             data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/2d4b31b4fe6974839cca761caeb823a492a1aad8/layout7/7.2/sdt2.png"
-                             data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/s%C4%91t%202.png"
-                             src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/2d4b31b4fe6974839cca761caeb823a492a1aad8/layout7/7.2/sdt2.png"
-                             alt="" draggable="false" />
-                      </a>
-                    </div>
-
-                    <a class="wm-link" href="https://www.linkedin.com/in/nguy%E1%BB%85n-%C4%91%C4%83ng-minh-428874286/" target="_blank" rel="noopener" aria-label="Open LinkedIn">
-                      <img class="wm-img wm-li"
-                           data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/Linkedin.png"
-                           data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout7/7.2%20darkmode/linkein.png"
-                           src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.2/Linkedin.png"
-                           alt="" draggable="false" />
-                    </a>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="piece p-follow is-clickable" style="--d: 220ms;">
-                <div class="wrap">
-                  <img src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/Follow%20me.png"
-                    alt="Follow me frame" draggable="false" />
-
-                  <div class="follow-overlay" aria-label="Follow links">
-                    <a class="follow-link" href="https://web.facebook.com/dminh2785" target="_blank" rel="noopener" aria-label="Open Facebook 1">
-                      <img class="follow-ico"
-                           src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/Fb1.png"
-                           alt="" draggable="false" />
-                    </a>
-
-                    <a class="follow-link" href="https://www.instagram.com/rinteru_d/" target="_blank" rel="noopener" aria-label="Open Instagram">
-                      <img class="follow-ico"
-                           src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/insta.png"
-                           alt="" draggable="false" />
-                    </a>
-
-                    <a class="follow-link" href="https://web.facebook.com/LiMiE.onthidaihoc" target="_blank" rel="noopener" aria-label="Open Facebook 2">
-                      <img class="follow-ico"
-                           src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/fb2.png"
-                           alt="" draggable="false" />
-                    </a>
-
-                    <a class="follow-link" href="https://www.tiktok.com/@limiedemo1" target="_blank" rel="noopener" aria-label="Open TikTok">
-                      <img class="follow-ico"
-                           src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout7/7.3/tt.png"
-                           alt="" draggable="false" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="piece p-sites is-clickable" style="--d: 260ms;">
-                <div class="sites-card" aria-label="My websites">
-                  <div class="sites-title">
-                    <span class="sites-badge" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20Z"/>
-                        <path d="M2 12h20"/>
-                        <path d="M12 2c3 3 3 17 0 20"/>
-                        <path d="M12 2c-3 3-3 17 0 20"/>
-                      </svg>
-                    </span>
-                    <span>MY WEBSITES</span>
-                  </div>
-
-                  <a class="site-btn" href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/" target="_blank" rel="noopener" aria-label="Open Trang web tử vi">
-                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20Z"/>
-                      <path d="M2 12h20"/>
-                      <path d="M12 2c3 3 3 17 0 20"/>
-                    </svg>
-                    <span class="site-text">Trang web tử vi</span>
-                    <span class="site-arrow" aria-hidden="true">↗</span>
-                  </a>
-
-                  <a class="site-btn" href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ" target="_blank" rel="noopener" aria-label="Open Prompt and HTML collection">
-                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M16 18l6-6-6-6"/>
-                      <path d="M8 6l-6 6 6 6"/>
-                      <path d="M14 4l-4 16"/>
-                    </svg>
-                    <span class="site-text">Prompt &amp; HTML collection</span>
-                    <span class="site-arrow" aria-hidden="true">↗</span>
-                  </a>
-
-                  <a class="site-btn" href="https://superagento.github.io/Student-survey/" target="_blank" rel="noopener" aria-label="Open Student Survey">
-                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M8 6h13"/>
-                      <path d="M8 12h13"/>
-                      <path d="M8 18h13"/>
-                      <path d="M3 6h.01"/>
-                      <path d="M3 12h.01"/>
-                      <path d="M3 18h.01"/>
-                    </svg>
-                    <span class="site-text">Student Survey</span>
-                    <span class="site-arrow" aria-hidden="true">↗</span>
-                  </a>
-
-                  <a class="site-btn" href="https://superagento.github.io/canifaS_tr-ng-i-nonstop/" target="_blank" rel="noopener" aria-label="Open CANIFA S">
-                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M4 20h16"/>
-                      <path d="M6 16V8"/>
-                      <path d="M10 16V4"/>
-                      <path d="M14 16v-6"/>
-                      <path d="M18 16v-3"/>
-                    </svg>
-                    <span class="site-text">CANIFA S</span>
-                    <span class="site-arrow" aria-hidden="true">↗</span>
-                  </a>
-
-                  <a class="site-btn" href="https://ielts-practice-hub.onrender.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcTdSeWZwVnp6bDFiQ1Y1THNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6WwtCp5m0SSPUVwg31dnSn2HEd3-xWiLxL_JN932GMlGtDwpzj_zF0TQkEQw_aem_tZYSSddov1yLXlZi2g5Rmg" target="_blank" rel="noopener" aria-label="Open IELTS Practice Hub">
-                    <svg class="site-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M12 20V10"/>
-                      <path d="M18 20V4"/>
-                      <path d="M6 20v-6"/>
-                    </svg>
-                    <span class="site-text">IELTS Practice Hub</span>
-                    <span class="site-arrow" aria-hidden="true">↗</span>
-                  </a>
-                </div>
-              </div>
-
-
-            </div>
-          </section>
-        </main>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="viewer" id="viewer" aria-hidden="true">
-    <div class="viewer-backdrop" id="viewerClose"></div>
-    <div class="viewer-panel" role="dialog" aria-modal="true" aria-label="Marketing project viewer">
-      <div class="viewer-head">
-        <span id="viewerTitle">Project</span>
-        <button class="vbtn" id="viewerBack" type="button">Back</button>
-      </div>
-      <div class="viewer-body">
-        <img id="viewerImg" class="viewer-img" src="" alt="Slide">
-      </div>
-      <div class="viewer-foot">
-        <button class="vbtn" id="prevBtn" type="button">Prev</button>
-        <span class="viewer-count" id="viewerCount">0 / 0</span>
-        <button class="vbtn" id="nextBtn" type="button">Next</button>
-        <button class="vbtn" id="closeBtn" type="button">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <script id="fixed-canvas-js">
+</div>
+<div class="proj3-link-url">superagento.github.io/canifaS_tr-ng-i-nonstop/ ↗</div>
+</a>
+<a aria-label="Open IELTS Practice Hub" class="proj3-card proj3-link-card" href="https://ielts-practice-hub.onrender.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcTdSeWZwVnp6bDFiQ1Y1THNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6WwtCp5m0SSPUVwg31dnSn2HEd3-xWiLxL_JN932GMlGtDwpzj_zF0TQkEQw_aem_tZYSSddov1yLXlZi2g5Rmg" rel="noopener" target="_blank">
+<div>
+<div class="proj3-link-top">
+<span class="proj3-link-badge">📚</span>
+<div class="proj3-link-title">IELTS Practice Hub</div>
+<span class="proj3-pill">Group project · 3 people</span></div>
+<div class="proj3-link-desc">Nền tảng luyện tập IELTS trực tuyến được phát triển theo mô hình nhóm 3 người.</div>
+</div>
+<div class="proj3-link-url">ielts-practice-hub.onrender.com ↗</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section layout4 reveal" id="layout-4">
+<div class="w4m-container">
+<div class="w4m-header">
+<div class="w4m-title-img"><img alt="MY WORK" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/my%20work.png"/></div>
+</div>
+<div class="w4m-evolution">
+<div class="w4m-evo-head">
+<span class="w4m-badge">Rebranding</span>
+<span class="w4m-evo-title">Corporate evolution</span>
+</div>
+<div class="w4m-evo-grid">
+<a class="w4m-subcard" href="work.html">
+<img alt="HSA" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HSA%20EDU.png"/>
+<span class="w4m-phase">HSA (Giai đoạn 1)</span>
+</a>
+<div aria-hidden="true" class="w4m-arrow">→</div>
+<a class="w4m-subcard" href="work.html">
+<img alt="HOC IZ" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png"/>
+<span class="w4m-phase">HOC IZ (Hiện tại)</span>
+</a>
+</div>
+</div>
+<div class="w4m-workgrid">
+<a class="w4m-item" href="work.html">
+<img alt="ABIT" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/ABIT.png"/>
+<div class="w4m-item-foot">
+<span class="w4m-category">ABIT Platform</span>
+<span class="w4m-more">Xem chi tiết →</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+<section class="section layout5 reveal" id="layout-5">
+<div class="s5-wrap">
+<div class="s5-title">MY SKILLS</div>
+<div class="s5-stage">
+<img alt="BA" class="s5-obj s5-box s5-box-ba" data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout5/5.1%20darkmode/BA.png" data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/BA.png" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/BA.png"/>
+<img alt="Leadership" class="s5-obj s5-box s5-box-lk" data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/LK.png" data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/LK.png" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/LK.png"/>
+<img alt="Person" class="s5-obj s5-person" data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/Per5.2.png" data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/Ng%C6%B0%E1%BB%9Di.png" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/Ng%C6%B0%E1%BB%9Di.png"/>
+<img alt="Content Creator" class="s5-obj s5-box s5-box-ct" data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout5/5.1%20darkmode/Mar.png" data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/CT.png" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.1/CT.png"/>
+<img alt="Soft Skills" class="s5-obj s5-box s5-box-sk" data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/d5769d59fb39dbdb5a771d554100bd17f7fb72ef/layout5/5.2%20darkmode/SK.png" data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/SK.png" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout5/5.2/SK.png"/>
+</div>
+</div>
+</section>
+<section class="section layout6 reveal" id="layout-6">
+<div class="c6-wrap">
+<div class="c6-title"><img alt="MY CERTIFICATE" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout6/Portlio/Cer.png"/></div>
+<div class="c6-marquee-shell">
+<div class="c6-marquee-track">
+<div class="c6-group">
+<a class="c6-card c6-single" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png" rel="noopener" target="_blank">
+<img alt="Certificate Mistalent" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png"/>
+</a>
+<a class="c6-card c6-single" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png" rel="noopener" target="_blank">
+<img alt="Certificate TM" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png"/>
+</a>
+<div aria-label="MOS results" class="c6-card c6-duo-card">
+<a class="c6-duo-cell" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg" rel="noopener" target="_blank"><img alt="MOS Result 1" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg"/></a>
+<a class="c6-duo-cell" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg" rel="noopener" target="_blank"><img alt="MOS Result 2" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg"/></a>
+</div>
+<a class="c6-card c6-wide" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg" rel="noopener" target="_blank">
+<img alt="New Certificate" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg"/>
+</a>
+</div>
+<div class="c6-group">
+<a class="c6-card c6-single" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png" rel="noopener" target="_blank">
+<img alt="Certificate Mistalent" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png"/>
+</a>
+<a class="c6-card c6-single" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png" rel="noopener" target="_blank">
+<img alt="Certificate TM" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png"/>
+</a>
+<div aria-label="MOS results" class="c6-card c6-duo-card">
+<a class="c6-duo-cell" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg" rel="noopener" target="_blank"><img alt="MOS Result 1" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg"/></a>
+<a class="c6-duo-cell" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg" rel="noopener" target="_blank"><img alt="MOS Result 2" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg"/></a>
+</div>
+<a class="c6-card c6-wide" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg" rel="noopener" target="_blank">
+<img alt="New Certificate" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section layout7 reveal" id="layout-7">
+<div class="ct7-shell">
+<div class="ct7-header">
+<img alt="CONTACT ME!" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout7/7.1/Contact%20me!.png"/>
+</div>
+<div class="ct7-grid">
+<section class="ct7-card ct7-work">
+<div class="ct7-work-top">
+<div class="ct7-iconbox">
+<svg class="ct7-svg" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</div>
+<h2>Work with me</h2>
+</div>
+<div class="ct7-stack">
+<a class="ct7-row" href="mailto:nguyendang.minh.2785@gmail.com">
+<div class="ct7-miniicon">
+<svg class="ct7-svg" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="16" rx="2" width="20" x="2" y="4"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+</div>
+<div>
+<p class="ct7-kicker">Email</p>
+<p class="ct7-strong">nguyendang.minh.2785@gmail.com</p>
+</div>
+</a>
+<div class="ct7-phone-grid">
+<a class="ct7-row ct7-phone" href="https://zalo.me/0819472550" rel="noopener" target="_blank">
+<div class="ct7-miniicon">
+<svg class="ct7-svg" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+</div>
+<div>
+<p class="ct7-kicker">Zalo 1</p>
+<p class="ct7-strong">0819 472 550</p>
+</div>
+</a>
+<a class="ct7-row ct7-phone" href="https://zalo.me/0912421336" rel="noopener" target="_blank">
+<div class="ct7-miniicon">
+<svg class="ct7-svg" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+</div>
+<div>
+<p class="ct7-kicker">Zalo 2</p>
+<p class="ct7-strong">0912 421 336</p>
+</div>
+</a>
+</div>
+</div>
+<a class="ct7-linkedin" href="https://www.linkedin.com/in/nguy%E1%BB%85n-%C4%91%C4%83ng-minh-428874286/" rel="noopener" target="_blank">
+<svg class="ct7-ln" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="currentColor"></path></svg>
+<span>Connect on LinkedIn</span>
+</a>
+</section>
+<section class="ct7-card ct7-follow">
+<div class="ct7-avatar"><img alt="Avatar" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png"/></div>
+<h2>Follow me</h2>
+<p class="ct7-sub">Catch up with my daily life</p>
+<div class="ct7-social-grid">
+<a class="ct7-social fb" href="https://web.facebook.com/dminh2785" rel="noopener" target="_blank"><span class="ct7-social-icon">f</span><span class="ct7-social-label">Profile</span></a>
+<a class="ct7-social fb" href="https://web.facebook.com/LiMiE.onthidaihoc" rel="noopener" target="_blank"><span class="ct7-social-icon">f</span><span class="ct7-social-label">Page</span></a>
+<a class="ct7-social ig" href="https://www.instagram.com/rinteru_d/" rel="noopener" target="_blank"><span class="ct7-social-icon">◎</span><span class="ct7-social-label">Insta</span></a>
+<a class="ct7-social tt" href="https://www.tiktok.com/@limiedemo1" rel="noopener" target="_blank"><span class="ct7-social-icon">♪</span><span class="ct7-social-label">TikTok</span></a>
+</div>
+</section>
+<section class="ct7-card ct7-sites">
+<div class="ct7-sites-head">
+<div class="ct7-sites-badge">
+<svg class="ct7-svg" fill="none" stroke="currentColor" stroke-width="2.3" viewbox="0 0 24 24"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 0 1 9-9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<h2>My Websites &amp; Projects</h2>
+</div>
+<div class="ct7-sites-grid">
+<a class="ct7-site-btn" href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/" rel="noopener" target="_blank"><span class="ct7-site-ico violet">✩</span><span class="ct7-site-text">Trang web tử vi</span><span class="ct7-site-arrow">→</span></a>
+<a class="ct7-site-btn" href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/" rel="noopener" target="_blank"><span class="ct7-site-ico green">&lt;/&gt;</span><span class="ct7-site-text">Prompt &amp; HTML</span><span class="ct7-site-arrow">→</span></a>
+<a class="ct7-site-btn" href="https://superagento.github.io/Student-survey/" rel="noopener" target="_blank"><span class="ct7-site-ico amber">☰</span><span class="ct7-site-text">Student Survey</span><span class="ct7-site-arrow">→</span></a>
+<a class="ct7-site-btn" href="https://superagento.github.io/canifaS_tr-ng-i-nonstop/" rel="noopener" target="_blank"><span class="ct7-site-ico rose">◫</span><span class="ct7-site-text">CANIFA S</span><span class="ct7-site-arrow">→</span></a>
+<a class="ct7-site-btn ct7-site-wide" href="https://ielts-practice-hub.onrender.com/" rel="noopener" target="_blank">
+<span class="ct7-site-ico cyan">📘</span>
+<span class="ct7-site-copy"><span class="ct7-site-text">IELTS Practice Hub</span><span class="ct7-site-note">Group project · 3 people</span></span>
+<span class="ct7-site-arrow">→</span>
+</a>
+</div>
+</section>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+</div>
+<div aria-hidden="true" class="viewer" id="viewer">
+<div class="viewer-backdrop" id="viewerClose"></div>
+<div aria-label="Marketing project viewer" aria-modal="true" class="viewer-panel" role="dialog">
+<div class="viewer-head">
+<span id="viewerTitle">Project</span>
+<button class="vbtn" id="viewerBack" type="button">Back</button>
+</div>
+<div class="viewer-body">
+<img alt="Slide" class="viewer-img" id="viewerImg" src=""/>
+</div>
+<div class="viewer-foot">
+<button class="vbtn" id="prevBtn" type="button">Prev</button>
+<span class="viewer-count" id="viewerCount">0 / 0</span>
+<button class="vbtn" id="nextBtn" type="button">Next</button>
+<button class="vbtn" id="closeBtn" type="button">Close</button>
+</div>
+</div>
+</div>
+<script id="fixed-canvas-js">
   (function(){
     const BASE_W = 1920;
     const BASE_H = 1080;
@@ -3278,8 +3330,7 @@ body.star-mode {
     schedule();
   })();
   </script>
-
-  <script id="theme-js">
+<script id="theme-js">
   (function(){
     const themeBtn = document.getElementById('theme-btn');
     const body = document.body;
@@ -3491,8 +3542,7 @@ body.star-mode {
     applyThemeAssets();
   })();
   </script>
-
-  <script id="base-js">
+<script id="base-js">
     (function(){
       const viewport = document.getElementById('viewport');
       const revealSections = document.querySelectorAll('#stage .section.reveal');
@@ -3556,8 +3606,7 @@ body.star-mode {
       });
     })();
   </script>
-
-  <script id="layout1-js">
+<script id="layout1-js">
     function parseMs(v, fallback){
       const n = parseInt(String(v).trim(), 10);
       return Number.isFinite(n) ? n : fallback;
@@ -3579,8 +3628,7 @@ body.star-mode {
       setTimeout(() => layout1.classList.add('phase-figure'), tCards + tText);
     });
   </script>
-
-  <script id="layout2-js">
+<script id="layout2-js">
     (function(){
       const story = document.querySelector('.layout2 .p-story');
       const workflow = document.querySelector('.layout2 .p-workflow');
@@ -3589,8 +3637,7 @@ body.star-mode {
       if (workflow) workflow.addEventListener('click', () => { window.location.href = 'workflow.html'; });
     })();
   </script>
-
-  <script id="layout3-tabs-js">
+<script id="layout3-tabs-js">
     (function(){
       const tabs = Array.from(document.querySelectorAll('.proj3-tab'));
       if (!tabs.length) return;
@@ -3619,8 +3666,7 @@ body.star-mode {
       setTab('marketing');
     })();
   </script>
-
-  <script id="layout3-viewer-js">
+<script id="layout3-viewer-js">
     (function(){
       const viewer = document.getElementById('viewer');
       const viewerImg = document.getElementById('viewerImg');
@@ -3729,8 +3775,7 @@ body.star-mode {
       });
     })();
   </script>
-
-  <script id="layout5-js">
+<script id="layout5-js">
     (function(){
       const root = document.getElementById('layout-5');
       if(!root) return;
@@ -3745,5 +3790,71 @@ body.star-mode {
     })();
   </script>
 
+<script id="final-fixes-js">
+  (function(){
+    const viewport = document.getElementById('viewport');
+    const root = viewport || null;
+
+    // Layout 2 typewriter + click handlers on enter
+    const l2 = document.getElementById('layout-2');
+    if(l2){
+      l2.querySelectorAll('.a2-clickable').forEach(el=>{
+        el.addEventListener('click', ()=>{
+          const href = el.getAttribute('data-href');
+          if(href) window.location.href = href;
+        });
+      });
+
+      const typeSection = () => {
+        if(l2.dataset.typed === '1') return;
+        l2.dataset.typed = '1';
+        l2.querySelectorAll('.a2-text-block').forEach(block=>{
+          const target = block.querySelector('.a2-typing');
+          const cursor = block.querySelector('.a2-cursor');
+          const subtext = block.querySelector('.a2-subtext');
+          const fullText = target?.getAttribute('data-text') || '';
+          const delayMs = parseInt((block.getAttribute('style') || '').match(/--d:\s*(\d+)ms/)?.[1] || '0', 10);
+          if(target) target.textContent = '';
+          let index = 0;
+          setTimeout(function type(){
+            if(!target) return;
+            if(index < fullText.length){
+              target.textContent += fullText.charAt(index++);
+              setTimeout(type, 60);
+            }else{
+              cursor && cursor.classList.add('hide');
+              subtext && subtext.classList.add('show');
+            }
+          }, delayMs + 300);
+        });
+      };
+
+      const io2 = new IntersectionObserver((entries, obs)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            l2.classList.add('inview');
+            typeSection();
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.35, root});
+      io2.observe(l2);
+    }
+
+    // Layout 3 tab indicator from layout-3.html
+    const indicator = document.getElementById('tabIndicator');
+    const tabs = Array.from(document.querySelectorAll('#layout-3 .proj3-tab'));
+    function updateIndicator(){
+      const active = document.querySelector('#layout-3 .proj3-tab.is-active');
+      if(!indicator || !active) return;
+      indicator.style.width = active.offsetWidth + 'px';
+      indicator.style.left = active.offsetLeft + 'px';
+    }
+    tabs.forEach(tab=>tab.addEventListener('click', ()=>setTimeout(updateIndicator, 0)));
+    window.addEventListener('load', updateIndicator);
+    window.addEventListener('resize', updateIndicator);
+    setTimeout(updateIndicator, 120);
+  })();
+</script>
 </body>
 </html>
