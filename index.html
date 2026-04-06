@@ -1338,8 +1338,80 @@ body.star-mode {
       grid-template-columns: repeat(3, minmax(240px, 1fr));
       align-items: start;
     }
+    .project-splits{
+      display:grid;
+      gap: var(--proj3-gap);
+      grid-template-columns: repeat(2, minmax(320px, 1fr));
+      align-items:start;
+    }
+    .project-group{
+      background:#fff;
+      border: var(--proj3-stroke) solid var(--proj3-ink);
+      border-radius: 16px;
+      box-shadow: 6px 6px 0 0 var(--proj3-ink);
+      overflow:hidden;
+    }
+    .project-group-head{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--proj3-ink);
+      font-weight: 900;
+      color: var(--proj3-ink);
+      background: rgba(0,28,85,.05);
+      letter-spacing: .2px;
+      text-align:center;
+    }
+    .project-group-body{
+      padding: 12px;
+      display:grid;
+      gap: var(--proj3-gap);
+      grid-template-columns: 1fr;
+    }
+    .viewer-proposal-wrap{
+      padding: 0 10px 12px;
+      background:#fff;
+      display:none;
+      justify-content:center;
+    }
+    .viewer-proposal-wrap.is-show{ display:flex; }
+    .viewer-proposal-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 8px 14px;
+      border: 2px solid var(--proj3-ink);
+      border-radius: 12px;
+      background:#fff;
+      color: var(--proj3-ink);
+      font-weight:900;
+      text-decoration:none;
+      box-shadow: 4px 4px 0 0 var(--proj3-ink);
+      transition: transform .12s ease, box-shadow .12s ease, background-color .18s ease, color .18s ease;
+    }
+    .viewer-proposal-link:hover{
+      transform: translate(-2px,-2px);
+      box-shadow: 8px 8px 0 0 var(--proj3-ink);
+      background: var(--proj3-ink);
+      color:#fff;
+    }
+    .viewer-proposal-text{
+      display:none;
+      padding: 0 18px 14px;
+      background:#fff;
+      color: var(--proj3-ink);
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-line;
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
+    .viewer-proposal-text.is-show{ display:block; }
+    .viewer-proposal-text strong{ font-size: 16px; }
     @media (max-width: 980px){
       .social-splits{ grid-template-columns: 1fr; }
+      .project-splits{ grid-template-columns: 1fr; }
     }
 
     .social-block{
@@ -2936,22 +3008,67 @@ body.star-mode {
 </div>
 <div aria-label="Projects" class="proj3-ui">
 <div aria-label="Project categories" class="proj3-tabs" role="tablist"><span aria-hidden="true" class="tab-indicator" id="tabIndicator"></span>
-<button aria-selected="true" class="proj3-tab is-active" data-tab="marketing" role="tab" type="button">Marketing</button>
+<button aria-selected="true" class="proj3-tab is-active" data-tab="project" role="tab" type="button">Project</button>
 <button aria-selected="false" class="proj3-tab" data-tab="social" role="tab" type="button">Social Media</button>
 <button aria-selected="false" class="proj3-tab" data-tab="ba" role="tab" type="button">Business Analysis</button>
 <button aria-selected="false" class="proj3-tab" data-tab="website" role="tab" type="button">Trang web</button>
 </div>
-<div aria-label="Marketing projects" class="proj3-panel is-show" id="proj3-marketing" role="tabpanel">
-<div class="proj3-grid">
-<a aria-label="Open Be marketing case" class="proj3-card marketing-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/Be/" data-max="30" data-title="Be — Marketing case" href="#">
-<img alt="Be — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/Be/1.png"/>
+<div aria-label="Project items" class="proj3-panel is-show" id="proj3-project" role="tabpanel">
+<div class="project-splits">
+<div class="project-group">
+<div class="project-group-head">Project nhóm</div>
+<div class="project-group-body">
+<a aria-label="Open CANIFA S group project" class="proj3-card project-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png" data-max="1" data-title="CANIFA S" data-proposal="https://drive.google.com/file/d/1_zh76qmtm2wxvbY6xjlf5xPG3JT_Ipay/view" href="#">
+<img alt="CANIFA S — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png"/>
 </a>
-<a aria-label="Open Marketing Arena" class="proj3-card marketing-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/MARKETING%20AREANA/" data-max="30" data-title="Marketing Arena" href="#">
-<img alt="Marketing Arena — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/MARKETING%20AREANA/1.png"/>
+</div>
+</div>
+<div class="project-group">
+<div class="project-group-head">Project cá nhân</div>
+<div class="project-group-body">
+<a aria-label="Open Vinamilk Corporate Presentation" class="proj3-card project-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Vinamilk_Corporate_Presentation.pptx/" data-max="14" data-title="Vinamilk Corporate Presentation" data-proposal-text="&lt;strong&gt;ĐỀ BÀI — Nguồn: VIOD&lt;/strong&gt;
+Nghiên cứu 01 doanh nghiệp niêm yết trong danh sách 10 doanh nghiệp dưới đây và chuẩn bị 01 slide deck tối đa 10 slides trình bày các nội dung sau:
+
+1. Tổng quan doanh nghiệp
+• Giới thiệu ngắn gọn về công ty
+• Cơ cấu sở hữu (cổ đông lớn, tỷ lệ sở hữu nhà nước / tư nhân / nước ngoài nếu có)
+
+2. Cơ cấu tổ chức
+• Mô hình quản lý
+• Các phòng ban / bộ phận chính
+
+3. Hội đồng Quản trị
+• Thành phần HĐQT
+• Tỷ lệ thành viên độc lập
+• Các đặc điểm đáng chú ý (nếu có)
+
+4. Công bố thông tin về Phát triển Bền vững
+• Doanh nghiệp đang công bố những nội dung ESG / Phát triển bền vững nào
+• Theo tiêu chuẩn nào (nếu có)
+
+5. Đại hội đồng Cổ đông 2025
+• Các nội dung / quyết định nổi bật tại ĐHĐCĐ thường niên 2025
+
+Sau đó rút ra nhận xét chung về công ty đó.
+
+DANH SÁCH DOANH NGHIỆP
+1. Tổng Công ty Phân bón Dầu khí Cà Mau CTCP (DCM)
+2. CTCP Sữa Việt Nam (VNM)
+3. Tổng CTCP Vận Tải Dầu Khí (PVT)
+4. CTCP Thành Thành Công - Biên Hòa (SBT)
+5. Tổng CTCP Bia - Rượu - Nước giải khát Sài Gòn (SAB)
+6. Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh (HDB)
+7. CTCP Chứng Khoán SSI (SSI)
+8. CTCP Dược Hậu Giang (DHG)
+9. Ngân hàng TMCP Quân Đội (MBB)
+10. CTCP Tập Đoàn PAN (PAN)" href="#">
+<img alt="Vinamilk Corporate Presentation — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Vinamilk_Corporate_Presentation.pptx/1.png"/>
 </a>
-<a aria-label="Open [BLM] CLOSEUP" class="proj3-card marketing-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/" data-max="30" data-title="[BLM] CLOSEUP" href="#">
+<a aria-label="Open [BLM] CLOSEUP" class="proj3-card project-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/" data-max="30" data-title="[BLM] CLOSEUP" href="#">
 <img alt="[BLM] CLOSEUP — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/1.png"/>
 </a>
+</div>
+</div>
 </div>
 </div>
 <div aria-label="Social Media projects" class="proj3-panel" id="proj3-social" role="tabpanel">
@@ -2993,7 +3110,7 @@ body.star-mode {
 </div>
 <div aria-label="Business Analysis projects" class="proj3-panel" id="proj3-ba" role="tabpanel">
 <div class="proj3-grid">
-<a aria-label="Open Business Analysis Power BI project" class="proj3-card proj3-link-card" href="https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/a304a66dbdc7a63afbab965fe96c61d803198739/%5BPH%E1%BA%A6N%20B%5D%20%5BOPTION%20A%5D%20%5B3%20CON%20G%C3%80%20TOP%201%5D.pbix" rel="noopener" target="_blank">
+<a aria-label="Open Business Analysis Power BI project" class="proj3-card proj3-link-card" href="https://drive.google.com/drive/folders/1vV8DAdj0zhjitmqGWw3h6Gq8pGHDoimD?usp=drive_link" rel="noopener" target="_blank">
 <div>
 <div class="proj3-link-top">
 <span class="proj3-link-badge">📊</span>
@@ -3255,6 +3372,10 @@ body.star-mode {
 <div class="viewer-body">
 <img alt="Slide" class="viewer-img" id="viewerImg" src=""/>
 </div>
+<div class="viewer-proposal-wrap" id="viewerProposalWrap">
+<a class="viewer-proposal-link" href="#" id="viewerProposalLink" rel="noopener" target="_blank">Link đề ↗</a>
+</div>
+<div class="viewer-proposal-text" id="viewerProposalText"></div>
 <div class="viewer-foot">
 <button class="vbtn" id="prevBtn" type="button">Prev</button>
 <span class="viewer-count" id="viewerCount">0 / 0</span>
@@ -3643,7 +3764,7 @@ body.star-mode {
       if (!tabs.length) return;
 
       const panels = {
-        marketing: document.getElementById('proj3-marketing'),
+        project: document.getElementById('proj3-project'),
         social: document.getElementById('proj3-social'),
         ba: document.getElementById('proj3-ba'),
         website: document.getElementById('proj3-website')
@@ -3663,7 +3784,7 @@ body.star-mode {
         btn.addEventListener('click', ()=> setTab(btn.dataset.tab));
       });
 
-      setTab('marketing');
+      setTab('project');
     })();
   </script>
 <script id="layout3-viewer-js">
@@ -3678,6 +3799,9 @@ body.star-mode {
       const nextBtn = document.getElementById('nextBtn');
       const viewerBack = document.getElementById('viewerBack');
       const viewerClose = document.getElementById('viewerClose');
+      const viewerProposalWrap = document.getElementById('viewerProposalWrap');
+      const viewerProposalLink = document.getElementById('viewerProposalLink');
+      const viewerProposalText = document.getElementById('viewerProposalText');
 
       const viewport = document.getElementById('viewport');
       let prevOverflow = '';
@@ -3698,27 +3822,63 @@ body.star-mode {
         viewerCount.textContent = (idx + 1) + ' / ' + slides.length;
       }
 
-      function openViewer(title, baseURL, maxN){
+      function openViewer(title, baseURL, maxN, proposalURL, proposalText){
         viewerTitle.textContent = title || 'Project';
         slides = [];
         idx = 0;
 
-        const maxTry = parseInt(maxN, 10) || 30;
+        if (viewerProposalWrap && viewerProposalLink){
+          if (proposalURL){
+            viewerProposalLink.href = proposalURL;
+            viewerProposalWrap.classList.add('is-show');
+          } else {
+            viewerProposalLink.href = '#';
+            viewerProposalWrap.classList.remove('is-show');
+          }
+        }
+        if (viewerProposalText){
+          if (proposalText){
+            viewerProposalText.innerHTML = proposalText;
+            viewerProposalText.classList.add('is-show');
+          } else {
+            viewerProposalText.innerHTML = '';
+            viewerProposalText.classList.remove('is-show');
+          }
+        }
 
-        for (let i = 1; i <= maxTry; i++){
-          const url = `${baseURL}${i}.png?raw=1`;
+        const maxTry = parseInt(maxN, 10) || 30;
+        const cleanBaseURL = String(baseURL || '').trim();
+        const isDirectImage = /\.(png|jpe?g|webp|gif)(\?.*)?$/i.test(cleanBaseURL);
+
+        if (isDirectImage){
+          const directURL = /\?/.test(cleanBaseURL) ? cleanBaseURL : `${cleanBaseURL}?raw=1`;
           const img = new Image();
           img.onload = () => {
-            slides.push(url);
-            slides.sort((a,b)=>{
-              const na = parseInt((a.match(/\/(\d+)\.png\?/i)||[])[1]||'0',10);
-              const nb = parseInt((b.match(/\/(\d+)\.png\?/i)||[])[1]||'0',10);
-              return na - nb;
-            });
+            slides = [directURL];
+            idx = 0;
             renderSlide();
           };
-          img.onerror = () => {};
-          img.src = url;
+          img.onerror = () => {
+            slides = [];
+            renderSlide();
+          };
+          img.src = directURL;
+        } else {
+          for (let i = 1; i <= maxTry; i++){
+            const url = `${cleanBaseURL}${i}.png?raw=1`;
+            const img = new Image();
+            img.onload = () => {
+              slides.push(url);
+              slides.sort((a,b)=>{
+                const na = parseInt((a.match(/\/(\d+)\.png\?/i)||[])[1]||'0',10);
+                const nb = parseInt((b.match(/\/(\d+)\.png\?/i)||[])[1]||'0',10);
+                return na - nb;
+              });
+              renderSlide();
+            };
+            img.onerror = () => {};
+            img.src = url;
+          }
         }
 
         viewer.classList.add('is-open');
@@ -3737,6 +3897,14 @@ body.star-mode {
         idx = 0;
         viewerImg.src = '';
         viewerCount.textContent = '0 / 0';
+        if (viewerProposalWrap && viewerProposalLink){
+          viewerProposalLink.href = '#';
+          viewerProposalWrap.classList.remove('is-show');
+        }
+        if (viewerProposalText){
+          viewerProposalText.innerHTML = '';
+          viewerProposalText.classList.remove('is-show');
+        }
       }
 
       if (prevBtn) prevBtn.addEventListener('click', ()=>{
@@ -3763,14 +3931,15 @@ body.star-mode {
         if (e.key === 'ArrowRight' && nextBtn) nextBtn.click();
       });
 
-      document.querySelectorAll('.marketing-open').forEach(card=>{
+      document.querySelectorAll('.project-open').forEach(card=>{
         card.addEventListener('click', (e)=>{
           e.preventDefault();
           const title = card.getAttribute('data-title') || 'Project';
           const base  = card.getAttribute('data-base');
           const max   = card.getAttribute('data-max') || '30';
+          const proposal = card.getAttribute('data-proposal') || '';
           if (!base) return;
-          openViewer(title, base, max);
+          openViewer(title, base, max, proposal);
         });
       });
     })();
