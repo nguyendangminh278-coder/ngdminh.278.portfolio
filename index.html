@@ -2800,9 +2800,116 @@ body.star-mode {
     transform: translate(calc(var(--day-move-x) * 1vw), 22vh) scale(var(--meta-scale)) !important;
   }
 </style>
+<style id="loader-css">
+  #loader-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background-color: var(--bg-ocean-bot, #ffffff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  body.star-mode #loader-wrapper {
+    background-color: var(--deep-space, #020b26);
+  }
+  .loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .loader-text {
+    font-size: 54px;
+    font-weight: 900;
+    color: var(--navy, #001c55);
+    font-family: ui-rounded, "SF Pro Rounded", "Nunito", "Quicksand", system-ui, sans-serif;
+  }
+  body.star-mode .loader-text {
+    color: #fff;
+    text-shadow: 0 0 14px rgba(0, 242, 255, 0.4);
+  }
+  .loader-bar {
+    width: 250px;
+    height: 6px;
+    background: rgba(0, 28, 85, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+  body.star-mode .loader-bar {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .loader-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--navy, #001c55);
+    border-radius: 999px;
+    transition: width 0.1s linear;
+  }
+  body.star-mode .loader-progress {
+    background: #00f2ff;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+  }
+  .loader-credits {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+    animation: fadeInCredits 1s ease 0.3s both;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 96vw;
+  }
+  .loader-credits-top {
+    margin-bottom: 20px;
+  }
+  .loader-credits-bot {
+    margin-top: 20px;
+  }
+  @keyframes fadeInCredits {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .credit-vn { color: #e5828b; }
+  .credit-en { color: #76a8d6; }
+  .credit-ko { color: #72c28d; }
+  .credit-zh { color: #c9a363; }
 
+  body.star-mode .credit-vn { color: #ffb3ba; text-shadow: 0 0 8px rgba(255,179,186,0.4); }
+  body.star-mode .credit-en { color: #bae1ff; text-shadow: 0 0 8px rgba(186,225,255,0.4); }
+  body.star-mode .credit-ko { color: #baffc9; text-shadow: 0 0 8px rgba(186,255,201,0.4); }
+  body.star-mode .credit-zh { color: #ffdfba; text-shadow: 0 0 8px rgba(255,223,186,0.4); }
+
+  #loader-wrapper.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+</style>
 </head>
 <body class="ocean-mode" oncontextmenu="return false;">
+<div id="loader-wrapper">
+  <div class="loader-content">
+    <div class="loader-credits loader-credits-top">
+      <span class="credit-vn">Trang web được tạo bởi chính chủ và GPT, Gemeni, Claude, và Google AI Studio</span>
+      <span class="credit-en">The website was created by the owner and GPT, Gemini, Claude, and Google AI Studio</span>
+    </div>
+    <div class="loader-text"><span id="loader-percentage">0</span>%</div>
+    <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
+    <div class="loader-credits loader-credits-bot">
+      <span class="credit-ko">이 웹사이트는 소유자와 GPT, Gemini, Claude 및 Google AI Studio에 의해 제작되었습니다</span>
+      <span class="credit-zh">该网站由所有者以及 GPT、Gemini、Claude 和 Google AI Studio 共同提供支持</span>
+    </div>
+  </div>
+</div>
 <div aria-hidden="true" id="transition-overlay">
 <canvas id="meteorCanvas"></canvas>
 <div class="meteor-wrap" id="meteorWrap"></div>
@@ -3017,56 +3124,12 @@ body.star-mode {
 <div class="project-splits">
 <div class="project-group">
 <div class="project-group-head">Project nhóm</div>
-<div class="project-group-body">
-<a aria-label="Open CANIFA S group project" class="proj3-card project-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png" data-max="1" data-title="CANIFA S" data-proposal="https://drive.google.com/file/d/1_zh76qmtm2wxvbY6xjlf5xPG3JT_Ipay/view" href="#">
-<img alt="CANIFA S — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png"/>
-</a>
+<div class="project-group-body" id="project-group-container">
 </div>
 </div>
 <div class="project-group">
 <div class="project-group-head">Project cá nhân</div>
-<div class="project-group-body">
-<a aria-label="Open Vinamilk Corporate Presentation" class="proj3-card project-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Vinamilk_Corporate_Presentation.pptx/" data-max="14" data-title="Vinamilk Corporate Presentation" data-proposal-text="&lt;strong&gt;ĐỀ BÀI — Nguồn: VIOD&lt;/strong&gt;
-Nghiên cứu 01 doanh nghiệp niêm yết trong danh sách 10 doanh nghiệp dưới đây và chuẩn bị 01 slide deck tối đa 10 slides trình bày các nội dung sau:
-
-1. Tổng quan doanh nghiệp
-• Giới thiệu ngắn gọn về công ty
-• Cơ cấu sở hữu (cổ đông lớn, tỷ lệ sở hữu nhà nước / tư nhân / nước ngoài nếu có)
-
-2. Cơ cấu tổ chức
-• Mô hình quản lý
-• Các phòng ban / bộ phận chính
-
-3. Hội đồng Quản trị
-• Thành phần HĐQT
-• Tỷ lệ thành viên độc lập
-• Các đặc điểm đáng chú ý (nếu có)
-
-4. Công bố thông tin về Phát triển Bền vững
-• Doanh nghiệp đang công bố những nội dung ESG / Phát triển bền vững nào
-• Theo tiêu chuẩn nào (nếu có)
-
-5. Đại hội đồng Cổ đông 2025
-• Các nội dung / quyết định nổi bật tại ĐHĐCĐ thường niên 2025
-
-Sau đó rút ra nhận xét chung về công ty đó.
-
-DANH SÁCH DOANH NGHIỆP
-1. Tổng Công ty Phân bón Dầu khí Cà Mau CTCP (DCM)
-2. CTCP Sữa Việt Nam (VNM)
-3. Tổng CTCP Vận Tải Dầu Khí (PVT)
-4. CTCP Thành Thành Công - Biên Hòa (SBT)
-5. Tổng CTCP Bia - Rượu - Nước giải khát Sài Gòn (SAB)
-6. Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh (HDB)
-7. CTCP Chứng Khoán SSI (SSI)
-8. CTCP Dược Hậu Giang (DHG)
-9. Ngân hàng TMCP Quân Đội (MBB)
-10. CTCP Tập Đoàn PAN (PAN)" href="#">
-<img alt="Vinamilk Corporate Presentation — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Vinamilk_Corporate_Presentation.pptx/1.png"/>
-</a>
-<a aria-label="Open [BLM] CLOSEUP" class="proj3-card project-open" data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/" data-max="30" data-title="[BLM] CLOSEUP" href="#">
-<img alt="[BLM] CLOSEUP — cover" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/1.png"/>
-</a>
+<div class="project-group-body" id="project-individual-container">
 </div>
 </div>
 </div>
@@ -3075,118 +3138,27 @@ DANH SÁCH DOANH NGHIỆP
 <div class="social-splits">
 <div aria-label="Facebook" class="social-block">
 <div class="social-head">Facebook</div>
-<div class="social-grid">
-<a aria-label="Facebook page 1" class="proj3-card" href="https://www.facebook.com/danhgiatuduybkhntsa" rel="noopener" target="_blank">
-<img alt="Facebook 1" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/1.png"/>
-</a>
-<a aria-label="Facebook group" class="proj3-card" href="https://www.facebook.com/groups/danhgiatuduyhust/" rel="noopener" target="_blank">
-<img alt="Facebook 2" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/2.png"/>
-</a>
-<a aria-label="Facebook page 2" class="proj3-card" href="https://www.facebook.com/tailieuonthidanhgiatuduytsa" rel="noopener" target="_blank">
-<img alt="Facebook 3" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/3.png"/>
-</a>
+<div class="social-grid" id="social-fb-container">
 </div>
 </div>
 <div aria-label="TikTok" class="social-block">
 <div class="social-head">TikTok</div>
-<div class="social-grid">
-<a aria-label="TikTok" class="proj3-card fit-contain" href="https://www.tiktok.com/@gioitsakhongkho" rel="noopener" target="_blank">
-<img alt="TikTok" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/4.png"/>
-</a>
+<div class="social-grid" id="social-tiktok-container">
 </div>
 </div>
 <div aria-label="YouTube" class="social-block">
 <div class="social-head">YouTube</div>
-<div class="social-grid">
-<a aria-label="YouTube channel 1" class="proj3-card fit-contain" href="https://www.youtube.com/@qlTSAonHSAEDUCATION" rel="noopener" target="_blank">
-<img alt="YouTube 1" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/5.png"/>
-</a>
-<a aria-label="YouTube channel 2" class="proj3-card fit-contain" href="https://www.youtube.com/@danhgiatuduytsa" rel="noopener" target="_blank">
-<img alt="YouTube 2" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/69935af61fb549f6d4de8273c8f0711584024b88/%E1%BA%A2nh%20main/Project/Social%20Media/6.png"/>
-</a>
+<div class="social-grid" id="social-youtube-container">
 </div>
 </div>
 </div>
 </div>
 <div aria-label="Business Analysis projects" class="proj3-panel" id="proj3-ba" role="tabpanel">
-<div class="proj3-grid">
-<a aria-label="Open Business Analysis Power BI project" class="proj3-card proj3-link-card" href="https://drive.google.com/drive/folders/1vV8DAdj0zhjitmqGWw3h6Gq8pGHDoimD?usp=drive_link" rel="noopener" target="_blank">
-<div>
-<div class="proj3-link-top">
-<span class="proj3-link-badge">📊</span>
-<div class="proj3-link-title">Business Analysis Power BI</div>
-</div>
-<div class="proj3-link-desc">
-                          File Power BI (.pbix) cho project Business Analysis của bạn.
-                        </div>
-</div>
-<div class="proj3-link-url">GitHub PBIX Project ↗</div>
-</a>
-<a aria-label="Business Analysis project placeholder" class="proj3-card" href="#">
-<img alt="BA project placeholder" draggable="false" loading="lazy" src="https://dummyimage.com/1280x720/ffffff/001c55.png&amp;text=Business+Analysis+Project"/>
-</a>
+<div class="proj3-grid" id="ba-container">
 </div>
 </div>
 <div aria-label="Website projects" class="proj3-panel" id="proj3-website" role="tabpanel">
-<div class="proj3-grid">
-<a aria-label="Open Trang web tử vi" class="proj3-card proj3-link-card" href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/" rel="noopener" target="_blank">
-<div>
-<div class="proj3-link-top">
-<span class="proj3-link-badge">🌐</span>
-<div class="proj3-link-title">Trang web tử vi</div>
-</div>
-<div class="proj3-link-desc">
-                          Website xem tử vi và trải nghiệm nội dung chiêm tinh.
-                        </div>
-</div>
-<div class="proj3-link-url">nguyendangminh278-coder.github.io/reader-bandosao-tuvi/ ↗</div>
-</a>
-<a aria-label="Open Prompt and HTML collection" class="proj3-card proj3-link-card" href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ" rel="noopener" target="_blank">
-<div>
-<div class="proj3-link-top">
-<span class="proj3-link-badge">💻</span>
-<div class="proj3-link-title">Prompt &amp; HTML Collection</div>
-</div>
-<div class="proj3-link-desc">
-                          Bộ sưu tập prompt và HTML phục vụ học tập, sáng tạo và thử nghiệm giao diện.
-                        </div>
-</div>
-<div class="proj3-link-url">Prompt &amp; HTML collection ↗</div>
-</a>
-<a aria-label="Open Student Survey" class="proj3-card proj3-link-card" href="https://superagento.github.io/Student-survey/" rel="noopener" target="_blank">
-<div>
-<div class="proj3-link-top">
-<span class="proj3-link-badge">📋</span>
-<div class="proj3-link-title">Student Survey</div>
-</div>
-<div class="proj3-link-desc">
-                          Website khảo sát sinh viên, thu thập dữ liệu và hiển thị biểu mẫu trực quan.
-                        </div>
-</div>
-<div class="proj3-link-url">superagento.github.io/Student-survey/ ↗</div>
-</a>
-<a aria-label="Open CANIFA S website" class="proj3-card proj3-link-card" href="https://superagento.github.io/canifaS_tr-ng-i-nonstop/" rel="noopener" target="_blank">
-<div>
-<div class="proj3-link-top">
-<span class="proj3-link-badge">🎨</span>
-<div class="proj3-link-title">CANIFA S</div>
-</div>
-<div class="proj3-link-desc">
-                          Website trình bày concept, hình ảnh và trải nghiệm thương hiệu thời trang.
-                        </div>
-</div>
-<div class="proj3-link-url">superagento.github.io/canifaS_tr-ng-i-nonstop/ ↗</div>
-</a>
-<a aria-label="Open IELTS Practice Hub" class="proj3-card proj3-link-card" href="https://ielts-practice-hub.onrender.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcTdSeWZwVnp6bDFiQ1Y1THNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6WwtCp5m0SSPUVwg31dnSn2HEd3-xWiLxL_JN932GMlGtDwpzj_zF0TQkEQw_aem_tZYSSddov1yLXlZi2g5Rmg" rel="noopener" target="_blank">
-<div>
-<div class="proj3-link-top">
-<span class="proj3-link-badge">📚</span>
-<div class="proj3-link-title">IELTS Practice Hub</div>
-<span class="proj3-pill">Group project · 3 people</span></div>
-<div class="proj3-link-desc">Nền tảng luyện tập IELTS trực tuyến được phát triển theo mô hình nhóm 3 người.</div>
-</div>
-<div class="proj3-link-url">ielts-practice-hub.onrender.com ↗</div>
-</a>
+<div class="proj3-grid" id="websites-container">
 </div>
 </div>
 </div>
@@ -3202,26 +3174,10 @@ DANH SÁCH DOANH NGHIỆP
 <span class="w4m-badge">Rebranding</span>
 <span class="w4m-evo-title">Corporate evolution</span>
 </div>
-<div class="w4m-evo-grid">
-<a class="w4m-subcard" href="work.html">
-<img alt="HSA" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HSA%20EDU.png"/>
-<span class="w4m-phase">HSA (Giai đoạn 1)</span>
-</a>
-<div aria-hidden="true" class="w4m-arrow">→</div>
-<a class="w4m-subcard" href="work.html">
-<img alt="HOC IZ" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png"/>
-<span class="w4m-phase">HOC IZ (Hiện tại)</span>
-</a>
+<div class="w4m-evo-grid" id="work-evo-container">
 </div>
 </div>
-<div class="w4m-workgrid">
-<a class="w4m-item" href="work.html">
-<img alt="ABIT" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/ABIT.png"/>
-<div class="w4m-item-foot">
-<span class="w4m-category">ABIT Platform</span>
-<span class="w4m-more">Xem chi tiết →</span>
-</div>
-</a>
+<div class="w4m-workgrid" id="work-items-container">
 </div>
 </div>
 </section>
@@ -3242,35 +3198,9 @@ DANH SÁCH DOANH NGHIỆP
 <div class="c6-title"><img alt="MY CERTIFICATE" draggable="false" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout6/Portlio/Cer.png"/></div>
 <div class="c6-marquee-shell">
 <div class="c6-marquee-track">
-<div class="c6-group">
-<a class="c6-card c6-single" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png" rel="noopener" target="_blank">
-<img alt="Certificate Mistalent" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png"/>
-</a>
-<a class="c6-card c6-single" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png" rel="noopener" target="_blank">
-<img alt="Certificate TM" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png"/>
-</a>
-<div aria-label="MOS results" class="c6-card c6-duo-card">
-<a class="c6-duo-cell" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg" rel="noopener" target="_blank"><img alt="MOS Result 1" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg"/></a>
-<a class="c6-duo-cell" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg" rel="noopener" target="_blank"><img alt="MOS Result 2" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg"/></a>
+<div class="c6-group" id="cert-marquee-1">
 </div>
-<a class="c6-card c6-wide" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg" rel="noopener" target="_blank">
-<img alt="New Certificate" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg"/>
-</a>
-</div>
-<div class="c6-group">
-<a class="c6-card c6-single" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png" rel="noopener" target="_blank">
-<img alt="Certificate Mistalent" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png"/>
-</a>
-<a class="c6-card c6-single" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png" rel="noopener" target="_blank">
-<img alt="Certificate TM" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png"/>
-</a>
-<div aria-label="MOS results" class="c6-card c6-duo-card">
-<a class="c6-duo-cell" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg" rel="noopener" target="_blank"><img alt="MOS Result 1" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg"/></a>
-<a class="c6-duo-cell" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg" rel="noopener" target="_blank"><img alt="MOS Result 2" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg"/></a>
-</div>
-<a class="c6-card c6-wide" href="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg" rel="noopener" target="_blank">
-<img alt="New Certificate" draggable="false" loading="lazy" src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg"/>
-</a>
+<div class="c6-group" id="cert-marquee-2">
 </div>
 </div>
 </div>
@@ -3343,16 +3273,7 @@ DANH SÁCH DOANH NGHIỆP
 </div>
 <h2>My Websites &amp; Projects</h2>
 </div>
-<div class="ct7-sites-grid">
-<a class="ct7-site-btn" href="https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/" rel="noopener" target="_blank"><span class="ct7-site-ico violet">✩</span><span class="ct7-site-text">Trang web tử vi</span><span class="ct7-site-arrow">→</span></a>
-<a class="ct7-site-btn" href="https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/" rel="noopener" target="_blank"><span class="ct7-site-ico green">&lt;/&gt;</span><span class="ct7-site-text">Prompt &amp; HTML</span><span class="ct7-site-arrow">→</span></a>
-<a class="ct7-site-btn" href="https://superagento.github.io/Student-survey/" rel="noopener" target="_blank"><span class="ct7-site-ico amber">☰</span><span class="ct7-site-text">Student Survey</span><span class="ct7-site-arrow">→</span></a>
-<a class="ct7-site-btn" href="https://superagento.github.io/canifaS_tr-ng-i-nonstop/" rel="noopener" target="_blank"><span class="ct7-site-ico rose">◫</span><span class="ct7-site-text">CANIFA S</span><span class="ct7-site-arrow">→</span></a>
-<a class="ct7-site-btn ct7-site-wide" href="https://ielts-practice-hub.onrender.com/" rel="noopener" target="_blank">
-<span class="ct7-site-ico cyan">📘</span>
-<span class="ct7-site-copy"><span class="ct7-site-text">IELTS Practice Hub</span><span class="ct7-site-note">Group project · 3 people</span></span>
-<span class="ct7-site-arrow">→</span>
-</a>
+<div class="ct7-sites-grid" id="l7-sites-container">
 </div>
 </section>
 </div>
@@ -4025,5 +3946,7 @@ DANH SÁCH DOANH NGHIỆP
     setTimeout(updateIndicator, 120);
   })();
 </script>
+<script src="data.js"></script>
+<script src="render.js"></script>
 </body>
 </html>
