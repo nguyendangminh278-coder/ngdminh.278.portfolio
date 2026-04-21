@@ -305,6 +305,34 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+
+
+    /* FIXED 50% SCALE ONLY FOR TAB OPTIONS + JOURNEY */
+    .tab-nav {
+      transform: translateX(-50%) scale(0.5);
+      transform-origin: top center;
+      top: 8px;
+    }
+
+    .journey-scale {
+      zoom: 0.5;
+      transform-origin: top left;
+      width: max-content;
+      min-width: 3800px;
+      min-height: 1200px;
+      padding-bottom: 200px;
+    }
+
+    @supports not (zoom: 0.5) {
+      .journey-scale {
+        transform: scale(0.5);
+        transform-origin: top left;
+        width: 7600px;
+        min-height: 2400px;
+        padding-bottom: 400px;
+      }
+    }
+
     @media (min-width: 769px) {
       .graph-header { padding-top: 100px; }
     }
@@ -359,6 +387,7 @@
 
   <!-- TAB: WORK JOURNEY -->
   <div id="journey-tab" class="tab-content">
+    <div class="journey-scale">
     <div class="graph-header">
       <h2 class="graph-title">WORK JOURNEY</h2>
       <div class="graph-subtitle">My professional evolution mapping responsibility and scale over time. Scroll horizontally to explore the timeline.</div>
@@ -448,6 +477,7 @@
         </div>
       </div>
           </div>
+    </div>
   </div>
 
   <script>
