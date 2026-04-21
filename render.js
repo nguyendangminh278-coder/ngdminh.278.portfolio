@@ -6,40 +6,84 @@ document.addEventListener('DOMContentLoaded', () => {
   const loaderProgress = document.getElementById('loader-progress');
   
   if (loaderWrapper && loaderPercentage && loaderProgress) {
-    let progress = 0;
-    const targetTime = 3600; // 3.6 seconds loading
-    const interval = 30;
-    const increment = 100 / (targetTime / interval);
-    
     // Check if body has star-mode from local storage
     if (localStorage.getItem('theme') === 'star') {
         document.body.classList.add('star-mode');
         document.body.classList.remove('ocean-mode');
     }
     
-    // Prevent scrolling while loading
-    document.body.style.overflow = 'hidden'; 
-    
-    const loadingInterval = setInterval(() => {
-      progress += increment;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(loadingInterval);
-        setTimeout(() => {
-          loaderWrapper.classList.add('hidden');
-          document.body.style.overflow = ''; // restore scrolling
-        }, 300);
-      }
-      loaderPercentage.innerText = Math.floor(progress);
-      loaderProgress.style.width = progress + '%';
-    }, interval);
+    // If there is a hash (e.g., navigating back to a specific layout), skip the preloader instantly.
+    if (window.location.hash) {
+      loaderPercentage.innerText = 100;
+      loaderProgress.style.width = '100%';
+      loaderWrapper.classList.add('hidden');
+      document.body.style.overflow = ''; 
+    } else {
+      let progress = 0;
+      const targetTime = 3600; // 3.6 seconds loading
+      const interval = 30;
+      const increment = 100 / (targetTime / interval);
+      
+      // Prevent scrolling while loading
+      document.body.style.overflow = 'hidden'; 
+      
+      const loadingInterval = setInterval(() => {
+        progress += increment;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(loadingInterval);
+          setTimeout(() => {
+            loaderWrapper.classList.add('hidden');
+            document.body.style.overflow = ''; // restore scrolling
+          }, 300);
+        }
+        loaderPercentage.innerText = Math.floor(progress);
+        loaderProgress.style.width = progress + '%';
+      }, interval);
+    }
   }
 
   // --- 1. My Project (Layout 3) ---
   const renderProjectCard = (p) => {
+    let linksHtml = '';
+    if (p.links && p.links.length > 0) {
+      linksHtml = `<div class="proj3-card-links" style="padding: 12px; display: flex; flex-direction: column; gap: 8px; border-top: 2px dashed rgba(0, 28, 85, 0.1);">
+        ${p.links.map(l => `<a href="${l.url}" target="_blank" style="font-size: 14px; font-weight: bold; color: var(--navy, #001c55); display: flex; align-items: center; gap: 6px; text-decoration: none;"><span style="font-size: 16px;">📄</span> ${l.label}</a>`).join('')}
+      </div>`;
+    }
+
+    if (p.directUrl) {
+      if (linksHtml) {
+        return `
+          <div class="proj3-card" style="display: flex; flex-direction: column; background: #fff; border-radius: var(--radius-md, 16px); overflow: hidden; border: 2px solid var(--navy, #001c55); box-shadow: 4px 4px 0 0 var(--navy, #001c55); transition: transform 0.2s, box-shadow 0.2s;">
+            <a aria-label="${p.ariaLabel}" href="${p.directUrl}" target="_blank" style="display: block; text-decoration: none; border-bottom: none;">
+              <div class="img-container"><img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
+            </a>
+            ${linksHtml}
+          </div>
+        `;
+      }
+      return `
+        <a aria-label="${p.ariaLabel}" class="proj3-card" href="${p.directUrl}" target="_blank">
+          <div class="img-container"><img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
+        </a>
+      `;
+    }
+
+    if (linksHtml) {
+      return `
+        <div class="proj3-card" style="display: flex; flex-direction: column; background: #fff; border-radius: var(--radius-md, 16px); overflow: hidden; border: 2px solid var(--navy, #001c55); box-shadow: 4px 4px 0 0 var(--navy, #001c55); transition: transform 0.2s, box-shadow 0.2s;">
+          <a aria-label="${p.ariaLabel}" class="project-open" data-base="${p.base}" data-max="${p.max || ''}" data-title="${p.title}" ${p.proposal ? `data-proposal="${p.proposal}"` : ''} ${p.proposalText ? `data-proposal-text="${p.proposalText.replace(/"/g, '&quot;')}"` : ''} href="#" style="display: block; text-decoration: none; border-bottom: none;">
+            <div class="img-container"><img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
+          </a>
+          ${linksHtml}
+        </div>
+      `;
+    }
+
     return `
       <a aria-label="${p.ariaLabel}" class="proj3-card project-open" data-base="${p.base}" data-max="${p.max || ''}" data-title="${p.title}" ${p.proposal ? `data-proposal="${p.proposal}"` : ''} ${p.proposalText ? `data-proposal-text="${p.proposalText.replace(/"/g, '&quot;')}"` : ''} href="#">
-        <img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/>
+        <div class="img-container"><img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
       </a>
     `;
   };

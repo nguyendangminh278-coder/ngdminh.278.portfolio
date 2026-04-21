@@ -8,6 +8,26 @@ const portfolioData = {
         title: "CANIFA S",
         proposal: "https://drive.google.com/file/d/1_zh76qmtm2wxvbY6xjlf5xPG3JT_Ipay/view",
         imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png"
+      },
+      {
+        ariaLabel: "Open GDOC Project Slide",
+        title: "GDOC Project",
+        base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BGDOC%5D%20Slide/",
+        max: "30",
+        imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BGDOC%5D%20Slide/1.png",
+        links: [
+            { label: "Slide", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%5D%20Slide.pdf" },
+            { label: "Proposal", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20proposal%20v%C3%B2ng%201.pdf" },
+            { label: "Pipeline", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20Pipeline%20v%C3%A0%20Ki%E1%BA%BFn%20tr%C3%BAc%20h%E1%BB%87%20th%E1%BB%91ng.docx.pdf" },
+            { label: "Mô hình kinh doanh", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20M%C3%B4%20h%C3%ACnh%20kinh%20doanh%20v%C3%A0%20duy%20tr%C3%AC%20c%E1%BB%A7a%20L-AI.docx.pdf" }
+        ]
+      },
+      {
+        ariaLabel: "Open RBD Project",
+        base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BRBD26%20V%C3%92NG%201%5D%20Tr%E1%BA%BB%20ng%C6%B0%E1%BB%9Di%20nonstop/",
+        max: "30",
+        title: "RBD Project",
+        imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BRBD26%20V%C3%92NG%201%5D%20Tr%E1%BA%BB%20ng%C6%B0%E1%BB%9Di%20nonstop/1.png"
       }
     ],
     individual: [

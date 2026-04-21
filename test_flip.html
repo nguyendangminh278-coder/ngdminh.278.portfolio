@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+</head>
+<body>
+<div id="book">
+  <div class="my-page">1</div>
+  <div class="my-page">2</div>
+</div>
+<script>
+  console.log(window.St);
+  console.log(window.PageFlip);
+  const pageFlip = new St.PageFlip(document.getElementById('book'), {
+      width: 400,
+      height: 600,
+      size: "fixed"
+  });
+  pageFlip.loadFromHTML(document.querySelectorAll('.my-page'));
+  console.log(pageFlip);
+</script>
+</body>
+</html>

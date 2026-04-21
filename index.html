@@ -1856,6 +1856,43 @@
       display: block;
     }
 
+    .viewer-stack {
+      display: none;
+      width: 100%;
+      gap: 14px;
+    }
+
+    .viewer-stack img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      border: 1.5px solid rgba(0, 28, 85, .12);
+      box-shadow: 0 6px 18px rgba(0, 28, 85, .08);
+      background: #fff;
+    }
+
+    .viewer.is-stack .viewer-body {
+      display: block;
+      padding: 14px;
+    }
+
+    .viewer.is-stack .viewer-img {
+      display: none;
+    }
+
+    .viewer.is-stack .viewer-stack {
+      display: grid;
+    }
+
+    .viewer.is-stack #prevBtn,
+    .viewer.is-stack #nextBtn,
+    .viewer.is-stack #viewerCount,
+    .viewer.is-stack #zoomSlider,
+    .viewer.is-stack #zoomCount {
+      display: none !important;
+    }
+
     .viewer-foot {
       display: flex;
       gap: 10px;
@@ -4891,30 +4928,365 @@
       pointer-events: none;
     }
   </style>
+
+  <style id="layout4-timeline-upgrade-css">
+    .layout4 {
+      background: transparent;
+      padding: 56px 24px 36px;
+      display: block;
+    }
+
+    .layout4 .mwj-shell {
+      width: min(100%, 1820px);
+      margin: 0 auto;
+      color: #001c55;
+      font-family: 'Inter', ui-rounded, 'SF Pro Rounded', system-ui, sans-serif;
+    }
+
+    .layout4 .mwj-title-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: all .8s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .layout4.inview .mwj-title-wrap {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .layout4 .mwj-title-wrap img {
+      width: min(440px, 88vw);
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 6px 16px rgba(0, 28, 85, .08));
+    }
+
+    .layout4 .mwj-scroll-hint {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(0, 28, 85, .48);
+      font-weight: 700;
+      margin-top: 10px;
+      padding-bottom: 6px;
+      letter-spacing: .01em;
+      animation: mwjBounceX 1.8s ease-in-out infinite;
+    }
+
+    @keyframes mwjBounceX {
+
+      0%,
+      100% {
+        transform: translateX(0);
+        opacity: .42;
+      }
+
+      50% {
+        transform: translateX(6px);
+        opacity: .88;
+      }
+    }
+
+    .layout4 .mwj-graph-outer {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 34px 28px 28px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scroll-behavior: smooth;
+    }
+
+    .layout4 .mwj-graph-outer::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .layout4 .mwj-graph-outer::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .layout4 .mwj-graph-outer::-webkit-scrollbar-thumb {
+      background: rgba(0, 28, 85, .18);
+      border-radius: 999px;
+    }
+
+    .layout4 .mwj-graph-inner {
+      position: relative;
+      width: 3050px;
+      height: 840px;
+      margin: 0 auto;
+    }
+
+    .layout4 .mwj-graph-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .layout4 .mwj-graph-path {
+      fill: none;
+      stroke: url(#mwj-lg);
+      stroke-width: 5.5;
+      stroke-linecap: round;
+      filter: drop-shadow(0 4px 12px rgba(59, 130, 246, .28));
+      stroke-dasharray: 6400;
+      stroke-dashoffset: 6400;
+      transition: stroke-dashoffset 2.7s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .layout4.is-animated .mwj-graph-path {
+      stroke-dashoffset: 0;
+    }
+
+    .layout4 .mwj-guide-line {
+      stroke: rgba(0, 28, 85, .07);
+      stroke-width: 1.5;
+      stroke-dasharray: 6 5;
+    }
+
+    .layout4 .mwj-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transition: opacity .55s cubic-bezier(0.19, 1, 0.22, 1);
+      z-index: 5;
+    }
+
+    .layout4 .mwj-node.visible {
+      opacity: 1;
+    }
+
+    .layout4 .mwj-logo-card {
+      display: block;
+      text-decoration: none;
+      background: #ffffff;
+      border: 2px solid rgba(11, 42, 122, .12);
+      border-radius: 22px;
+      padding: 12px;
+      width: 218px;
+      box-shadow: 0 8px 24px rgba(0, 28, 85, .08);
+      transition: transform .28s cubic-bezier(0.19, 1, 0.22, 1), box-shadow .28s ease, border-color .22s ease;
+      cursor: pointer;
+    }
+
+    .layout4 .mwj-logo-card:hover {
+      transform: translateY(-8px) scale(1.045);
+      box-shadow: 0 16px 36px rgba(0, 28, 85, .14);
+      border-color: #0b2a7a;
+    }
+
+    .layout4 .mwj-logo-card img {
+      width: 100%;
+      height: 118px;
+      object-fit: contain;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .layout4 .mwj-card-footer {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .layout4 .mwj-card-phase {
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      transition: color .22s;
+    }
+
+    .layout4 .mwj-logo-card:hover .mwj-card-phase {
+      color: #0b2a7a;
+    }
+
+    .layout4 .mwj-connector {
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(59, 130, 246, .5), rgba(59, 130, 246, .05));
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .layout4 .mwj-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      border: 4px solid #3b82f6;
+      box-shadow: 0 0 0 6px rgba(59, 130, 246, .15);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      transition: transform .25s ease;
+    }
+
+    .layout4 .mwj-node:hover .mwj-dot {
+      transform: scale(1.35);
+    }
+
+    .layout4 .mwj-node-lbl {
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .layout4 .mwj-lbl-date {
+      font-size: 11px;
+      font-weight: 800;
+      color: #3b82f6;
+      background: rgba(59, 130, 246, .10);
+      border-radius: 999px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .layout4 .mwj-lbl-name {
+      font-size: 13px;
+      font-weight: 900;
+      color: #001c55;
+      white-space: nowrap;
+    }
+
+    .layout4 .mwj-lbl-role {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .layout4 .mwj-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-top: 4px;
+    }
+
+    .layout4 .mwj-badge-peak {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+    }
+
+    .layout4 .mwj-badge-dip {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .layout4 .mwj-badge-go {
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+      color: #fff;
+    }
+
+    .layout4 .mwj-node.above {
+      flex-direction: column;
+    }
+
+    .layout4 .mwj-node.above .mwj-logo-card {
+      order: 1;
+    }
+
+    .layout4 .mwj-node.above .mwj-connector {
+      order: 2;
+    }
+
+    .layout4 .mwj-node.above .mwj-dot {
+      order: 3;
+    }
+
+    .layout4 .mwj-node.above .mwj-node-lbl {
+      order: 4;
+      margin-top: 10px;
+    }
+
+    .layout4 .mwj-node.below {
+      flex-direction: column;
+    }
+
+    .layout4 .mwj-node.below .mwj-node-lbl {
+      order: 1;
+      margin-bottom: 10px;
+    }
+
+    .layout4 .mwj-node.below .mwj-dot {
+      order: 2;
+    }
+
+    .layout4 .mwj-node.below .mwj-connector {
+      order: 3;
+      background: linear-gradient(to top, rgba(59, 130, 246, .5), rgba(59, 130, 246, .05));
+    }
+
+    .layout4 .mwj-node.below .mwj-logo-card {
+      order: 4;
+    }
+
+    .layout4 .mwj-legend-bar {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 0 20px 4px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: all .8s cubic-bezier(0.19, 1, 0.22, 1) .2s;
+    }
+
+    .layout4.inview .mwj-legend-bar {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .layout4 .mwj-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #001c55;
+    }
+
+    .layout4 .mwj-ldot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3b82f6;
+      border: 2.5px solid #fff;
+      box-shadow: 0 0 0 2px #3b82f6;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .layout4 {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .layout4 .mwj-title-wrap img {
+        width: min(360px, 88vw);
+      }
+
+      .layout4 .mwj-graph-outer {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+    }
+  </style>
+
 </head>
 
 <body class="ocean-mode" oncontextmenu="return false;">
-  <div id="loader-wrapper">
-    <div class="loader-content">
-      <div class="loader-credits loader-credits-top">
-        <span class="credit-vn">Trang web được tạo bởi chính chủ và GPT, Gemeni, Claude, và Google AI Studio</span>
-        <span class="credit-en">The website was created by the owner and GPT, Gemini, Claude, and Google AI
-          Studio</span>
-      </div>
-      <div class="loader-text"><span id="loader-percentage">0</span>%</div>
-      <div class="loader-bar">
-        <div class="loader-progress" id="loader-progress"></div>
-      </div>
-      <div class="loader-credits loader-credits-bot">
-        <span class="credit-ko">이 웹사이트는 소유자와 GPT, Gemini, Claude 및 Google AI Studio에 의해 제작되었습니다</span>
-        <span class="credit-zh">该网站由所有者以及 GPT、Gemini、Claude 和 Google AI Studio 共同提供支持</span>
-      </div>
-    </div>
-  </div>
-  <div aria-hidden="true" id="transition-overlay">
-    <canvas id="meteorCanvas"></canvas>
-    <div class="meteor-wrap" id="meteorWrap"></div>
-  </div>
+
   <div id="theme-bg">
     <div class="bg-ocean">
       <div class="bubble"></div>
@@ -5208,25 +5580,182 @@
               </div>
             </div>
           </section>
+
           <section class="section layout4 reveal" id="layout-4">
-            <div class="w4m-container">
-              <div class="w4m-header">
-                <div class="w4m-title-img"><img alt="MY WORK" draggable="false"
-                    src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/my%20work.png" />
+            <div class="mwj-shell">
+              <div class="mwj-title-wrap">
+                <img alt="MY WORK" draggable="false"
+                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/my%20work.png" />
+              </div>
+              <p class="mwj-scroll-hint">← scroll to explore timeline →</p>
+
+              <div class="mwj-graph-outer">
+                <div class="mwj-graph-inner">
+                  <svg class="mwj-graph-svg" viewBox="0 0 3050 840" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="mwj-lg" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="30%" stop-color="#6366f1" />
+                        <stop offset="55%" stop-color="#8b5cf6" />
+                        <stop offset="80%" stop-color="#ec4899" />
+                        <stop offset="100%" stop-color="#f59e0b" />
+                      </linearGradient>
+                    </defs>
+
+                    <line class="mwj-guide-line" x1="0" y1="190" x2="3050" y2="190" />
+                    <line class="mwj-guide-line" x1="0" y1="400" x2="3050" y2="400" />
+                    <line class="mwj-guide-line" x1="0" y1="520" x2="3050" y2="520" />
+                    <line class="mwj-guide-line" x1="0" y1="640" x2="3050" y2="640" />
+
+                    <rect x="70" y="82" width="1450" height="680" fill="rgba(59,130,246,0.04)"
+                      stroke="rgba(59,130,246,0.18)" stroke-width="1.5" stroke-dasharray="8 5" rx="28" />
+                    <rect x="70" y="60" width="370" height="46" rx="12" fill="rgba(59,130,246,0.12)"
+                      stroke="rgba(59,130,246,0.3)" stroke-width="1.5" />
+                    <text x="255" y="90" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="21"
+                      font-weight="900" fill="#1e40af" letter-spacing="0.04em">HSA EDUCATION GROUP</text>
+
+                    <path class="mwj-graph-path" d="
+                      M 0 560
+                      C 95 560, 165 525, 240 510
+                      C 500 490, 650 420, 830 400
+                      C 1050 375, 1230 215, 1450 190
+                      C 1680 168, 1840 600, 2100 640
+                      C 2290 666, 2550 415, 2790 400
+                      L 3050 400
+                    " />
+                  </svg>
+
+                  <div class="mwj-node below" style="left:240px; top:510px;">
+                    <div class="mwj-node-lbl">
+                      <div class="mwj-lbl-date">6/2024 – 8/2024</div>
+                      <div class="mwj-lbl-name">HSA EDUCATION</div>
+                      <div class="mwj-lbl-role">Sales Consultant · 33 staff</div>
+                      <span class="mwj-badge mwj-badge-dip">Starting Point</span>
+                    </div>
+                    <div class="mwj-dot"></div>
+                    <div class="mwj-connector" style="height:44px;"></div>
+                    <a href="#" class="mwj-logo-card project-open" data-title="HSA EDUCATION" data-mode="stack"
+                      data-images="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/60.png, https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/61.png, https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/62.png">
+                      <img alt="HSA EDUCATION"
+                        src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HSA%20EDU.png" />
+                      <div class="mwj-card-footer">
+                        <span class="mwj-card-phase">HSA · Giai đoạn 1</span>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="mwj-node above" style="left:830px; top:400px;">
+                    <a href="#" class="mwj-logo-card project-open" data-title="HSA EDUCATION" data-mode="stack"
+                      data-images="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/60.png, https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/61.png, https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/62.png">
+                      <img alt="HỌC IZ SCHOOL"
+                        src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png" />
+                      <div class="mwj-card-footer">
+                        <span class="mwj-card-phase">HOC IZ · Growing</span>
+                      </div>
+                    </a>
+                    <div class="mwj-connector" style="height:40px;"></div>
+                    <div class="mwj-dot"></div>
+                    <div class="mwj-node-lbl">
+                      <div class="mwj-lbl-date">2/2024 – 8/2024</div>
+                      <div class="mwj-lbl-name">HỌC IZ SCHOOL</div>
+                      <div class="mwj-lbl-role">CSR &amp; Content Creator</div>
+                    </div>
+                  </div>
+
+                  <div class="mwj-node above" style="left:1450px; top:190px;">
+                    <a href="#" class="mwj-logo-card project-open" data-title="HỌC IZ SCHOOL · PEAK"
+                      data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/63.png"
+                      style="border-color:#f59e0b; box-shadow:0 10px 28px rgba(245,158,11,.18);">
+                      <img alt="HỌC IZ SCHOOL"
+                        src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png" />
+                      <div class="mwj-card-footer">
+                        <span class="mwj-card-phase" style="color:#f59e0b;">🏆 Department Manager</span>
+                      </div>
+                    </a>
+                    <div class="mwj-connector"
+                      style="height:40px; background:linear-gradient(to bottom,rgba(245,158,11,.5),rgba(245,158,11,.05));">
+                    </div>
+                    <div class="mwj-dot"
+                      style="border-color:#f59e0b; box-shadow:0 0 0 8px rgba(245,158,11,.15),0 6px 20px rgba(245,158,11,.3);">
+                    </div>
+                    <div class="mwj-node-lbl">
+                      <div class="mwj-lbl-date" style="color:#f59e0b; background:rgba(245,158,11,.12);">8/2024 – 8/2025
+                      </div>
+                      <div class="mwj-lbl-name">HỌC IZ SCHOOL</div>
+                      <div class="mwj-lbl-role">60 staff / Total: 250 staff</div>
+                      <span class="mwj-badge mwj-badge-peak">🏆 Peak</span>
+                    </div>
+                  </div>
+
+                  <div class="mwj-node below" style="left:2100px; top:640px;">
+                    <div class="mwj-node-lbl">
+                      <div class="mwj-lbl-date">12/2025 – 3/2026</div>
+                      <div class="mwj-lbl-name">ABIT EDUCATION</div>
+                      <div class="mwj-lbl-role">Team Leader Seeding</div>
+                      <span class="mwj-badge mwj-badge-dip">🌊 Rough Waters</span>
+                    </div>
+                    <div class="mwj-dot" style="border-color:#94a3b8; box-shadow:0 0 0 5px rgba(148,163,184,.15);">
+                    </div>
+                    <div class="mwj-connector"
+                      style="height:40px; background:linear-gradient(to top,rgba(148,163,184,.5),rgba(148,163,184,.05));">
+                    </div>
+                    <a href="#" class="mwj-logo-card" style="border-color:rgba(148,163,184,.35);"
+                      onclick="event.preventDefault(); alert('nothing');">
+                      <img alt="ABIT EDUCATION"
+                        src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/ABIT.png" />
+                      <div class="mwj-card-footer">
+                        <span class="mwj-card-phase">ABIT · Rough Waters</span>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="mwj-node above" style="left:2790px; top:400px;">
+                    <a href="#" class="mwj-logo-card project-open" data-title="CỤC THỐNG KÊ THÀNH PHỐ"
+                      data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/64.png"
+                      style="border-color:#10b981; box-shadow:0 10px 28px rgba(16,185,129,.14);">
+                      <img alt="CỤC THỐNG KÊ THÀNH PHỐ"
+                        src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/449af3f0cc41d4950b17153f62677626aa33ded4/layout4/tctk_copy.jpg"
+                        style="object-fit:contain; background:#fff; padding:6px; border-radius:12px;" />
+                      <div class="mwj-card-footer">
+                        <span class="mwj-card-phase" style="color:#10b981;">CỤC THỐNG KÊ · Project</span>
+                      </div>
+                    </a>
+                    <div class="mwj-connector"
+                      style="height:40px; background:linear-gradient(to bottom,rgba(16,185,129,.5),rgba(16,185,129,.05));">
+                    </div>
+                    <div class="mwj-dot"
+                      style="border-color:#10b981; box-shadow:0 0 0 6px rgba(16,185,129,.14),0 4px 16px rgba(16,185,129,.28);">
+                    </div>
+                    <div class="mwj-node-lbl">
+                      <div class="mwj-lbl-date" style="color:#10b981; background:rgba(16,185,129,.10);">3/2026 – 7/2026
+                      </div>
+                      <div class="mwj-lbl-name">CỤC THỐNG KÊ THÀNH PHỐ</div>
+                      <div class="mwj-lbl-role">PROJECT · Stats &amp; Business Reporting</div>
+                      <span class="mwj-badge mwj-badge-go">↑ Recovery</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="w4m-evolution">
-                <div class="w4m-evo-head">
-                  <span class="w4m-badge">Rebranding</span>
-                  <span class="w4m-evo-title">Corporate evolution</span>
+
+              <div class="mwj-legend-bar">
+                <div class="mwj-legend-item">
+                  <div class="mwj-ldot" style="background:#f59e0b; box-shadow:0 0 0 2px #f59e0b;"></div>Peak — Dept
+                  Manager
                 </div>
-                <div class="w4m-evo-grid" id="work-evo-container">
+                <div class="mwj-legend-item">
+                  <div class="mwj-ldot"></div>Growth Phase
                 </div>
-              </div>
-              <div class="w4m-workgrid" id="work-items-container">
+                <div class="mwj-legend-item">
+                  <div class="mwj-ldot" style="background:#94a3b8; box-shadow:0 0 0 2px #94a3b8;"></div>Dip / Reset
+                </div>
+                <div class="mwj-legend-item">
+                  <div class="mwj-ldot" style="background:#10b981; box-shadow:0 0 0 2px #10b981;"></div>Recovery /
+                  Project
+                </div>
               </div>
             </div>
           </section>
+
           <section class="section layout5 reveal" id="layout-5">
             <div class="s5-wrap">
               <div class="s5-title">MY SKILLS</div>
@@ -5518,6 +6047,7 @@
       </div>
       <div class="viewer-body">
         <img alt="Slide" class="viewer-img" id="viewerImg" src="" />
+        <div class="viewer-stack" id="viewerStack"></div>
       </div>
       <div class="viewer-proposal-wrap" id="viewerProposalWrap">
         <a class="viewer-proposal-link" href="#" id="viewerProposalLink" rel="noopener" target="_blank">Link đề ↗</a>
@@ -5945,6 +6475,7 @@
     (function () {
       const viewer = document.getElementById('viewer');
       const viewerImg = document.getElementById('viewerImg');
+      const viewerStack = document.getElementById('viewerStack');
       const viewerTitle = document.getElementById('viewerTitle');
       const viewerCount = document.getElementById('viewerCount');
 
@@ -5968,8 +6499,20 @@
       let slides = [];
       let idx = 0;
       let currentZoom = 1;
+      let viewerMode = 'slides';
 
       function renderZoom() {
+        if (viewerMode === 'stack') {
+          currentZoom = 1;
+          if (zoomCount && document.activeElement !== zoomCount) {
+            zoomCount.textContent = '100%';
+          }
+          if (zoomSlider) {
+            zoomSlider.value = 100;
+          }
+          return;
+        }
+
         if (viewerImg) {
           viewerImg.style.width = (currentZoom * 100) + '%';
           const body = viewerImg.closest('.viewer-body');
@@ -6025,11 +6568,25 @@
         viewerCount.textContent = (idx + 1) + ' / ' + slides.length;
       }
 
-      function openViewer(title, baseURL, maxN, proposalURL, proposalText) {
+      function setViewerMode(mode) {
+        viewerMode = mode === 'stack' ? 'stack' : 'slides';
+        viewer.classList.toggle('is-stack', viewerMode === 'stack');
+
+        if (viewerImg) {
+          viewerImg.src = '';
+          viewerImg.alt = 'Slide';
+        }
+        if (viewerStack) {
+          viewerStack.innerHTML = '';
+        }
+      }
+
+      function openViewer(title, baseURL, maxN, proposalURL, proposalText, mode, imageList) {
         viewerTitle.textContent = title || 'Project';
         slides = [];
         idx = 0;
         currentZoom = 1;
+        setViewerMode(mode);
         renderZoom();
 
         if (viewerProposalWrap && viewerProposalLink) {
@@ -6055,8 +6612,24 @@
         const cleanBaseURL = String(baseURL || '').trim();
         const isDirectImage = /\.(png|jpe?g|webp|gif)(\?.*)?$/i.test(cleanBaseURL);
 
-        if (isDirectImage) {
-          const directURL = /\?/.test(cleanBaseURL) ? cleanBaseURL : `${cleanBaseURL}?raw=1`;
+        if (viewerMode === 'stack') {
+          const stackedImages = String(imageList || '')
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
+
+          if (viewerStack) {
+            stackedImages.forEach((url, imageIndex) => {
+              const img = document.createElement('img');
+              img.src = url;
+              img.alt = `${title || 'Project'} ${imageIndex + 1}`;
+              img.loading = 'lazy';
+              viewerStack.appendChild(img);
+            });
+          }
+          viewerCount.textContent = stackedImages.length ? `${stackedImages.length} ảnh` : '0 / 0';
+        } else if (isDirectImage) {
+          const directURL = cleanBaseURL;
           const img = new Image();
           img.onload = () => {
             slides = [directURL];
@@ -6101,8 +6674,12 @@
         slides = [];
         idx = 0;
         currentZoom = 1;
+        setViewerMode('slides');
         renderZoom();
         viewerImg.src = '';
+        if (viewerStack) {
+          viewerStack.innerHTML = '';
+        }
         viewerCount.textContent = '0 / 0';
         if (viewerProposalWrap && viewerProposalLink) {
           viewerProposalLink.href = '#';
@@ -6147,8 +6724,10 @@
         const max = card.getAttribute('data-max') || '30';
         const proposal = card.getAttribute('data-proposal') || '';
         const proposalText = card.getAttribute('data-proposal-text') || '';
-        if (!base) return;
-        openViewer(title, base, max, proposal, proposalText);
+        const mode = card.getAttribute('data-mode') || 'slides';
+        const imageList = card.getAttribute('data-images') || '';
+        if (!base && !imageList) return;
+        openViewer(title, base, max, proposal, proposalText, mode, imageList);
       });
     })();
   </script>
@@ -6244,8 +6823,505 @@
       setTimeout(updateIndicator, 120);
     })();
   </script>
-  <script src="data.js"></script>
-  <script src="render.js"></script>
+  <script id="inline-data-js">
+    const portfolioData = {
+      projects: {
+        group: [
+          {
+            ariaLabel: "Open CANIFA S group project",
+            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png",
+            max: "1",
+            title: "CANIFA S",
+            proposal: "https://drive.google.com/file/d/1_zh76qmtm2wxvbY6xjlf5xPG3JT_Ipay/view",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png"
+          },
+          {
+            ariaLabel: "Open GDOC Project Slide",
+            title: "GDOC Project",
+            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BGDOC%5D%20Slide/",
+            max: "30",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BGDOC%5D%20Slide/1.png",
+            links: [
+              { label: "Slide", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%5D%20Slide.pdf" },
+              { label: "Proposal", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20proposal%20v%C3%B2ng%201.pdf" },
+              { label: "Pipeline", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20Pipeline%20v%C3%A0%20Ki%E1%BA%BFn%20tr%C3%BAc%20h%E1%BB%87%20th%E1%BB%91ng.docx.pdf" },
+              { label: "Mô hình kinh doanh", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20M%C3%B4%20h%C3%ACnh%20kinh%20doanh%20v%C3%A0%20duy%20tr%C3%AC%20c%E1%BB%A7a%20L-AI.docx.pdf" }
+            ]
+          },
+          {
+            ariaLabel: "Open RBD Project",
+            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BRBD26%20V%C3%92NG%201%5D%20Tr%E1%BA%BB%20ng%C6%B0%E1%BB%9Di%20nonstop/",
+            max: "30",
+            title: "RBD Project",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BRBD26%20V%C3%92NG%201%5D%20Tr%E1%BA%BB%20ng%C6%B0%E1%BB%9Di%20nonstop/1.png"
+          }
+        ],
+        individual: [
+          {
+            ariaLabel: "Open Vinamilk Corporate Presentation",
+            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Vinamilk_Corporate_Presentation.pptx/",
+            max: "14",
+            title: "Vinamilk Corporate Presentation",
+            proposalText: `<strong>ĐỀ BÀI — Nguồn: VIOD</strong>
+Nghiên cứu 01 doanh nghiệp niêm yết trong danh sách 10 doanh nghiệp dưới đây và chuẩn bị 01 slide deck tối đa 10 slides trình bày các nội dung sau:
+
+1. Tổng quan doanh nghiệp
+• Giới thiệu ngắn gọn về công ty
+• Cơ cấu sở hữu (cổ đông lớn, tỷ lệ sở hữu nhà nước / tư nhân / nước ngoài nếu có)
+
+2. Cơ cấu tổ chức
+• Mô hình quản lý
+• Các phòng ban / bộ phận chính
+
+3. Hội đồng Quản trị
+• Thành phần HĐQT
+• Tỷ lệ thành viên độc lập
+• Các đặc điểm đáng chú ý (nếu có)
+
+4. Công bố thông tin về Phát triển Bền vững
+• Doanh nghiệp đang công bố những nội dung ESG / Phát triển bền vững nào
+• Theo tiêu chuẩn nào (nếu có)
+
+5. Đại hội đồng Cổ đông 2025
+• Các nội dung / quyết định nổi bật tại ĐHĐCĐ thường niên 2025
+
+Sau đó rút ra nhận xét chung về công ty đó.
+
+DANH SÁCH DOANH NGHIỆP
+1. Tổng Công ty Phân bón Dầu khí Cà Mau CTCP (DCM)
+2. CTCP Sữa Việt Nam (VNM)
+3. Tổng CTCP Vận Tải Dầu Khí (PVT)
+4. CTCP Thành Thành Công - Biên Hòa (SBT)
+5. Tổng CTCP Bia - Rượu - Nước giải khát Sài Gòn (SAB)
+6. Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh (HDB)
+7. CTCP Chứng Khoán SSI (SSI)
+8. CTCP Dược Hậu Giang (DHG)
+9. Ngân hàng TMCP Quân Đội (MBB)
+10. CTCP Tập Đoàn PAN (PAN)`,
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Vinamilk_Corporate_Presentation.pptx/1.png"
+          },
+          {
+            ariaLabel: "Open [BLM] CLOSEUP",
+            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/",
+            max: "30",
+            title: "[BLM] CLOSEUP",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/1.png"
+          }
+        ]
+      },
+      socialMedia: {
+        facebook: [
+          {
+            url: "https://www.facebook.com/danhgiatuduybkhntsa",
+            ariaLabel: "Facebook page 1",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/1.png"
+          },
+          {
+            url: "https://www.facebook.com/groups/danhgiatuduyhust/",
+            ariaLabel: "Facebook group",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/2.png"
+          },
+          {
+            url: "https://www.facebook.com/tailieuonthidanhgiatuduytsa",
+            ariaLabel: "Facebook page 2",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/3.png"
+          }
+        ],
+        tiktok: [
+          {
+            url: "https://www.tiktok.com/@gioitsakhongkho",
+            ariaLabel: "TikTok",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/4.png",
+            fitContain: true
+          }
+        ],
+        youtube: [
+          {
+            url: "https://www.youtube.com/@qlTSAonHSAEDUCATION",
+            ariaLabel: "YouTube channel 1",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/5.png",
+            fitContain: true
+          },
+          {
+            url: "https://www.youtube.com/@danhgiatuduytsa",
+            ariaLabel: "YouTube channel 2",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/69935af61fb549f6d4de8273c8f0711584024b88/%E1%BA%A2nh%20main/Project/Social%20Media/6.png",
+            fitContain: true
+          }
+        ]
+      },
+      businessAnalysis: [
+        {
+          url: "https://drive.google.com/drive/folders/1vV8DAdj0zhjitmqGWw3h6Gq8pGHDoimD?usp=drive_link",
+          badge: "📊",
+          title: "Business Analysis Power BI",
+          desc: "File Power BI (.pbix) cho project Business Analysis của bạn.",
+          linkText: "GitHub PBIX Project ↗",
+          isImage: false
+        },
+        {
+          url: "#",
+          imagePath: "https://dummyimage.com/1280x720/ffffff/001c55.png&text=Business+Analysis+Project",
+          isImage: true
+        }
+      ],
+      websites: [
+        {
+          url: "https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/",
+          badge: "🌐",
+          title: "Trang web tử vi",
+          desc: "Website xem tử vi và trải nghiệm nội dung chiêm tinh.",
+          linkText: "nguyendangminh278-coder.github.io/reader-bandosao-tuvi/ ↗",
+          l7Icon: "✩",
+          l7ColorClass: "violet",
+          l7ShortText: "Trang web tử vi"
+        },
+        {
+          url: "https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ",
+          badge: "💻",
+          title: "Prompt & HTML Collection",
+          desc: "Bộ sưu tập prompt và HTML phục vụ học tập, sáng tạo và thử nghiệm giao diện.",
+          linkText: "Prompt & HTML collection ↗",
+          l7Url: "https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/",
+          l7Icon: "&lt;/&gt;",
+          l7ColorClass: "green",
+          l7ShortText: "Prompt & HTML"
+        },
+        {
+          url: "https://superagento.github.io/Student-survey/",
+          badge: "📋",
+          title: "Student Survey",
+          desc: "Website khảo sát sinh viên, thu thập dữ liệu và hiển thị biểu mẫu trực quan.",
+          linkText: "superagento.github.io/Student-survey/ ↗",
+          l7Icon: "☰",
+          l7ColorClass: "amber",
+          l7ShortText: "Student Survey"
+        },
+        {
+          url: "https://superagento.github.io/canifaS_tr-ng-i-nonstop/",
+          badge: "🎨",
+          title: "CANIFA S",
+          desc: "Website trình bày concept, hình ảnh và trải nghiệm thương hiệu thời trang.",
+          linkText: "superagento.github.io/canifaS_tr-ng-i-nonstop/ ↗",
+          l7Icon: "◫",
+          l7ColorClass: "rose",
+          l7ShortText: "CANIFA S"
+        },
+        {
+          url: "https://ielts-practice-hub.onrender.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcTdSeWZwVnp6bDFiQ1Y1THNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6WwtCp5m0SSPUVwg31dnSn2HEd3-xWiLxL_JN932GMlGtDwpzj_zF0TQkEQw_aem_tZYSSddov1yLXlZi2g5Rmg",
+          badge: "📚",
+          title: "IELTS Practice Hub",
+          pill: "Group project · 3 people",
+          desc: "Nền tảng luyện tập IELTS trực tuyến được phát triển theo mô hình nhóm 3 người.",
+          linkText: "ielts-practice-hub.onrender.com ↗",
+          l7Url: "https://ielts-practice-hub.onrender.com/",
+          l7Icon: "📘",
+          l7ColorClass: "cyan",
+          l7ShortText: "IELTS Practice Hub",
+          l7Wide: true
+        }
+      ],
+      myWork: {
+        evolution: [
+          {
+            url: "work.html",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HSA%20EDU.png",
+            phase: "HSA (Giai đoạn 1)"
+          },
+          {
+            url: "work.html",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png",
+            phase: "HOC IZ (Hiện tại)"
+          }
+        ],
+        items: [
+          {
+            url: "work.html",
+            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/ABIT.png",
+            category: "ABIT Platform"
+          }
+        ]
+      },
+      certificates: [
+        {
+          type: "single",
+          url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png",
+          imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png",
+          alt: "Certificate Mistalent"
+        },
+        {
+          type: "single",
+          url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png",
+          imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png",
+          alt: "Certificate TM"
+        },
+        {
+          type: "duo",
+          images: [
+            {
+              url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg",
+              imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg",
+              alt: "MOS Result 1"
+            },
+            {
+              url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg",
+              imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg",
+              alt: "MOS Result 2"
+            }
+          ]
+        },
+        {
+          type: "wide",
+          url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg",
+          imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg",
+          alt: "New Certificate"
+        }
+      ]
+    };
+
+  </script>
+  <script id="inline-render-js">
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- 0. Theme init without loader ---
+      if (localStorage.getItem('theme') === 'star') {
+        document.body.classList.add('star-mode');
+        document.body.classList.remove('ocean-mode');
+      } else {
+        document.body.classList.add('ocean-mode');
+        document.body.classList.remove('star-mode');
+      }
+
+      const isDarkMode = document.body.classList.contains('star-mode');
+      document.querySelectorAll('img[data-dark-src]').forEach(img => {
+        const light = img.getAttribute('data-light-src');
+        const dark = img.getAttribute('data-dark-src');
+        const target = isDarkMode ? dark : light;
+        if (target && img.getAttribute('src') !== target) {
+          img.setAttribute('src', target);
+        }
+      });
+
+      // --- 1. My Project (Layout 3) ---
+      const renderProjectCard = (p) => {
+        let linksHtml = '';
+        if (p.links && p.links.length > 0) {
+          linksHtml = `<div class="proj3-card-links" style="padding: 12px; display: flex; flex-direction: column; gap: 8px; border-top: 2px dashed rgba(0, 28, 85, 0.1);">
+        ${p.links.map(l => `<a href="${l.url}" target="_blank" style="font-size: 14px; font-weight: bold; color: var(--navy, #001c55); display: flex; align-items: center; gap: 6px; text-decoration: none;"><span style="font-size: 16px;">📄</span> ${l.label}</a>`).join('')}
+      </div>`;
+        }
+
+        if (p.directUrl) {
+          if (linksHtml) {
+            return `
+          <div class="proj3-card" style="display: flex; flex-direction: column; background: #fff; border-radius: var(--radius-md, 16px); overflow: hidden; border: 2px solid var(--navy, #001c55); box-shadow: 4px 4px 0 0 var(--navy, #001c55); transition: transform 0.2s, box-shadow 0.2s;">
+            <a aria-label="${p.ariaLabel}" href="${p.directUrl}" target="_blank" style="display: block; text-decoration: none; border-bottom: none;">
+              <div class="img-container"><img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
+            </a>
+            ${linksHtml}
+          </div>
+        `;
+          }
+          return `
+        <a aria-label="${p.ariaLabel}" class="proj3-card" href="${p.directUrl}" target="_blank">
+          <div class="img-container"><img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
+        </a>
+      `;
+        }
+
+        if (linksHtml) {
+          return `
+        <div class="proj3-card" style="display: flex; flex-direction: column; background: #fff; border-radius: var(--radius-md, 16px); overflow: hidden; border: 2px solid var(--navy, #001c55); box-shadow: 4px 4px 0 0 var(--navy, #001c55); transition: transform 0.2s, box-shadow 0.2s;">
+          <a aria-label="${p.ariaLabel}" class="project-open" data-base="${p.base}" data-max="${p.max || ''}" data-title="${p.title}" ${p.proposal ? `data-proposal="${p.proposal}"` : ''} ${p.proposalText ? `data-proposal-text="${p.proposalText.replace(/"/g, '&quot;')}"` : ''} href="#" style="display: block; text-decoration: none; border-bottom: none;">
+            <div class="img-container"><img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
+          </a>
+          ${linksHtml}
+        </div>
+      `;
+        }
+
+        return `
+      <a aria-label="${p.ariaLabel}" class="proj3-card project-open" data-base="${p.base}" data-max="${p.max || ''}" data-title="${p.title}" ${p.proposal ? `data-proposal="${p.proposal}"` : ''} ${p.proposalText ? `data-proposal-text="${p.proposalText.replace(/"/g, '&quot;')}"` : ''} href="#">
+        <div class="img-container"><img alt="${p.title} — cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
+      </a>
+    `;
+      };
+
+      const groupProjectContainer = document.getElementById('project-group-container');
+      if (groupProjectContainer && portfolioData.projects.group) {
+        groupProjectContainer.innerHTML = portfolioData.projects.group.map(renderProjectCard).join('');
+      }
+
+      const individualProjectContainer = document.getElementById('project-individual-container');
+      if (individualProjectContainer && portfolioData.projects.individual) {
+        individualProjectContainer.innerHTML = portfolioData.projects.individual.map(renderProjectCard).join('');
+      }
+
+      // --- 2. Social Media (Layout 3) ---
+      const renderSocialCard = (s) => {
+        return `
+      <a aria-label="${s.ariaLabel}" class="proj3-card ${s.fitContain ? 'fit-contain' : ''}" href="${s.url}" rel="noopener" target="_blank">
+        <img alt="${s.ariaLabel}" draggable="false" loading="lazy" src="${s.imagePath}"/>
+      </a>
+    `;
+      };
+
+      const fbContainer = document.getElementById('social-fb-container');
+      if (fbContainer && portfolioData.socialMedia.facebook) {
+        fbContainer.innerHTML = portfolioData.socialMedia.facebook.map(renderSocialCard).join('');
+      }
+
+      const tiktokContainer = document.getElementById('social-tiktok-container');
+      if (tiktokContainer && portfolioData.socialMedia.tiktok) {
+        tiktokContainer.innerHTML = portfolioData.socialMedia.tiktok.map(renderSocialCard).join('');
+      }
+
+      const youtubeContainer = document.getElementById('social-youtube-container');
+      if (youtubeContainer && portfolioData.socialMedia.youtube) {
+        youtubeContainer.innerHTML = portfolioData.socialMedia.youtube.map(renderSocialCard).join('');
+      }
+
+      // --- 3. Business Analysis & Websites (Layout 3) ---
+      const renderLinkCard = (l) => {
+        if (l.isImage) {
+          return `
+        <a aria-label="${l.title || 'Placeholder'}" class="proj3-card" href="${l.url}">
+          <img alt="${l.title || 'Placeholder'}" draggable="false" loading="lazy" src="${l.imagePath}"/>
+        </a>
+      `;
+        }
+        return `
+      <a aria-label="Open ${l.title}" class="proj3-card proj3-link-card" href="${l.url}" rel="noopener" target="_blank">
+        <div>
+          <div class="proj3-link-top">
+            <span class="proj3-link-badge">${l.badge}</span>
+            <div class="proj3-link-title">${l.title}</div>
+            ${l.pill ? `<span class="proj3-pill">${l.pill}</span>` : ''}
+          </div>
+          <div class="proj3-link-desc">${l.desc}</div>
+        </div>
+        <div class="proj3-link-url">${l.linkText}</div>
+      </a>
+    `;
+      };
+
+      const baContainer = document.getElementById('ba-container');
+      if (baContainer && portfolioData.businessAnalysis) {
+        baContainer.innerHTML = portfolioData.businessAnalysis.map(renderLinkCard).join('');
+      }
+
+      const websitesContainer = document.getElementById('websites-container');
+      if (websitesContainer && portfolioData.websites) {
+        websitesContainer.innerHTML = portfolioData.websites.map(renderLinkCard).join('');
+      }
+
+      // --- 4. My Work (Layout 4) ---
+      const renderEvoCard = (e) => {
+        return `
+      <a class="w4m-subcard" href="${e.url}">
+        <img alt="${e.phase}" src="${e.imagePath}"/>
+        <span class="w4m-phase">${e.phase}</span>
+      </a>
+    `;
+      };
+
+      const evoContainer = document.getElementById('work-evo-container');
+      if (evoContainer && portfolioData.myWork.evolution) {
+        const evoHtml = portfolioData.myWork.evolution.map(renderEvoCard).join('<div aria-hidden="true" class="w4m-arrow">→</div>');
+        evoContainer.innerHTML = evoHtml;
+      }
+
+      const workItemsContainer = document.getElementById('work-items-container');
+      if (workItemsContainer && portfolioData.myWork.items) {
+        const itemsHtml = portfolioData.myWork.items.map(item => `
+      <a class="w4m-item" href="${item.url}">
+        <img alt="${item.category}" src="${item.imagePath}"/>
+        <div class="w4m-item-foot">
+          <span class="w4m-category">${item.category}</span>
+          <span class="w4m-more">Xem chi tiết →</span>
+        </div>
+      </a>
+    `).join('');
+        workItemsContainer.innerHTML = itemsHtml;
+      }
+
+      // --- 5. My Certificate (Layout 6) ---
+      const renderCert = (c) => {
+        if (c.type === 'duo') {
+          return `
+        <div aria-label="MOS results" class="c6-card c6-duo-card">
+          ${c.images.map(img => `<a class="c6-duo-cell" href="${img.url}" rel="noopener" target="_blank"><img alt="${img.alt}" draggable="false" loading="lazy" src="${img.imagePath}"/></a>`).join('')}
+        </div>
+      `;
+        }
+        return `
+      <a class="c6-card c6-${c.type}" href="${c.url}" rel="noopener" target="_blank">
+        <img alt="${c.alt}" draggable="false" loading="lazy" src="${c.imagePath}"/>
+      </a>
+    `;
+      };
+
+      const certContainer1 = document.getElementById('cert-marquee-1');
+      const certContainer2 = document.getElementById('cert-marquee-2');
+      if (certContainer1 && certContainer2 && portfolioData.certificates) {
+        const certHtml = portfolioData.certificates.map(renderCert).join('');
+        certContainer1.innerHTML = certHtml;
+        certContainer2.innerHTML = certHtml;
+      }
+
+      // --- 6. Contact / Sites (Layout 7) ---
+      const renderSiteBtn = (s) => {
+        const innerText = s.pill
+          ? `<span class="ct7-site-copy"><span class="ct7-site-text">${s.l7ShortText}</span><span class="ct7-site-note">${s.pill}</span></span>`
+          : `<span class="ct7-site-text">${s.l7ShortText}</span>`;
+
+        return `
+      <a class="ct7-site-btn ${s.l7Wide ? 'ct7-site-wide' : ''}" href="${s.l7Url || s.url}" rel="noopener" target="_blank">
+        <span class="ct7-site-ico ${s.l7ColorClass}">${s.l7Icon}</span>
+        ${innerText}
+        <span class="ct7-site-arrow">→</span>
+      </a>
+    `;
+      };
+
+      const l7SitesContainer = document.getElementById('l7-sites-container');
+      if (l7SitesContainer && portfolioData.websites) {
+        l7SitesContainer.innerHTML = portfolioData.websites.map(renderSiteBtn).join('');
+      }
+
+    });
+
+  </script>
+
+  <script id="layout4-timeline-js">
+    (function () {
+      const sec = document.getElementById('layout-4');
+      if (!sec) return;
+
+      let hasAnimated = false;
+      function runTimeline() {
+        if (hasAnimated) return;
+        hasAnimated = true;
+        sec.classList.add('is-animated');
+        const nodes = sec.querySelectorAll('.mwj-node');
+        nodes.forEach((node, index) => {
+          setTimeout(() => node.classList.add('visible'), 350 + index * 280);
+        });
+      }
+
+      if (sec.classList.contains('inview')) {
+        setTimeout(runTimeline, 80);
+      }
+
+      const mo = new MutationObserver(() => {
+        if (sec.classList.contains('inview')) {
+          setTimeout(runTimeline, 80);
+          mo.disconnect();
+        }
+      });
+      mo.observe(sec, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+
 </body>
 
 </html>
