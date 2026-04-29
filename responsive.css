@@ -77,3 +77,8 @@ body.star-mode #mobile-landscape-header {
     --scale: 0.45 !important; /* Scale down heavily to fit small height */
   }
 }
+
+/* FINAL LOCK NOTE: desktop/laptop layout is controlled by final-laptop-lock-css in index.html/main.html. */
+@media (min-width: 1367px), (min-width: 951px) and (orientation: landscape) {
+  #viewport { scroll-snap-type: y mandatory !important; }
+}

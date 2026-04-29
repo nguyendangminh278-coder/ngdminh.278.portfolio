@@ -1,13 +1,11 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Story of Dang Minh</title>
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%96%3C/text%3E%3C/svg%3E">
-
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%96%3C/text%3E%3C/svg%3E">
+  
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 
   <style>
@@ -17,13 +15,9 @@
       --bg: #030a1c;
       --text: #ffffff;
     }
-
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       background: var(--bg);
@@ -41,7 +35,6 @@
       background: radial-gradient(circle at 50% 50%, #001c55 0%, #000411 100%);
       overflow: hidden;
     }
-
     .story-bg::after {
       content: '';
       position: absolute;
@@ -49,29 +42,23 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background-image:
-        radial-gradient(1.5px 1.5px at 10% 10%, rgba(255, 255, 255, 0.5) 1px, transparent 0),
-        radial-gradient(2px 2px at 20% 40%, rgba(255, 255, 255, 0.3) 1px, transparent 0),
-        radial-gradient(1px 1px at 30% 70%, rgba(255, 255, 255, 0.6) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 40% 20%, rgba(255, 255, 255, 0.4) 1px, transparent 0),
-        radial-gradient(2px 2px at 50% 90%, rgba(255, 255, 255, 0.6) 1px, transparent 0),
-        radial-gradient(1px 1px at 60% 10%, rgba(255, 255, 255, 0.4) 1px, transparent 0),
-        radial-gradient(1.5px 1.5px at 70% 50%, rgba(255, 255, 255, 0.5) 1px, transparent 0),
-        radial-gradient(2px 2px at 80% 30%, rgba(255, 255, 255, 0.3) 1px, transparent 0),
-        radial-gradient(1px 1px at 90% 80%, rgba(255, 255, 255, 0.6) 1px, transparent 0);
+      background-image: 
+        radial-gradient(1.5px 1.5px at 10% 10%, rgba(255,255,255,0.5) 1px, transparent 0),
+        radial-gradient(2px 2px at 20% 40%, rgba(255,255,255,0.3) 1px, transparent 0),
+        radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.6) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 40% 20%, rgba(255,255,255,0.4) 1px, transparent 0),
+        radial-gradient(2px 2px at 50% 90%, rgba(255,255,255,0.6) 1px, transparent 0),
+        radial-gradient(1px 1px at 60% 10%, rgba(255,255,255,0.4) 1px, transparent 0),
+        radial-gradient(1.5px 1.5px at 70% 50%, rgba(255,255,255,0.5) 1px, transparent 0),
+        radial-gradient(2px 2px at 80% 30%, rgba(255,255,255,0.3) 1px, transparent 0),
+        radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.6) 1px, transparent 0);
       background-size: 250px 250px;
       animation: animateStars 120s linear infinite;
       opacity: 0.4;
     }
-
     @keyframes animateStars {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     /* Back/Home button */
@@ -95,15 +82,13 @@
       font-size: 14px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-
     .home-float:hover {
       background: rgba(255, 255, 255, 0.25);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
     }
-
     .home-float:active {
       transform: translateY(0);
     }
@@ -120,7 +105,6 @@
       display: flex;
       justify-content: center;
     }
-
     .story-chapters {
       display: flex;
       justify-content: center;
@@ -132,7 +116,7 @@
       padding: 6px;
       border-radius: 999px;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
       flex-wrap: wrap;
     }
 
@@ -152,12 +136,12 @@
       font-family: inherit;
       position: relative;
     }
-
+    
     .chapter-btn span.num {
       font-size: 12px;
       opacity: 0.6;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.1);
       padding: 2px 6px;
       border-radius: 6px;
       transition: all 0.4s ease;
@@ -167,13 +151,13 @@
       color: rgba(255, 255, 255, 0.9);
       background: rgba(255, 255, 255, 0.05);
     }
-
+    
     .chapter-btn.active {
       color: #fff;
       background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.2);
     }
-
+    
     .chapter-btn.active span.num {
       background: #fff;
       color: var(--navy);
@@ -188,8 +172,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-top: 60px;
-      /* nav offset */
+      padding-top: 60px; /* nav offset */
       padding-left: 20px;
       padding-right: 20px;
       padding-bottom: 20px;
@@ -198,8 +181,7 @@
     .book-container {
       width: 100%;
       height: 100%;
-      max-width: 900px;
-      /* max width for the single page */
+      max-width: 900px; /* max width for the single page */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -240,34 +222,26 @@
     /* Responsive */
     @media (max-width: 800px) {
       .home-float {
-        top: 12px;
-        left: 12px;
+        top: 12px; left: 12px;
         padding: 0 12px;
         height: 36px;
         font-size: 13px;
       }
-
       .nav-wrapper {
-        top: 60px;
+        top: 60px; 
         width: 100%;
       }
-
       .chapter-btn {
         padding: 6px 10px;
         font-size: 13px;
       }
-
-      .chapter-btn span.num {
-        display: none;
-      }
-
+      .chapter-btn span.num { display: none; }
       .book-viewport {
         padding-top: 110px;
       }
     }
   </style>
 </head>
-
 <body>
 
   <div class="story-bg"></div>
@@ -285,40 +259,40 @@
   </div>
 
   <main class="book-viewport">
-
+    
     <div class="book-container">
       <div class="flip-book" id="book">
-        <!-- Chapter 1 (Cover offset) -->
-        <div class="page my-page">
-          <div class="page-content">
-            <img src="./Story/49.png" alt="Role in Life" loading="eager">
-          </div>
-        </div>
-        <!-- Chapter 2 -->
-        <div class="page my-page">
-          <div class="page-content">
-            <img src="./Story/50.png" alt="My Family" loading="lazy">
-          </div>
-        </div>
-        <!-- Chapter 3 -->
-        <div class="page my-page">
-          <div class="page-content">
-            <img src="./Story/51.png" alt="Life Journey" loading="lazy">
-          </div>
-        </div>
-        <!-- Chapter 4 -->
-        <div class="page my-page">
-          <div class="page-content">
-            <img src="./Story/52.png" alt="My Hobby" loading="lazy">
-          </div>
-        </div>
-        <!-- Chapter 5 -->
-        <div class="page my-page">
-          <div class="page-content">
-            <img src="./Story/53.png" alt="My Personality" loading="lazy">
-          </div>
+      <!-- Chapter 1 (Cover offset) -->
+      <div class="page my-page">
+        <div class="page-content">
+          <img src="./Story/49.png" alt="Role in Life" loading="eager">
         </div>
       </div>
+      <!-- Chapter 2 -->
+      <div class="page my-page">
+        <div class="page-content">
+          <img src="./Story/50.png" alt="My Family" loading="lazy">
+        </div>
+      </div>
+      <!-- Chapter 3 -->
+      <div class="page my-page">
+        <div class="page-content">
+          <img src="./Story/51.png" alt="Life Journey" loading="lazy">
+        </div>
+      </div>
+      <!-- Chapter 4 -->
+      <div class="page my-page">
+        <div class="page-content">
+          <img src="./Story/52.png" alt="My Hobby" loading="lazy">
+        </div>
+      </div>
+      <!-- Chapter 5 -->
+      <div class="page my-page">
+        <div class="page-content">
+          <img src="./Story/53.png" alt="My Personality" loading="lazy">
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -326,11 +300,11 @@
     document.addEventListener('DOMContentLoaded', () => {
       const chapters = document.querySelectorAll('.chapter-btn');
       const bookEl = document.getElementById('book');
-
+      
       const pageFlip = new St.PageFlip(bookEl, {
-        width: 550,
-        height: 733,
-        size: "stretch",
+        width: 550, 
+        height: 733, 
+        size: "stretch", 
         // Force portrait: parent max-width is 900px, 2*460=920 > 900, so it always renders single page
         minWidth: 460,
         maxWidth: 1000,
@@ -338,8 +312,8 @@
         maxHeight: 1350,
         maxShadowOpacity: 0.5,
         usePortrait: true,
-        showCover: false,
-        mobileScrollSupport: false
+        showCover: false, 
+        mobileScrollSupport: false 
       });
 
       pageFlip.loadFromHTML(document.querySelectorAll('.my-page'));
@@ -352,13 +326,13 @@
       });
 
       pageFlip.on('flip', (e) => {
-        const pageIndex = e.data;
+        const pageIndex = e.data; 
         chapters.forEach(c => c.classList.remove('active'));
-
+        
         let targetChapter = chapters[pageIndex];
         if (!targetChapter) {
-          if (pageIndex < chapters.length) targetChapter = chapters[pageIndex];
-          else targetChapter = chapters[chapters.length - 1];
+           if (pageIndex < chapters.length) targetChapter = chapters[pageIndex];
+           else targetChapter = chapters[chapters.length - 1];
         }
         if (targetChapter) {
           targetChapter.classList.add('active');
@@ -375,5 +349,4 @@
     });
   </script>
 </body>
-
 </html>

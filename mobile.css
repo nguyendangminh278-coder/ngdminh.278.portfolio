@@ -343,7 +343,7 @@
     transform: scale(0.8) !important; /* Nút menu con mèo nhỏ hơn */
     z-index: 9999 !important;
   }
-  #opt-menu, .opt-menu {
+  #opt, .opt {
     position: fixed !important;
     bottom: 80px !important;
     right: 24px !important;

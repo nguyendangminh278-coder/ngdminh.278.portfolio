@@ -7,7 +7,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Dang Minh Diaries</title>
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>ðŸ’™</text></svg>">
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💙</text></svg>">
   <style id="theme-css">
     :root {
       /* --- Config --- */
@@ -156,7 +156,7 @@
       overflow: hidden;
     }
 
-    /* ===== Lá»šP Bá»¤I SAO (COSMIC DUST) ===== */
+    /* ===== LỚP BỤI SAO (COSMIC DUST) ===== */
     .bg-star::before {
       content: "";
       position: absolute;
@@ -168,7 +168,7 @@
       z-index: 1;
     }
 
-    /* ===== Dáº¢I ÄÄ¨A NGÃ‚N HÃ€ (GALACTIC DISK) ===== */
+    /* ===== DẢI ĐĨA NGÂN HÀ (GALACTIC DISK) ===== */
     .galactic-disk {
       position: absolute;
       top: 50%;
@@ -188,7 +188,7 @@
       pointer-events: none;
     }
 
-    /* ===== HIá»†U á»¨NG TINH VÃ‚N (NEBULA) ===== */
+    /* ===== HIỆU ỨNG TINH VÂN (NEBULA) ===== */
     .nebula-container {
       position: absolute;
       inset: -50%;
@@ -233,7 +233,7 @@
       }
     }
 
-    /* ===== SAO BÄ‚NG (TRÃŠN TRÃI -> DÆ¯á»šI PHáº¢I, CHáº¬M HÆ N) ===== */
+    /* ===== SAO BĂNG (TRÊN TRÁI -> DƯỚI PHẢI, CHẬM HƠN) ===== */
     .shooting-star-v2 {
       position: absolute;
       top: 0;
@@ -300,7 +300,7 @@
       animation-delay: 14s;
     }
 
-    /* ===== 12 CHÃ’M SAO (CONSTELLATIONS) - NÃ‰T LIá»€N & SÃNG Rá»°C ===== */
+    /* ===== 12 CHÒM SAO (CONSTELLATIONS) - NÉT LIỀN & SÁNG RỰC ===== */
     .constellation {
       position: absolute;
       pointer-events: none;
@@ -341,7 +341,7 @@
       }
     }
 
-    /* Bá» Cá»¤C Vá»Š TRÃ 12 CHÃ’M SAO */
+    /* BỐ CỤC VỊ TRÍ 12 CHÒM SAO */
     .aries {
       top: 10%;
       left: 10%;
@@ -416,7 +416,7 @@
       width: 140px;
     }
 
-    /* SAO Ná»€N NHá»Ž */
+    /* SAO NỀN NHỎ */
     .stars-layer {
       position: absolute;
       inset: 0;
@@ -719,13 +719,6 @@
     }
   </style>
   <style id="base-css">
-    #viewport {
-      height: 100vh;
-      overflow-y: auto;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -872,15 +865,18 @@
       --l7-wm-phone-gap: 12px;
     }
 
-    html,
-    body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
+      width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      position: relative;
+
       user-select: none;
       -webkit-user-select: none;
       -webkit-touch-callout: none;
@@ -898,18 +894,15 @@
     .section {
       position: relative;
       width: 100%;
+
       min-height: 100vh;
       height: auto;
-      overflow: hidden;
-      background: transparent;
-      margin-bottom: 0;
-    }
 
-    /* Only snap Layout 1 and 2 */
-    #layout-1,
-    #layout-2 {
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
+      overflow: hidden;
+
+      background: transparent;
+
+      margin-bottom: 150px;
     }
 
     .section:last-of-type {
@@ -3017,77 +3010,42 @@
   </style>
 
   <style id="final-fixes-css">
-    :root {
-      --navy: #001c55;
-      --ease: cubic-bezier(.22, 1, .36, 1);
-      /* scale gá»‘c */
-      --title-topleft-scale: 0.90;
-      --about-scale: calc(var(--title-topleft-scale) * 1.15);
-      /* layout 2 gá»‘c */
-      --mini-box-scale: 0.60;
-      --story-shift-x: 50px;
-      --story-shift-y: 0px;
-      --work-shift-x: 200px;
-      --work-shift-y: 0px;
-      --meta-scale: 0.78;
-      --dob-gap-offset: 140px;
-      --dob-move-x: 3;
-      --dob-move-y: 3;
-      --day-move-x: -3;
-      --day-move-y: 15;
-    }
-
+    /* ===== Layout 2: original placement + typewriter on enter ===== */
     .layout2 {
       overflow: hidden;
-      background: transparent;
     }
 
-    .layout2 .stage {
+    .layout2 .a2-stage {
       position: relative;
       width: 100%;
       min-height: 100vh;
     }
 
-    .layout2 .piece {
+    .layout2 .a2-piece {
       position: absolute;
       opacity: 0;
       filter: blur(8px);
+      transform: translateY(18px) scale(.99);
       transition: opacity 900ms var(--ease), filter 900ms var(--ease), transform 900ms var(--ease);
       transition-delay: var(--d, 0ms);
       will-change: opacity, filter, transform;
-      pointer-events: none;
-      -webkit-user-drag: none;
     }
 
-    .layout2 .piece img {
-      display: block;
-      pointer-events: none;
-      -webkit-user-drag: none;
-      transform: translateY(18px) scale(.99);
-      transition: transform 900ms var(--ease);
-      transition-delay: var(--d, 0ms);
-      will-change: transform;
-    }
-
-    .layout2.inview .piece {
+    .layout2.inview .a2-piece {
       opacity: 1;
       filter: blur(0);
+      transform: none;
     }
 
-    .layout2.inview .piece img {
-      transform: translateY(0) scale(1);
+    .layout2 .a2-piece img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      -webkit-user-drag: none;
+      pointer-events: none;
     }
 
-    .layout2 .piece.is-clickable {
-      pointer-events: auto;
-    }
-
-    .layout2 .piece.is-clickable img {
-      pointer-events: auto;
-      cursor: pointer;
-    }
-
-    .layout2 .p-person {
+    .layout2 .a2-person {
       left: clamp(18px, 4vw, 52px);
       top: clamp(16px, 6vh, 52px);
       height: clamp(360px, 88vh, 920px);
@@ -3095,71 +3053,55 @@
       z-index: 30;
     }
 
-    .layout2 .p-person img {
+    .layout2 .a2-person img {
       height: 100%;
       width: auto;
       max-width: none;
       object-fit: contain;
     }
 
-    .layout2 .p-about {
-      right: calc(clamp(18px, 4vw, 60px) + 60px);
+    .layout2 .a2-about {
+      right: calc(clamp(18px, 4vw, 60px) + 220px);
       top: clamp(10px, 4vh, 40px);
       width: clamp(360px, 46vw, 760px);
-      height: auto;
       z-index: 50;
       transform: scale(var(--about-scale));
       transform-origin: right top;
     }
 
-    .layout2.inview .p-about {
+    .layout2.inview .a2-about {
       transform: scale(var(--about-scale));
     }
 
-    .layout2 .p-about img {
-      width: 100%;
-      height: auto;
-    }
-
-    .layout2 .p-story {
+    .layout2 .a2-story {
       right: calc(clamp(18px, 5vw, 90px) + var(--story-shift-x));
       top: calc(clamp(150px, 25vh, 270px) + var(--story-shift-y));
       width: clamp(520px, 44vw, 920px);
-      height: auto;
       z-index: 42;
       transform: scale(var(--mini-box-scale));
       transform-origin: right top;
+      cursor: pointer;
     }
 
-    .layout2.inview .p-story {
+    .layout2.inview .a2-story {
       transform: scale(var(--mini-box-scale));
     }
 
-    .layout2 .p-story img {
-      width: 100%;
-      height: auto;
-    }
-
-    .layout2 .p-workflow {
+    .layout2 .a2-workflow {
       left: calc(clamp(260px, 28vw, 560px) + var(--work-shift-x));
       top: calc(clamp(320px, 54vh, 620px) + var(--work-shift-y));
       width: clamp(520px, 44vw, 920px);
-      height: auto;
       z-index: 41;
       transform: scale(var(--mini-box-scale));
       transform-origin: left top;
+      cursor: pointer;
     }
 
-    .layout2.inview .p-workflow {
+    .layout2.inview .a2-workflow {
       transform: scale(var(--mini-box-scale));
     }
 
-    .layout2 .p-workflow img {
-      width: 100%;
-      height: auto;
-    }
-
-    .layout2 .p-dob {
+    .layout2 .a2-dob {
       left: calc(clamp(260px, 28vw, 560px) + var(--work-shift-x));
       top: calc(clamp(320px, 54vh, 620px) + var(--work-shift-y) - var(--dob-gap-offset));
       width: clamp(280px, 26vw, 520px);
@@ -3168,47 +3110,49 @@
       transform-origin: left top;
     }
 
-    .layout2.inview .p-dob {
+    .layout2.inview .a2-dob {
       transform: translate(calc(var(--dob-move-x) * 1vw), calc(var(--dob-move-y) * 1vh)) scale(var(--meta-scale));
     }
 
-    .layout2 .p-day {
+    .layout2 .a2-day {
       right: calc(clamp(18px, 5vw, 90px) + var(--story-shift-x));
       top: calc(clamp(320px, 54vh, 620px) + var(--work-shift-y));
-      width: clamp(260px, 24vw, 500px);
+      width: clamp(280px, 25vw, 530px);
       z-index: 45;
       transform: translate(calc(var(--day-move-x) * 1vw), calc(var(--day-move-y) * 1vh)) scale(var(--meta-scale));
       transform-origin: right top;
     }
 
-    .layout2.inview .p-day {
+    .layout2.inview .a2-day {
       transform: translate(calc(var(--day-move-x) * 1vw), calc(var(--day-move-y) * 1vh)) scale(var(--meta-scale));
     }
 
-    .layout2 .p-dob,
-    .layout2 .p-day {
+    .layout2 .a2-text-block {
       display: flex;
       flex-direction: column;
       justify-content: center;
       color: var(--navy);
       white-space: nowrap;
+      pointer-events: none;
     }
 
-    .layout2 .p-day {
+    .layout2 .a2-day {
+      text-align: right;
       align-items: flex-end;
+    }
+
+    .layout2 .a2-typing-line {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .layout2 .a2-right {
+      justify-content: flex-end;
       text-align: right;
     }
 
-    .layout2 .typing-line {
-      display: flex;
-      align-items: flex-end;
-    }
-
-    .layout2 .p-day .typing-line {
-      justify-content: flex-end;
-    }
-
-    .layout2 .typing-container {
+    .layout2 .a2-typing {
       font-size: clamp(20px, 2.5vw, 48px);
       font-weight: 800;
       letter-spacing: -1px;
@@ -3217,21 +3161,37 @@
       min-height: 1.2em;
     }
 
-    .layout2 .typing-cursor {
+    .layout2 .a2-cursor {
       display: inline-block;
       width: 3px;
       height: .9em;
-      background: var(--navy);
-      vertical-align: middle;
-      margin-left: 4px;
-      animation: blink 1s step-end infinite;
+      background: currentColor;
+      animation: a2blink 1s step-end infinite;
     }
 
-    .layout2 .typing-cursor.hide {
+    .layout2 .a2-cursor.hide {
       display: none;
     }
 
-    @keyframes blink {
+    .layout2 .a2-subtext {
+      font-size: clamp(12px, 1.5vw, 24px);
+      font-weight: 600;
+      margin-top: 6px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all .6s var(--ease);
+    }
+
+    .layout2 .a2-subtext.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .layout2 .pink {
+      color: #ff66b2;
+    }
+
+    @keyframes a2blink {
 
       0%,
       100% {
@@ -3243,107 +3203,90 @@
       }
     }
 
-    .layout2 .subtext {
-      font-size: clamp(12px, 1.5vw, 24px);
-      font-weight: 600;
-      margin-top: 6px;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all .6s var(--ease);
-    }
-
-    .layout2 .subtext.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .layout2 .text-pink {
-      color: #ff66b2;
-    }
-
-    body.star-mode .layout2 {
-      background: transparent;
-    }
-
-    body.star-mode .layout2 .p-dob,
-    body.star-mode .layout2 .p-day {
+    body.star-mode .layout2 .a2-text-block {
       color: #ffffff;
       text-shadow: 0 0 8px rgba(0, 242, 255, .28);
     }
 
-    body.star-mode .layout2 .typing-cursor {
+    body.star-mode .layout2 .a2-cursor {
       background: #ffffff;
     }
 
-    @media (max-width: 1200px) {
-      .layout2 .p-about {
+    @media (max-width:1200px) {
+      .layout2 .a2-about {
         right: clamp(16px, 3vw, 36px);
         width: clamp(300px, 42vw, 620px);
         transform: none;
       }
 
-      .layout2.inview .p-about {
+      .layout2.inview .a2-about {
         transform: none;
       }
 
-      .layout2 .p-story {
+      .layout2 .a2-story {
         right: clamp(18px, 4vw, 48px);
         transform: none;
       }
 
-      .layout2.inview .p-story {
+      .layout2.inview .a2-story {
         transform: none;
       }
 
-      .layout2 .p-workflow,
-      .layout2 .p-dob {
+      .layout2 .a2-workflow,
+      .layout2 .a2-dob {
         left: clamp(240px, 26vw, 420px);
-      }
-
-      .layout2 .p-day {
-        right: clamp(18px, 4vw, 48px);
       }
     }
 
-    @media (max-width: 900px) {
-      .layout2 .p-person {
+    @media (max-width:900px) {
+      .layout2 .a2-person {
         left: 10px;
         top: 30px;
         height: 58vh;
       }
 
-      .layout2 .p-about {
+      .layout2 .a2-about {
         right: 18px;
         top: 22px;
         width: 52vw;
-        transform: none;
       }
 
-      .layout2 .p-story {
+      .layout2 .a2-story {
         right: 18px;
         top: 28vh;
         width: 44vw;
-        transform: none;
       }
 
-      .layout2 .p-dob {
+      .layout2 .a2-dob {
         left: 42vw;
         top: 46vh;
         width: auto;
         transform: none;
       }
 
-      .layout2 .p-workflow {
+      .layout2.inview .a2-dob {
+        transform: none;
+      }
+
+      .layout2 .a2-workflow {
         left: 42vw;
         top: 60vh;
         width: 42vw;
         transform: none;
       }
 
-      .layout2 .p-day {
+      .layout2.inview .a2-workflow {
+        transform: none;
+      }
+
+      .layout2 .a2-day {
         right: 18px;
         top: 78vh;
         width: auto;
+        transform: none;
+      }
+
+      .layout2.inview .a2-day {
         transform: none;
       }
     }
@@ -3784,7 +3727,7 @@
 
     .layout5.inview .s5-person {
       transform: scale(1.4) translateY(30%);
-      /* HÃ¬nh tá»± Ä‘á»™ng phÃ³ng to gáº¥p 1.6 vÃ  lÃ¹i lÃºn xuá»‘ng 40% */
+      /* Hình tự động phóng to gấp 1.6 và lùi lún xuống 40% */
       opacity: 1;
     }
 
@@ -4735,120 +4678,136 @@
   </style>
 
   <style id="impact-title-css">
-    /* ===== IMPACT TEXT TITLES (Layouts 2-6) ===== */
-    .impact-title {
-      font-family: 'Impact', 'Arial Black', 'Haettenschweiler', 'Franklin Gothic Bold', sans-serif;
-      color: #ffffff;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      line-height: 1.05;
-      -webkit-text-stroke: 5px #0f3460;
-      paint-order: stroke fill;
-      text-shadow:
-        0 0 0 transparent;
-      cursor: default;
-      user-select: none;
-      transition: text-shadow 0.4s ease, filter 0.4s ease;
+    :root {
+      --bg-color: #f0f2f5;
+      --stroke-color: #0f3460;
+      --glow-color: #e9f4ff;
+      --x: 50%;
+      --y: 50%;
+      --impact-title-size: clamp(64px, 10vw, 170px);
+      --impact-title-stroke: clamp(12px, 1.5vw, 24px);
+      --impact-title-glow-stroke: clamp(14px, 1.6vw, 28px);
+    }
+
+    .impact-title-container {
       position: relative;
       display: inline-block;
+      cursor: none;
+      isolation: isolate;
+    }
+
+    .impact-title {
+      font-family: Impact, 'Arial Black', Haettenschweiler, sans-serif;
+      font-size: var(--impact-title-size) !important;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #ffffff;
+      -webkit-text-stroke: var(--impact-title-stroke) var(--stroke-color);
+      paint-order: stroke fill;
+      letter-spacing: -3px;
+      line-height: 0.9;
+      position: relative;
+      display: inline-block;
+      transition: text-shadow 0.3s ease;
+      user-select: none;
+      margin: 0;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, var(--glow-color) 0%, rgba(233, 244, 255, 0) 60%);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(calc(var(--x) - 40px), calc(var(--y) - 40px));
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      mix-blend-mode: screen;
+    }
+
+    .impact-title-container:hover .cursor-glow {
+      opacity: 1;
     }
 
     .impact-title:hover {
       text-shadow:
-        inset 0 0 30px rgba(255, 255, 255, 0.6),
-        0 0 20px rgba(15, 52, 96, 0.6),
-        0 0 40px rgba(15, 52, 96, 0.35),
-        0 0 60px rgba(100, 180, 255, 0.25);
-      filter: brightness(1.15);
+        0 0 20px rgba(255, 182, 193, 0.4),
+        0 0 30px rgba(173, 216, 230, 0.4),
+        0 0 40px rgba(152, 251, 152, 0.4);
     }
 
-    /* Inner glow simulation via ::after pseudo-element */
     .impact-title::after {
       content: attr(data-text);
       position: absolute;
-      inset: 0;
-      font-family: inherit;
-      font-size: inherit;
-      font-weight: inherit;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      color: transparent;
+      -webkit-text-stroke: var(--impact-title-glow-stroke) transparent;
+      transition: filter 0.3s ease, opacity 0.3s ease;
+      pointer-events: none;
+      opacity: 0;
+      font: inherit;
       letter-spacing: inherit;
       line-height: inherit;
       text-transform: inherit;
-      -webkit-text-stroke: 0;
-      color: transparent;
-      background: linear-gradient(180deg,
-          rgba(255, 255, 255, 0.0) 0%,
-          rgba(255, 255, 255, 0.0) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      pointer-events: none;
-      transition: all 0.4s ease;
-      z-index: 1;
+      white-space: nowrap;
     }
 
     .impact-title:hover::after {
-      color: transparent;
-      background: linear-gradient(180deg,
-          rgba(180, 220, 255, 0.6) 0%,
-          rgba(255, 255, 255, 0.85) 30%,
-          rgba(180, 220, 255, 0.6) 60%,
-          rgba(120, 180, 255, 0.4) 100%);
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
+      background: linear-gradient(
+        45deg,
+        #ffb7b2,
+        #ffdac1,
+        #e2f0cb,
+        #b5ead7,
+        #c7ceea,
+        #f3d1f4
+      );
       -webkit-background-clip: text;
       background-clip: text;
-      text-shadow: none;
-      filter: blur(0px);
+      opacity: 0.8;
     }
 
-    /* --- Layout 2: ABOUT ME title --- */
-    .layout2 .p-about .impact-title {
-      font-size: clamp(48px, 7vw, 100px);
+    .layout2 .a2-about,
+    .layout3 .title-center,
+    .layout4 .mwj-title-wrap,
+    .layout6 .c6-title,
+    .layout7 .ct7-header { text-align: center; }
+
+    .layout2 .a2-about .impact-title,
+    .layout3 .title-center .impact-title,
+    .layout4 .mwj-title-wrap .impact-title,
+    .layout5 .s5-title .impact-title,
+    .layout6 .c6-title .impact-title,
+    .layout7 .ct7-header .impact-title {
+      font-size: var(--impact-title-size) !important;
     }
 
-    /* --- Layout 3: MY PROJECT --- */
-    .layout3 .title-center .impact-title {
-      font-size: clamp(40px, 5.5vw, 80px);
-    }
-
-    /* --- Layout 4: MY WORK --- */
-    .layout4 .mwj-title-wrap .impact-title {
-      font-size: clamp(40px, 6vw, 90px);
-    }
-
-    /* --- Layout 5: MY SKILLS (replace existing s5-title style) --- */
-    .layout5 .s5-title.impact-title {
-      font-family: 'Impact', 'Arial Black', 'Haettenschweiler', 'Franklin Gothic Bold', sans-serif !important;
-      color: #ffffff !important;
-      -webkit-text-stroke: 5px #0f3460 !important;
-      font-size: clamp(48px, 8vw, 120px) !important;
+    .layout5 .s5-title.impact-title-container {
       margin: 0 0 10px 4%;
-      font-weight: normal !important;
+      transform: translateY(-20px);
     }
 
-    /* --- Layout 6: MY CERTIFICATE --- */
-    .layout6 .c6-title .impact-title {
-      font-size: clamp(36px, 5vw, 76px);
-    }
+    .layout5.inview .s5-title.impact-title-container { transform: translateY(0); }
 
-    /* Star mode adjustments for impact titles */
     body.star-mode .impact-title {
-      -webkit-text-stroke-color: #1a3a6e;
+      -webkit-text-stroke-color: var(--stroke-color);
       text-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
     }
 
     body.star-mode .impact-title:hover {
       text-shadow:
-        0 0 20px rgba(0, 242, 255, 0.7),
-        0 0 40px rgba(0, 242, 255, 0.4),
-        0 0 60px rgba(0, 200, 255, 0.25);
-    }
-
-    body.star-mode .impact-title:hover::after {
-      background: linear-gradient(180deg,
-          rgba(0, 242, 255, 0.5) 0%,
-          rgba(180, 240, 255, 0.75) 30%,
-          rgba(0, 242, 255, 0.5) 60%,
-          rgba(0, 180, 255, 0.35) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
+        0 0 20px rgba(255, 182, 193, 0.35),
+        0 0 30px rgba(173, 216, 230, 0.35),
+        0 0 40px rgba(152, 251, 152, 0.35);
     }
   </style>
 
@@ -5465,8 +5424,6 @@
     }
   </style>
 
-<link rel="stylesheet" href="mobile.css">
-<link rel="stylesheet" href="responsive.css">
 </head>
 
 <body class="ocean-mode" oncontextmenu="return false;">
@@ -5487,9 +5444,10 @@
       </div>
     </div>
   </div>
-  
-  <div id="mobile-landscape-header">Dang Minh Diaries</div>
-
+  <div aria-hidden="true" id="transition-overlay">
+    <canvas id="meteorCanvas"></canvas>
+    <div class="meteor-wrap" id="meteorWrap"></div>
+  </div>
   <div id="theme-bg">
     <div class="bg-ocean">
       <div class="bubble"></div>
@@ -5499,17 +5457,17 @@
       <div class="bubble"></div>
     </div>
     <div class="bg-star">
-      <!-- Ná»n NgÃ¢n hÃ  & Tinh vÃ¢n -->
+      <!-- Nền Ngân hà & Tinh vân -->
       <div class="galactic-disk"></div>
       <div class="nebula-container">
         <div class="nebula nebula-1"></div>
         <div class="nebula nebula-2"></div>
       </div>
-      <!-- Sao bÄƒng bay chÃ©o (TrÃªn TrÃ¡i -> DÆ°á»›i Pháº£i) -->
+      <!-- Sao băng bay chéo (Trên Trái -> Dưới Phải) -->
       <div class="shooting-star-v2 ss-1"></div>
       <div class="shooting-star-v2 ss-2"></div>
       <div class="shooting-star-v2 ss-3"></div>
-      <!-- 1. Báº CH DÆ¯Æ NG -->
+      <!-- 1. BẠCH DƯƠNG -->
       <svg class="constellation aries" viewbox="0 0 100 60">
         <path class="c-line" d="M10,20 L50,15 L80,40 L90,55"></path>
         <circle class="c-star" cx="10" cy="20" r="1"></circle>
@@ -5517,32 +5475,32 @@
         <circle class="c-star" cx="80" cy="40" r="1"></circle>
         <circle class="c-star" cx="90" cy="55" r="1"></circle>
       </svg>
-      <!-- 2. KIM NGÆ¯U -->
+      <!-- 2. KIM NGƯU -->
       <svg class="constellation taurus" viewbox="0 0 140 100">
         <path class="c-line" d="M10,10 L40,40 L60,50 L90,45 L130,20 M60,50 L70,80"></path>
         <circle class="c-main-star" cx="60" cy="50" r="2.2"></circle>
         <circle class="c-star" cx="10" cy="10" r="1"></circle>
         <circle class="c-star" cx="130" cy="20" r="1"></circle>
       </svg>
-      <!-- 3. SONG Tá»¬ -->
+      <!-- 3. SONG TỬ -->
       <svg class="constellation gemini" viewbox="0 0 100 100">
         <path class="c-line" d="M20,10 L25,40 L30,80 M20,10 L50,15 M25,40 L55,45 M30,80 L60,85"></path>
         <circle class="c-main-star" cx="20" cy="10" r="1.8"></circle>
         <circle class="c-main-star" cx="50" cy="15" r="1.8"></circle>
       </svg>
-      <!-- 4. Cá»° GIáº¢I -->
+      <!-- 4. CỰ GIẢI -->
       <svg class="constellation cancer" viewbox="0 0 100 100">
         <path class="c-line" d="M50,10 L50,40 L20,70 M50,40 L80,70"></path>
         <circle class="c-main-star" cx="50" cy="40" r="1.8"></circle>
         <circle class="c-star" cx="20" cy="70" r="1"></circle>
       </svg>
-      <!-- 5. SÆ¯ Tá»¬ -->
+      <!-- 5. SƯ TỬ -->
       <svg class="constellation leo" viewbox="0 0 150 100">
         <path class="c-line" d="M140,80 L100,90 L70,70 L80,40 L110,20 L130,40 L110,20"></path>
         <circle class="c-main-star" cx="140" cy="80" r="2.5"></circle>
         <circle class="c-star" cx="70" cy="70" r="1.2"></circle>
       </svg>
-      <!-- 6. Xá»¬ Ná»® -->
+      <!-- 6. XỬ NỮ -->
       <svg class="constellation virgo" viewbox="0 0 200 180">
         <path class="c-line" d="M30,140 L70,110 L90,60 L130,40 M70,110 L110,130 L160,110 L180,140 M110,130 L130,160">
         </path>
@@ -5550,37 +5508,37 @@
         <circle class="c-star" cx="30" cy="140" r="1.5"></circle>
         <circle class="c-star" cx="70" cy="110" r="1.5"></circle>
       </svg>
-      <!-- 7. THIÃŠN BÃŒNH -->
+      <!-- 7. THIÊN BÌNH -->
       <svg class="constellation libra" viewbox="0 0 100 100">
         <path class="c-line" d="M50,20 L20,50 L40,85 L80,50 L50,20"></path>
         <circle class="c-main-star" cx="20" cy="50" r="2"></circle>
         <circle class="c-main-star" cx="80" cy="50" r="2"></circle>
       </svg>
-      <!-- 8. THIÃŠN Yáº¾T -->
+      <!-- 8. THIÊN YẾT -->
       <svg class="constellation scorpio" viewbox="0 0 150 150">
         <path class="c-line" d="M20,30 L50,40 L70,60 L75,90 L70,120 L50,135"></path>
         <circle class="c-main-star" cx="50" cy="40" r="2.8"></circle>
         <circle class="c-star" cx="20" cy="30" r="1.2"></circle>
       </svg>
-      <!-- 9. NHÃ‚N MÃƒ -->
+      <!-- 9. NHÂN MÃ -->
       <svg class="constellation sagittarius" viewbox="0 0 120 100">
         <path class="c-line" d="M20,50 L50,30 L80,40 L75,70 L45,75 L20,50"></path>
         <circle class="c-main-star" cx="50" cy="30" r="2"></circle>
         <circle class="c-star" cx="80" cy="40" r="1.5"></circle>
       </svg>
-      <!-- 10. MA Káº¾T -->
+      <!-- 10. MA KẾT -->
       <svg class="constellation capricorn" viewbox="0 0 120 80">
         <path class="c-line" d="M10,20 L50,15 L100,30 L110,60 L70,75 L20,60 L10,20"></path>
         <circle class="c-main-star" cx="10" cy="20" r="2"></circle>
         <circle class="c-star" cx="110" cy="60" r="1.2"></circle>
       </svg>
-      <!-- 11. Báº¢O BÃŒNH -->
+      <!-- 11. BẢO BÌNH -->
       <svg class="constellation aquarius" viewbox="0 0 150 100">
         <path class="c-line" d="M10,40 L40,35 L60,50 L90,45 L130,60"></path>
         <circle class="c-main-star" cx="40" cy="35" r="2"></circle>
         <circle class="c-main-star" cx="90" cy="45" r="2"></circle>
       </svg>
-      <!-- 12. SONG NGÆ¯ -->
+      <!-- 12. SONG NGƯ -->
       <svg class="constellation pisces" viewbox="0 0 150 150">
         <path class="c-line" d="M20,20 L50,50 L100,100 L130,130"></path>
         <circle class="c-main-star" cx="100" cy="100" r="2"></circle>
@@ -5593,7 +5551,7 @@
   <div aria-label="Quick menu" class="opt" id="opt">
     <button aria-label="Options" class="opt-toggle" id="optBtn" type="button">
       <img alt="Menu" draggable="false"
-        src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe04d828a6573683e98cbce4fbcf5fa25dbeafb2/layout%201/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png" />
+        src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/146141ca87df3a663bf7006af05083f308d47c8d/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png" />
     </button>
     <a class="opt-item" style="--id: 1;" data-target="#layout-2" href="#layout-2">About Me!</a>
     <a class="opt-item" style="--id: 2;" data-target="#layout-3" href="#layout-3">My Project</a>
@@ -5602,7 +5560,7 @@
     <a class="opt-item" style="--id: 5;" data-target="#layout-6" href="#layout-6">My Cer</a>
     <a class="opt-item" style="--id: 6;" data-target="#layout-7" href="#layout-7">Contact Me!</a>
   </div>
-  <a aria-label="Back to top" class="btn-top" href="#layout-1" id="backTop">â†‘</a>
+  <a aria-label="Back to top" class="btn-top" href="#layout-1" id="backTop">↑</a>
   <div id="viewport">
     <div id="stage-wrap">
       <div id="stage">
@@ -5679,60 +5637,51 @@
             </button>
           </section>
           <section class="section layout2 reveal" id="layout-2">
-            <div class="stage">
-
-              <div class="piece p-person" style="--d:0ms;">
+            <div class="a2-stage">
+              <div class="a2-piece a2-person" style="--d:0ms;">
                 <img alt="About Me - Person"
                   data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/ng%C6%B0%E1%BB%9Di.png"
                   data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png"
                   draggable="false"
                   src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png" />
               </div>
-
-              <div class="piece p-about" style="--d:180ms;">
-                <span class="impact-title" data-text="ABOUT ME">ABOUT ME</span>
+              <div class="a2-piece a2-about" style="--d:180ms;">
+                <span class="impact-title-container"><span class="impact-title" data-text="ABOUT ME">ABOUT ME</span><span class="cursor-glow"></span></span>
               </div>
-
-              <div class="piece p-dob text-block" style="--d:260ms;">
-                <div class="typing-line">
-                  <span class="typing-container" data-text="DOB: 27.08.2005"></span>
-                  <span class="typing-cursor"></span>
+              <div class="a2-piece a2-dob a2-text-block" style="--d:260ms;">
+                <div class="a2-typing-line">
+                  <span class="a2-typing" data-text="DOB: 27.08.2005"></span>
+                  <span class="a2-cursor"></span>
                 </div>
-                <div class="subtext">
-                  <span class="text-pink">Virgo â™</span>
-                </div>
+                <div class="a2-subtext"><span class="pink">♍ Virgo</span></div>
               </div>
-
-              <div class="piece p-story is-clickable" style="--d:280ms;">
+              <div class="a2-piece a2-story a2-clickable" data-href="story.html" style="--d:280ms;">
                 <img alt="MY STORY"
                   data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/Story.png"
                   data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png"
                   draggable="false"
                   src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png" />
               </div>
-
-              <div class="piece p-workflow is-clickable" style="--d:340ms;">
+              <div class="a2-piece a2-workflow a2-clickable" data-href="workflow.html" style="--d:340ms;">
                 <img alt="MY WORKFLOW"
                   data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/workflow.png"
                   data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png"
                   draggable="false"
                   src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png" />
               </div>
-
-              <div class="piece p-day text-block" style="--d:360ms;">
-                <div class="typing-line">
-                  <span class="typing-container" data-text="WORKING 24/7"></span>
-                  <span class="typing-cursor"></span>
+              <div class="a2-piece a2-day a2-text-block" style="--d:360ms;">
+                <div class="a2-typing-line a2-right">
+                  <span class="a2-typing" data-text="WORKING 24/7"></span>
+                  <span class="a2-cursor"></span>
                 </div>
-                <div class="subtext">3,42 hours/day</div>
+                <div class="a2-subtext a2-right"><span class="pink">3,42 hours/day</span></div>
               </div>
-
             </div>
           </section>
           <section class="section layout3 reveal" id="layout-3">
             <div class="stage">
               <div class="piece title-center" style="--d: 0ms;">
-                <span class="impact-title" data-text="MY PROJECT">MY PROJECT</span>
+                <span class="impact-title-container"><span class="impact-title" data-text="MY PROJECT">MY PROJECT</span><span class="cursor-glow"></span></span>
               </div>
               <div aria-label="Projects" class="proj3-ui">
                 <div aria-label="Project categories" class="proj3-tabs" role="tablist"><span aria-hidden="true"
@@ -5749,12 +5698,12 @@
                 <div aria-label="Project items" class="proj3-panel is-show" id="proj3-project" role="tabpanel">
                   <div class="project-splits">
                     <div class="project-group">
-                      <div class="project-group-head">Project nhÃ³m</div>
+                      <div class="project-group-head">Project nhóm</div>
                       <div class="project-group-body" id="project-group-container">
                       </div>
                     </div>
                     <div class="project-group">
-                      <div class="project-group-head">Project cÃ¡ nhÃ¢n</div>
+                      <div class="project-group-head">Project cá nhân</div>
                       <div class="project-group-body" id="project-individual-container">
                       </div>
                     </div>
@@ -5794,9 +5743,9 @@
           <section class="section layout4 reveal" id="layout-4">
             <div class="mwj-shell">
               <div class="mwj-title-wrap">
-                <span class="impact-title" data-text="MY WORK">MY WORK</span>
+                <span class="impact-title-container"><span class="impact-title" data-text="MY WORK">MY WORK</span><span class="cursor-glow"></span></span>
               </div>
-              <p class="mwj-scroll-hint">â† scroll to explore timeline â†’</p>
+              <p class="mwj-scroll-hint">← scroll to explore timeline →</p>
 
               <div class="mwj-graph-outer">
                 <div class="mwj-graph-inner">
@@ -5836,9 +5785,9 @@
 
                   <div class="mwj-node below" style="left:240px; top:510px;">
                     <div class="mwj-node-lbl">
-                      <div class="mwj-lbl-date">6/2024 â€“ 8/2024</div>
+                      <div class="mwj-lbl-date">6/2024 – 8/2024</div>
                       <div class="mwj-lbl-name">HSA EDUCATION</div>
-                      <div class="mwj-lbl-role">Sales Consultant Â· 33 staff</div>
+                      <div class="mwj-lbl-role">Sales Consultant · 33 staff</div>
                       <span class="mwj-badge mwj-badge-dip">Starting Point</span>
                     </div>
                     <div class="mwj-dot"></div>
@@ -5848,7 +5797,7 @@
                       <img alt="HSA EDUCATION"
                         src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HSA%20EDU.png" />
                       <div class="mwj-card-footer">
-                        <span class="mwj-card-phase">HSA Â· Giai Ä‘oáº¡n 1</span>
+                        <span class="mwj-card-phase">HSA · Giai đoạn 1</span>
                       </div>
                     </a>
                   </div>
@@ -5856,29 +5805,29 @@
                   <div class="mwj-node above" style="left:830px; top:400px;">
                     <a href="#" class="mwj-logo-card project-open" data-title="HSA EDUCATION" data-mode="stack"
                       data-images="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/60.png, https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/61.png, https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/62.png">
-                      <img alt="Há»ŒC IZ SCHOOL"
+                      <img alt="HỌC IZ SCHOOL"
                         src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png" />
                       <div class="mwj-card-footer">
-                        <span class="mwj-card-phase">HOC IZ Â· Growing</span>
+                        <span class="mwj-card-phase">HOC IZ · Growing</span>
                       </div>
                     </a>
                     <div class="mwj-connector" style="height:40px;"></div>
                     <div class="mwj-dot"></div>
                     <div class="mwj-node-lbl">
-                      <div class="mwj-lbl-date">2/2024 â€“ 8/2024</div>
-                      <div class="mwj-lbl-name">Há»ŒC IZ SCHOOL</div>
+                      <div class="mwj-lbl-date">2/2024 – 8/2024</div>
+                      <div class="mwj-lbl-name">HỌC IZ SCHOOL</div>
                       <div class="mwj-lbl-role">CSR &amp; Content Creator</div>
                     </div>
                   </div>
 
                   <div class="mwj-node above" style="left:1450px; top:190px;">
-                    <a href="#" class="mwj-logo-card project-open" data-title="Há»ŒC IZ SCHOOL Â· PEAK"
+                    <a href="#" class="mwj-logo-card project-open" data-title="HỌC IZ SCHOOL · PEAK"
                       data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/63.png"
                       style="border-color:#f59e0b; box-shadow:0 10px 28px rgba(245,158,11,.18);">
-                      <img alt="Há»ŒC IZ SCHOOL"
+                      <img alt="HỌC IZ SCHOOL"
                         src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png" />
                       <div class="mwj-card-footer">
-                        <span class="mwj-card-phase" style="color:#f59e0b;">ðŸ† Department Manager</span>
+                        <span class="mwj-card-phase" style="color:#f59e0b;">🏆 Department Manager</span>
                       </div>
                     </a>
                     <div class="mwj-connector"
@@ -5888,20 +5837,20 @@
                       style="border-color:#f59e0b; box-shadow:0 0 0 8px rgba(245,158,11,.15),0 6px 20px rgba(245,158,11,.3);">
                     </div>
                     <div class="mwj-node-lbl">
-                      <div class="mwj-lbl-date" style="color:#f59e0b; background:rgba(245,158,11,.12);">8/2024 â€“ 8/2025
+                      <div class="mwj-lbl-date" style="color:#f59e0b; background:rgba(245,158,11,.12);">8/2024 – 8/2025
                       </div>
-                      <div class="mwj-lbl-name">Há»ŒC IZ SCHOOL</div>
+                      <div class="mwj-lbl-name">HỌC IZ SCHOOL</div>
                       <div class="mwj-lbl-role">60 staff / Total: 250 staff</div>
-                      <span class="mwj-badge mwj-badge-peak">ðŸ† Peak</span>
+                      <span class="mwj-badge mwj-badge-peak">🏆 Peak</span>
                     </div>
                   </div>
 
                   <div class="mwj-node below" style="left:2100px; top:640px;">
                     <div class="mwj-node-lbl">
-                      <div class="mwj-lbl-date">12/2025 â€“ 3/2026</div>
+                      <div class="mwj-lbl-date">12/2025 – 3/2026</div>
                       <div class="mwj-lbl-name">ABIT EDUCATION</div>
                       <div class="mwj-lbl-role">Team Leader Seeding</div>
-                      <span class="mwj-badge mwj-badge-dip">ðŸŒŠ Rough Waters</span>
+                      <span class="mwj-badge mwj-badge-dip">🌊 Rough Waters</span>
                     </div>
                     <div class="mwj-dot" style="border-color:#94a3b8; box-shadow:0 0 0 5px rgba(148,163,184,.15);">
                     </div>
@@ -5913,20 +5862,20 @@
                       <img alt="ABIT EDUCATION"
                         src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/ABIT.png" />
                       <div class="mwj-card-footer">
-                        <span class="mwj-card-phase">ABIT Â· Rough Waters</span>
+                        <span class="mwj-card-phase">ABIT · Rough Waters</span>
                       </div>
                     </a>
                   </div>
 
                   <div class="mwj-node above" style="left:2790px; top:400px;">
-                    <a href="#" class="mwj-logo-card project-open" data-title="Cá»¤C THá»NG KÃŠ THÃ€NH PHá»"
+                    <a href="#" class="mwj-logo-card project-open" data-title="CỤC THỐNG KÊ THÀNH PHỐ"
                       data-base="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ab17b0438227cdd0be5436186f2a8060550bcdae/Work/anh/64.png"
                       style="border-color:#10b981; box-shadow:0 10px 28px rgba(16,185,129,.14);">
-                      <img alt="Cá»¤C THá»NG KÃŠ THÃ€NH PHá»"
+                      <img alt="CỤC THỐNG KÊ THÀNH PHỐ"
                         src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/449af3f0cc41d4950b17153f62677626aa33ded4/layout4/tctk_copy.jpg"
                         style="object-fit:contain; background:#fff; padding:6px; border-radius:12px;" />
                       <div class="mwj-card-footer">
-                        <span class="mwj-card-phase" style="color:#10b981;">Cá»¤C THá»NG KÃŠ Â· Project</span>
+                        <span class="mwj-card-phase" style="color:#10b981;">CỤC THỐNG KÊ · Project</span>
                       </div>
                     </a>
                     <div class="mwj-connector"
@@ -5936,11 +5885,11 @@
                       style="border-color:#10b981; box-shadow:0 0 0 6px rgba(16,185,129,.14),0 4px 16px rgba(16,185,129,.28);">
                     </div>
                     <div class="mwj-node-lbl">
-                      <div class="mwj-lbl-date" style="color:#10b981; background:rgba(16,185,129,.10);">3/2026 â€“ 7/2026
+                      <div class="mwj-lbl-date" style="color:#10b981; background:rgba(16,185,129,.10);">3/2026 – 7/2026
                       </div>
-                      <div class="mwj-lbl-name">Cá»¤C THá»NG KÃŠ THÃ€NH PHá»</div>
-                      <div class="mwj-lbl-role">PROJECT Â· Stats &amp; Business Reporting</div>
-                      <span class="mwj-badge mwj-badge-go">â†‘ Recovery</span>
+                      <div class="mwj-lbl-name">CỤC THỐNG KÊ THÀNH PHỐ</div>
+                      <div class="mwj-lbl-role">PROJECT · Stats &amp; Business Reporting</div>
+                      <span class="mwj-badge mwj-badge-go">↑ Recovery</span>
                     </div>
                   </div>
                 </div>
@@ -5948,7 +5897,7 @@
 
               <div class="mwj-legend-bar">
                 <div class="mwj-legend-item">
-                  <div class="mwj-ldot" style="background:#f59e0b; box-shadow:0 0 0 2px #f59e0b;"></div>Peak â€” Dept
+                  <div class="mwj-ldot" style="background:#f59e0b; box-shadow:0 0 0 2px #f59e0b;"></div>Peak — Dept
                   Manager
                 </div>
                 <div class="mwj-legend-item">
@@ -5967,7 +5916,7 @@
 
           <section class="section layout5 reveal" id="layout-5">
             <div class="s5-wrap">
-              <div class="s5-title impact-title" data-text="MY SKILLS">MY SKILLS</div>
+              <div class="s5-title impact-title-container"><span class="impact-title" data-text="MY SKILLS">MY SKILLS</span><span class="cursor-glow"></span></div>
               <div class="s5-tabs-container">
                 <div class="s5-tabs" role="tablist">
                   <button class="s5-tab is-active" data-s5tab="s5-panel-ba">Business Analysis</button>
@@ -6004,7 +5953,7 @@
                             <img
                               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
                               alt="Figma">
-                            <div class="t-text-icon" style="color: #6366f1;"><span>âˆž</span> Vibe Coding</div>
+                            <div class="t-text-icon" style="color: #6366f1;"><span>∞</span> Vibe Coding</div>
                           </div>
                         </div>
                         <div class="t-col">
@@ -6028,7 +5977,7 @@
                           <div class="t-icons">
                             <img src="https://cdn.simpleicons.org/odoo/714B67" alt="Odoo">
                             <img src="https://cdn.simpleicons.org/zoho/14549A" alt="Zoho">
-                            <div class="t-text-icon" style="color:#f97316;">ðŸŠ OrangeHRM</div>
+                            <div class="t-text-icon" style="color:#f97316;">🍊 OrangeHRM</div>
                           </div>
                         </div>
                         <div class="t-col">
@@ -6036,7 +5985,7 @@
                           <div class="t-icons">
                             <div class="t-text-icon"
                               style="background: #034EA2; color: #fff; border-radius: 50%; padding: 4px; width: 32px; height: 32px; display: grid; place-items: center; font-size: 16px;">
-                              âˆ‘</div>
+                              ∑</div>
                             <div class="t-text-icon" style="background:#2b579a; color:#fff; border-radius:8px;">W Word
                             </div>
                             <div class="t-text-icon" style="background:#107c41; color:#fff; border-radius:8px;">X Excel
@@ -6072,7 +6021,7 @@
                               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg"
                               alt="Canva">
                             <div class="t-text-icon"
-                              style="color: #000; font-weight: 900; background: #fff; border: 1px solid #ddd;">â§– CapCut
+                              style="color: #000; font-weight: 900; background: #fff; border: 1px solid #ddd;">⧖ CapCut
                             </div>
                           </div>
                         </div>
@@ -6137,7 +6086,7 @@
           <section class="section layout6 reveal" id="layout-6">
             <div class="c6-wrap">
               <div class="c6-title">
-                <span class="impact-title" data-text="MY CERTIFICATE">MY CERTIFICATE</span>
+                <span class="impact-title-container"><span class="impact-title" data-text="MY CERTIFICATE">MY CERTIFICATE</span><span class="cursor-glow"></span></span>
               </div>
               <div class="c6-marquee-shell">
                 <div class="c6-marquee-track">
@@ -6152,8 +6101,7 @@
           <section class="section layout7 reveal" id="layout-7">
             <div class="ct7-shell">
               <div class="ct7-header">
-                <img alt="CONTACT ME!" draggable="false"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout7/7.1/Contact%20me!.png" />
+                <span class="impact-title-container"><span class="impact-title" data-text="CONTACT ME!">CONTACT ME!</span><span class="cursor-glow"></span></span>
               </div>
               <div class="ct7-grid">
                 <section class="ct7-card ct7-work">
@@ -6232,10 +6180,10 @@
                       target="_blank"><span class="ct7-social-icon">f</span><span
                         class="ct7-social-label">Page</span></a>
                     <a class="ct7-social ig" href="https://www.instagram.com/rinteru_d/" rel="noopener"
-                      target="_blank"><span class="ct7-social-icon">â—Ž</span><span
+                      target="_blank"><span class="ct7-social-icon">◎</span><span
                         class="ct7-social-label">Insta</span></a>
                     <a class="ct7-social tt" href="https://www.tiktok.com/@limiedemo1" rel="noopener"
-                      target="_blank"><span class="ct7-social-icon">â™ª</span><span
+                      target="_blank"><span class="ct7-social-icon">♪</span><span
                         class="ct7-social-label">TikTok</span></a>
                   </div>
                 </section>
@@ -6259,7 +6207,7 @@
         <div class="viewer-stack" id="viewerStack"></div>
       </div>
       <div class="viewer-proposal-wrap" id="viewerProposalWrap">
-        <a class="viewer-proposal-link" href="#" id="viewerProposalLink" rel="noopener" target="_blank">Link Ä‘á» â†—</a>
+        <a class="viewer-proposal-link" href="#" id="viewerProposalLink" rel="noopener" target="_blank">Link đề ↗</a>
       </div>
       <div class="viewer-proposal-text" id="viewerProposalText"></div>
       <div class="viewer-foot" style="position: relative;">
@@ -6566,13 +6514,10 @@
         entries.forEach(e => {
           if (e.isIntersecting) {
             e.target.classList.add('inview');
-            if (e.target.id === 'layout-2' && typeof runTypewriter === 'function') {
-              runTypewriter();
-            }
             obs.unobserve(e.target);
           }
         });
-      }, { threshold: 0.1, root: viewport || null });
+      }, { threshold: 0.35, root: viewport || null });
 
       revealSections.forEach(sec => io.observe(sec));
     })();
@@ -6646,50 +6591,12 @@
     });
   </script>
   <script id="layout2-js">
-    function runTypewriter() {
-      const textBlocks = document.querySelectorAll('.layout2 .text-block');
-
-      textBlocks.forEach(block => {
-        const container = block.querySelector('.typing-container');
-        const cursor = block.querySelector('.typing-cursor');
-        const subtext = block.querySelector('.subtext');
-        const fullText = container.getAttribute('data-text');
-
-        const delayStyle = block.style.getPropertyValue('--d');
-        const delayMs = delayStyle ? parseInt(delayStyle) : 0;
-
-        container.textContent = "";
-        let charIndex = 0;
-        const typingSpeed = 60;
-
-        setTimeout(() => {
-          function type() {
-            if (charIndex < fullText.length) {
-              container.textContent += fullText.charAt(charIndex);
-              charIndex++;
-              setTimeout(type, typingSpeed);
-            } else {
-              if (cursor) cursor.classList.add('hide');
-              if (subtext) subtext.classList.add('show');
-            }
-          }
-          type();
-        }, delayMs + 300);
-      });
-    }
-
     (function () {
       const story = document.querySelector('.layout2 .p-story');
       const workflow = document.querySelector('.layout2 .p-workflow');
 
       if (story) story.addEventListener('click', () => { window.location.href = 'story.html'; });
       if (workflow) workflow.addEventListener('click', () => { window.location.href = 'workflow.html'; });
-
-      // If already in view on load
-      const section = document.querySelector('.layout2.reveal');
-      if (section && section.classList.contains('inview')) {
-        runTypewriter();
-      }
     })();
   </script>
   <script id="layout3-tabs-js">
@@ -6877,7 +6784,7 @@
               viewerStack.appendChild(img);
             });
           }
-          viewerCount.textContent = stackedImages.length ? `${stackedImages.length} áº£nh` : '0 / 0';
+          viewerCount.textContent = stackedImages.length ? `${stackedImages.length} ảnh` : '0 / 0';
         } else if (isDirectImage) {
           const directURL = cleanBaseURL;
           const img = new Image();
@@ -7073,506 +6980,8 @@
       setTimeout(updateIndicator, 120);
     })();
   </script>
-  <script id="inline-data-js">
-    const portfolioData = {
-      projects: {
-        group: [
-          {
-            ariaLabel: "Open CANIFA S group project",
-            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png",
-            max: "1",
-            title: "CANIFA S",
-            proposal: "https://drive.google.com/file/d/1_zh76qmtm2wxvbY6xjlf5xPG3JT_Ipay/view",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png"
-          },
-          {
-            ariaLabel: "Open GDOC Project Slide",
-            title: "GDOC Project",
-            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BGDOC%5D%20Slide/",
-            max: "30",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BGDOC%5D%20Slide/1.png",
-            links: [
-              { label: "Slide", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%5D%20Slide.pdf" },
-              { label: "Proposal", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20proposal%20v%C3%B2ng%201.pdf" },
-              { label: "Pipeline", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20Pipeline%20v%C3%A0%20Ki%E1%BA%BFn%20tr%C3%BAc%20h%E1%BB%87%20th%E1%BB%91ng.docx.pdf" },
-              { label: "MÃ´ hÃ¬nh kinh doanh", url: "https://github.com/nguyendangminh278-coder/ngdminh.278.portfolio/blob/17cac8fedd5745d64c2e89032604f7dd1d3d3397/layout3/%5BGDOC%20-%20SAME%5D%20Ch%E1%BB%91t/%5BGDOC%20-%20SAME%5D%20M%C3%B4%20h%C3%ACnh%20kinh%20doanh%20v%C3%A0%20duy%20tr%C3%AC%20c%E1%BB%A7a%20L-AI.docx.pdf" }
-            ]
-          },
-          {
-            ariaLabel: "Open RBD Project",
-            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BRBD26%20V%C3%92NG%201%5D%20Tr%E1%BA%BB%20ng%C6%B0%E1%BB%9Di%20nonstop/",
-            max: "30",
-            title: "RBD Project",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/15efb42b933117115020e7e859edc3391fa0a099/%5BRBD26%20V%C3%92NG%201%5D%20Tr%E1%BA%BB%20ng%C6%B0%E1%BB%9Di%20nonstop/1.png"
-          }
-        ],
-        individual: [
-          {
-            ariaLabel: "Open Vinamilk Corporate Presentation",
-            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Vinamilk_Corporate_Presentation.pptx/",
-            max: "14",
-            title: "Vinamilk Corporate Presentation",
-            proposalText: `<strong>Äá»€ BÃ€I â€” Nguá»“n: VIOD</strong>
-NghiÃªn cá»©u 01 doanh nghiá»‡p niÃªm yáº¿t trong danh sÃ¡ch 10 doanh nghiá»‡p dÆ°á»›i Ä‘Ã¢y vÃ  chuáº©n bá»‹ 01 slide deck tá»‘i Ä‘a 10 slides trÃ¬nh bÃ y cÃ¡c ná»™i dung sau:
-
-1. Tá»•ng quan doanh nghiá»‡p
-â€¢ Giá»›i thiá»‡u ngáº¯n gá»n vá» cÃ´ng ty
-â€¢ CÆ¡ cáº¥u sá»Ÿ há»¯u (cá»• Ä‘Ã´ng lá»›n, tá»· lá»‡ sá»Ÿ há»¯u nhÃ  nÆ°á»›c / tÆ° nhÃ¢n / nÆ°á»›c ngoÃ i náº¿u cÃ³)
-
-2. CÆ¡ cáº¥u tá»• chá»©c
-â€¢ MÃ´ hÃ¬nh quáº£n lÃ½
-â€¢ CÃ¡c phÃ²ng ban / bá»™ pháº­n chÃ­nh
-
-3. Há»™i Ä‘á»“ng Quáº£n trá»‹
-â€¢ ThÃ nh pháº§n HÄQT
-â€¢ Tá»· lá»‡ thÃ nh viÃªn Ä‘á»™c láº­p
-â€¢ CÃ¡c Ä‘áº·c Ä‘iá»ƒm Ä‘Ã¡ng chÃº Ã½ (náº¿u cÃ³)
-
-4. CÃ´ng bá»‘ thÃ´ng tin vá» PhÃ¡t triá»ƒn Bá»n vá»¯ng
-â€¢ Doanh nghiá»‡p Ä‘ang cÃ´ng bá»‘ nhá»¯ng ná»™i dung ESG / PhÃ¡t triá»ƒn bá»n vá»¯ng nÃ o
-â€¢ Theo tiÃªu chuáº©n nÃ o (náº¿u cÃ³)
-
-5. Äáº¡i há»™i Ä‘á»“ng Cá»• Ä‘Ã´ng 2025
-â€¢ CÃ¡c ná»™i dung / quyáº¿t Ä‘á»‹nh ná»•i báº­t táº¡i ÄHÄCÄ thÆ°á»ng niÃªn 2025
-
-Sau Ä‘Ã³ rÃºt ra nháº­n xÃ©t chung vá» cÃ´ng ty Ä‘Ã³.
-
-DANH SÃCH DOANH NGHIá»†P
-1. Tá»•ng CÃ´ng ty PhÃ¢n bÃ³n Dáº§u khÃ­ CÃ  Mau CTCP (DCM)
-2. CTCP Sá»¯a Viá»‡t Nam (VNM)
-3. Tá»•ng CTCP Váº­n Táº£i Dáº§u KhÃ­ (PVT)
-4. CTCP ThÃ nh ThÃ nh CÃ´ng - BiÃªn HÃ²a (SBT)
-5. Tá»•ng CTCP Bia - RÆ°á»£u - NÆ°á»›c giáº£i khÃ¡t SÃ i GÃ²n (SAB)
-6. NgÃ¢n hÃ ng TMCP PhÃ¡t triá»ƒn ThÃ nh phá»‘ Há»“ ChÃ­ Minh (HDB)
-7. CTCP Chá»©ng KhoÃ¡n SSI (SSI)
-8. CTCP DÆ°á»£c Háº­u Giang (DHG)
-9. NgÃ¢n hÃ ng TMCP QuÃ¢n Äá»™i (MBB)
-10. CTCP Táº­p ÄoÃ n PAN (PAN)`,
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Vinamilk_Corporate_Presentation.pptx/1.png"
-          },
-          {
-            ariaLabel: "Open [BLM] CLOSEUP",
-            base: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/",
-            max: "30",
-            title: "[BLM] CLOSEUP",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/96d99b7ffe6e802a708ea978b4c89c362a295d51/%E1%BA%A2nh%20main/Project/%5BBLM%5D%20CLOSEUP/1.png"
-          }
-        ]
-      },
-      socialMedia: {
-        facebook: [
-          {
-            url: "https://www.facebook.com/danhgiatuduybkhntsa",
-            ariaLabel: "Facebook page 1",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/1.png"
-          },
-          {
-            url: "https://www.facebook.com/groups/danhgiatuduyhust/",
-            ariaLabel: "Facebook group",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/2.png"
-          },
-          {
-            url: "https://www.facebook.com/tailieuonthidanhgiatuduytsa",
-            ariaLabel: "Facebook page 2",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/3d05bbf810f7dc2615f5898635158482db4bc866/%E1%BA%A2nh%20main/Project/Social%20Media/3.png"
-          }
-        ],
-        tiktok: [
-          {
-            url: "https://www.tiktok.com/@gioitsakhongkho",
-            ariaLabel: "TikTok",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/4.png",
-            fitContain: true
-          }
-        ],
-        youtube: [
-          {
-            url: "https://www.youtube.com/@qlTSAonHSAEDUCATION",
-            ariaLabel: "YouTube channel 1",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/dfb7ea688d2370c05535a15751bb1244e7a1134a/%E1%BA%A2nh%20main/Project/Social%20Media/5.png",
-            fitContain: true
-          },
-          {
-            url: "https://www.youtube.com/@danhgiatuduytsa",
-            ariaLabel: "YouTube channel 2",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/69935af61fb549f6d4de8273c8f0711584024b88/%E1%BA%A2nh%20main/Project/Social%20Media/6.png",
-            fitContain: true
-          }
-        ]
-      },
-      businessAnalysis: [
-        {
-          url: "https://drive.google.com/drive/folders/1vV8DAdj0zhjitmqGWw3h6Gq8pGHDoimD?usp=drive_link",
-          badge: "ðŸ“Š",
-          title: "Business Analysis Power BI",
-          desc: "File Power BI (.pbix) cho project Business Analysis cá»§a báº¡n.",
-          linkText: "GitHub PBIX Project â†—",
-          isImage: false
-        },
-        {
-          url: "#",
-          imagePath: "https://dummyimage.com/1280x720/ffffff/001c55.png&text=Business+Analysis+Project",
-          isImage: true
-        }
-      ],
-      websites: [
-        {
-          url: "https://nguyendangminh278-coder.github.io/reader-bandosao-tuvi/",
-          badge: "ðŸŒ",
-          title: "Trang web tá»­ vi",
-          desc: "Website xem tá»­ vi vÃ  tráº£i nghiá»‡m ná»™i dung chiÃªm tinh.",
-          linkText: "nguyendangminh278-coder.github.io/reader-bandosao-tuvi/ â†—",
-          l7Icon: "âœ©",
-          l7ColorClass: "violet",
-          l7ShortText: "Trang web tá»­ vi"
-        },
-        {
-          url: "https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/?fbclid=IwY2xjawPY_6ZleHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ0MsItdeKCFICzqav8JM32gGKfidm75wLyNQpQJLdfe51YF_Ri3zbR23OzU_aem_HkceF47osfz9bte4KsPckQ",
-          badge: "ðŸ’»",
-          title: "Prompt & HTML Collection",
-          desc: "Bá»™ sÆ°u táº­p prompt vÃ  HTML phá»¥c vá»¥ há»c táº­p, sÃ¡ng táº¡o vÃ  thá»­ nghiá»‡m giao diá»‡n.",
-          linkText: "Prompt & HTML collection â†—",
-          l7Url: "https://nguyendangminh278-coder.github.io/prompt_and_html_collection_by_LiMiE/",
-          l7Icon: "&lt;/&gt;",
-          l7ColorClass: "green",
-          l7ShortText: "Prompt & HTML"
-        },
-        {
-          url: "https://superagento.github.io/Student-survey/",
-          badge: "ðŸ“‹",
-          title: "Student Survey",
-          desc: "Website kháº£o sÃ¡t sinh viÃªn, thu tháº­p dá»¯ liá»‡u vÃ  hiá»ƒn thá»‹ biá»ƒu máº«u trá»±c quan.",
-          linkText: "superagento.github.io/Student-survey/ â†—",
-          l7Icon: "â˜°",
-          l7ColorClass: "amber",
-          l7ShortText: "Student Survey"
-        },
-        {
-          url: "https://superagento.github.io/canifaS_tr-ng-i-nonstop/",
-          badge: "ðŸŽ¨",
-          title: "CANIFA S",
-          desc: "Website trÃ¬nh bÃ y concept, hÃ¬nh áº£nh vÃ  tráº£i nghiá»‡m thÆ°Æ¡ng hiá»‡u thá»i trang.",
-          linkText: "superagento.github.io/canifaS_tr-ng-i-nonstop/ â†—",
-          l7Icon: "â—«",
-          l7ColorClass: "rose",
-          l7ShortText: "CANIFA S"
-        },
-        {
-          url: "https://ielts-practice-hub.onrender.com/?fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExcTdSeWZwVnp6bDFiQ1Y1THNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6WwtCp5m0SSPUVwg31dnSn2HEd3-xWiLxL_JN932GMlGtDwpzj_zF0TQkEQw_aem_tZYSSddov1yLXlZi2g5Rmg",
-          badge: "ðŸ“š",
-          title: "IELTS Practice Hub",
-          pill: "Group project Â· 3 people",
-          desc: "Ná»n táº£ng luyá»‡n táº­p IELTS trá»±c tuyáº¿n Ä‘Æ°á»£c phÃ¡t triá»ƒn theo mÃ´ hÃ¬nh nhÃ³m 3 ngÆ°á»i.",
-          linkText: "ielts-practice-hub.onrender.com â†—",
-          l7Url: "https://ielts-practice-hub.onrender.com/",
-          l7Icon: "ðŸ“˜",
-          l7ColorClass: "cyan",
-          l7ShortText: "IELTS Practice Hub",
-          l7Wide: true
-        }
-      ],
-      myWork: {
-        evolution: [
-          {
-            url: "work.html",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HSA%20EDU.png",
-            phase: "HSA (Giai Ä‘oáº¡n 1)"
-          },
-          {
-            url: "work.html",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/HOC%20IZ%20SCH.png",
-            phase: "HOC IZ (Hiá»‡n táº¡i)"
-          }
-        ],
-        items: [
-          {
-            url: "work.html",
-            imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/ABIT.png",
-            category: "ABIT Platform"
-          }
-        ]
-      },
-      certificates: [
-        {
-          type: "single",
-          url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png",
-          imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/Mistalent.png",
-          alt: "Certificate Mistalent"
-        },
-        {
-          type: "single",
-          url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png",
-          imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/a704846b07d717feafa3fdb7140192c8fd2f0a45/layout6/Portlio/TM.png",
-          alt: "Certificate TM"
-        },
-        {
-          type: "duo",
-          images: [
-            {
-              url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg",
-              imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result6977585354.jpg",
-              alt: "MOS Result 1"
-            },
-            {
-              url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg",
-              imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/e59ccb32485cbc7d07061afc32a18e89e89a5b85/layout6/Portlio/Result54675731235.jpg",
-              alt: "MOS Result 2"
-            }
-          ]
-        },
-        {
-          type: "wide",
-          url: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg",
-          imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/ded88dd53da3be541f6e8309685b566146546238/layout6/8873c142b2616e3f3770.jpg",
-          alt: "New Certificate"
-        }
-      ]
-    };
-
-  </script>
-  <script id="inline-render-js">
-    document.addEventListener('DOMContentLoaded', () => {
-            // --- 0. Loading Screen & Theme init ---
-      const loaderWrapper = document.getElementById('loader-wrapper');
-      const loaderPercentage = document.getElementById('loader-percentage');
-      const loaderProgress = document.getElementById('loader-progress');
-      
-      if (localStorage.getItem('theme') === 'star') {
-        document.body.classList.add('star-mode');
-        document.body.classList.remove('ocean-mode');
-      } else {
-        document.body.classList.add('ocean-mode');
-        document.body.classList.remove('star-mode');
-      }
-
-      const isDarkMode = document.body.classList.contains('star-mode');
-      document.querySelectorAll('img[data-dark-src]').forEach(img => {
-        const light = img.getAttribute('data-light-src');
-        const dark = img.getAttribute('data-dark-src');
-        const target = isDarkMode ? dark : light;
-        if (target && img.getAttribute('src') !== target) {
-          img.setAttribute('src', target);
-        }
-      });
-
-      if (loaderWrapper && loaderPercentage && loaderProgress) {
-        if (window.location.hash) {
-          loaderPercentage.innerText = 100;
-          loaderProgress.style.width = '100%';
-          loaderWrapper.classList.add('hidden');
-          document.body.style.overflow = ''; 
-        } else {
-          let progress = 0;
-          const targetTime = 3600; 
-          const interval = 30;
-          const increment = 100 / (targetTime / interval);
-          document.body.style.overflow = 'hidden'; 
-          const loadingInterval = setInterval(() => {
-            progress += increment;
-            if (progress >= 100) {
-              progress = 100;
-              clearInterval(loadingInterval);
-              setTimeout(() => {
-                loaderWrapper.classList.add('hidden');
-                document.body.style.overflow = ''; 
-              }, 300);
-            }
-            loaderPercentage.innerText = Math.floor(progress);
-            loaderProgress.style.width = progress + '%';
-          }, interval);
-        }
-      }
-
-      // --- 1. My Project (Layout 3) ---
-      const renderProjectCard = (p) => {
-        let linksHtml = '';
-        if (p.links && p.links.length > 0) {
-          linksHtml = `<div class="proj3-card-links" style="padding: 12px; display: flex; flex-direction: column; gap: 8px; border-top: 2px dashed rgba(0, 28, 85, 0.1);">
-        ${p.links.map(l => `<a href="${l.url}" target="_blank" style="font-size: 14px; font-weight: bold; color: var(--navy, #001c55); display: flex; align-items: center; gap: 6px; text-decoration: none;"><span style="font-size: 16px;">ðŸ“„</span> ${l.label}</a>`).join('')}
-      </div>`;
-        }
-
-        if (p.directUrl) {
-          if (linksHtml) {
-            return `
-          <div class="proj3-card" style="display: flex; flex-direction: column; background: #fff; border-radius: var(--radius-md, 16px); overflow: hidden; border: 2px solid var(--navy, #001c55); box-shadow: 4px 4px 0 0 var(--navy, #001c55); transition: transform 0.2s, box-shadow 0.2s;">
-            <a aria-label="${p.ariaLabel}" href="${p.directUrl}" target="_blank" style="display: block; text-decoration: none; border-bottom: none;">
-              <div class="img-container"><img alt="${p.title} â€” cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
-            </a>
-            ${linksHtml}
-          </div>
-        `;
-          }
-          return `
-        <a aria-label="${p.ariaLabel}" class="proj3-card" href="${p.directUrl}" target="_blank">
-          <div class="img-container"><img alt="${p.title} â€” cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
-        </a>
-      `;
-        }
-
-        if (linksHtml) {
-          return `
-        <div class="proj3-card" style="display: flex; flex-direction: column; background: #fff; border-radius: var(--radius-md, 16px); overflow: hidden; border: 2px solid var(--navy, #001c55); box-shadow: 4px 4px 0 0 var(--navy, #001c55); transition: transform 0.2s, box-shadow 0.2s;">
-          <a aria-label="${p.ariaLabel}" class="project-open" data-base="${p.base}" data-max="${p.max || ''}" data-title="${p.title}" ${p.proposal ? `data-proposal="${p.proposal}"` : ''} ${p.proposalText ? `data-proposal-text="${p.proposalText.replace(/"/g, '&quot;')}"` : ''} href="#" style="display: block; text-decoration: none; border-bottom: none;">
-            <div class="img-container"><img alt="${p.title} â€” cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
-          </a>
-          ${linksHtml}
-        </div>
-      `;
-        }
-
-        return `
-      <a aria-label="${p.ariaLabel}" class="proj3-card project-open" data-base="${p.base}" data-max="${p.max || ''}" data-title="${p.title}" ${p.proposal ? `data-proposal="${p.proposal}"` : ''} ${p.proposalText ? `data-proposal-text="${p.proposalText.replace(/"/g, '&quot;')}"` : ''} href="#">
-        <div class="img-container"><img alt="${p.title} â€” cover" draggable="false" loading="lazy" src="${p.imagePath}"/></div>
-      </a>
-    `;
-      };
-
-      const groupProjectContainer = document.getElementById('project-group-container');
-      if (groupProjectContainer && portfolioData.projects.group) {
-        groupProjectContainer.innerHTML = portfolioData.projects.group.map(renderProjectCard).join('');
-      }
-
-      const individualProjectContainer = document.getElementById('project-individual-container');
-      if (individualProjectContainer && portfolioData.projects.individual) {
-        individualProjectContainer.innerHTML = portfolioData.projects.individual.map(renderProjectCard).join('');
-      }
-
-      // --- 2. Social Media (Layout 3) ---
-      const renderSocialCard = (s) => {
-        return `
-      <a aria-label="${s.ariaLabel}" class="proj3-card ${s.fitContain ? 'fit-contain' : ''}" href="${s.url}" rel="noopener" target="_blank">
-        <img alt="${s.ariaLabel}" draggable="false" loading="lazy" src="${s.imagePath}"/>
-      </a>
-    `;
-      };
-
-      const fbContainer = document.getElementById('social-fb-container');
-      if (fbContainer && portfolioData.socialMedia.facebook) {
-        fbContainer.innerHTML = portfolioData.socialMedia.facebook.map(renderSocialCard).join('');
-      }
-
-      const tiktokContainer = document.getElementById('social-tiktok-container');
-      if (tiktokContainer && portfolioData.socialMedia.tiktok) {
-        tiktokContainer.innerHTML = portfolioData.socialMedia.tiktok.map(renderSocialCard).join('');
-      }
-
-      const youtubeContainer = document.getElementById('social-youtube-container');
-      if (youtubeContainer && portfolioData.socialMedia.youtube) {
-        youtubeContainer.innerHTML = portfolioData.socialMedia.youtube.map(renderSocialCard).join('');
-      }
-
-      // --- 3. Business Analysis & Websites (Layout 3) ---
-      const renderLinkCard = (l) => {
-        if (l.isImage) {
-          return `
-        <a aria-label="${l.title || 'Placeholder'}" class="proj3-card" href="${l.url}">
-          <img alt="${l.title || 'Placeholder'}" draggable="false" loading="lazy" src="${l.imagePath}"/>
-        </a>
-      `;
-        }
-        return `
-      <a aria-label="Open ${l.title}" class="proj3-card proj3-link-card" href="${l.url}" rel="noopener" target="_blank">
-        <div>
-          <div class="proj3-link-top">
-            <span class="proj3-link-badge">${l.badge}</span>
-            <div class="proj3-link-title">${l.title}</div>
-            ${l.pill ? `<span class="proj3-pill">${l.pill}</span>` : ''}
-          </div>
-          <div class="proj3-link-desc">${l.desc}</div>
-        </div>
-        <div class="proj3-link-url">${l.linkText}</div>
-      </a>
-    `;
-      };
-
-      const baContainer = document.getElementById('ba-container');
-      if (baContainer && portfolioData.businessAnalysis) {
-        baContainer.innerHTML = portfolioData.businessAnalysis.map(renderLinkCard).join('');
-      }
-
-      const websitesContainer = document.getElementById('websites-container');
-      if (websitesContainer && portfolioData.websites) {
-        websitesContainer.innerHTML = portfolioData.websites.map(renderLinkCard).join('');
-      }
-
-      // --- 4. My Work (Layout 4) ---
-      const renderEvoCard = (e) => {
-        return `
-      <a class="w4m-subcard" href="${e.url}">
-        <img alt="${e.phase}" src="${e.imagePath}"/>
-        <span class="w4m-phase">${e.phase}</span>
-      </a>
-    `;
-      };
-
-      const evoContainer = document.getElementById('work-evo-container');
-      if (evoContainer && portfolioData.myWork.evolution) {
-        const evoHtml = portfolioData.myWork.evolution.map(renderEvoCard).join('<div aria-hidden="true" class="w4m-arrow">â†’</div>');
-        evoContainer.innerHTML = evoHtml;
-      }
-
-      const workItemsContainer = document.getElementById('work-items-container');
-      if (workItemsContainer && portfolioData.myWork.items) {
-        const itemsHtml = portfolioData.myWork.items.map(item => `
-      <a class="w4m-item" href="${item.url}">
-        <img alt="${item.category}" src="${item.imagePath}"/>
-        <div class="w4m-item-foot">
-          <span class="w4m-category">${item.category}</span>
-          <span class="w4m-more">Xem chi tiáº¿t â†’</span>
-        </div>
-      </a>
-    `).join('');
-        workItemsContainer.innerHTML = itemsHtml;
-      }
-
-      // --- 5. My Certificate (Layout 6) ---
-      const renderCert = (c) => {
-        if (c.type === 'duo') {
-          return `
-        <div aria-label="MOS results" class="c6-card c6-duo-card">
-          ${c.images.map(img => `<a class="c6-duo-cell" href="${img.url}" rel="noopener" target="_blank"><img alt="${img.alt}" draggable="false" loading="lazy" src="${img.imagePath}"/></a>`).join('')}
-        </div>
-      `;
-        }
-        return `
-      <a class="c6-card c6-${c.type}" href="${c.url}" rel="noopener" target="_blank">
-        <img alt="${c.alt}" draggable="false" loading="lazy" src="${c.imagePath}"/>
-      </a>
-    `;
-      };
-
-      const certContainer1 = document.getElementById('cert-marquee-1');
-      const certContainer2 = document.getElementById('cert-marquee-2');
-      if (certContainer1 && certContainer2 && portfolioData.certificates) {
-        const certHtml = portfolioData.certificates.map(renderCert).join('');
-        certContainer1.innerHTML = certHtml;
-        certContainer2.innerHTML = certHtml;
-      }
-
-      // --- 6. Contact / Sites (Layout 7) ---
-      const renderSiteBtn = (s) => {
-        const innerText = s.pill
-          ? `<span class="ct7-site-copy"><span class="ct7-site-text">${s.l7ShortText}</span><span class="ct7-site-note">${s.pill}</span></span>`
-          : `<span class="ct7-site-text">${s.l7ShortText}</span>`;
-
-        return `
-      <a class="ct7-site-btn ${s.l7Wide ? 'ct7-site-wide' : ''}" href="${s.l7Url || s.url}" rel="noopener" target="_blank">
-        <span class="ct7-site-ico ${s.l7ColorClass}">${s.l7Icon}</span>
-        ${innerText}
-        <span class="ct7-site-arrow">â†’</span>
-      </a>
-    `;
-      };
-
-      const l7SitesContainer = document.getElementById('l7-sites-container');
-      if (l7SitesContainer && portfolioData.websites) {
-        l7SitesContainer.innerHTML = portfolioData.websites.map(renderSiteBtn).join('');
-      }
-
-    });
-
-  </script>
+  <script src="data.js"></script>
+  <script src="render.js"></script>
 
   <script id="layout4-timeline-js">
     (function () {
@@ -7604,37 +7013,17 @@ DANH SÃCH DOANH NGHIá»†P
     })();
   </script>
 
-  <script id="mobile-header-js">
+  <script id="impact-title-js">
     document.addEventListener('DOMContentLoaded', () => {
-      const viewport = document.getElementById('viewport');
-      const header = document.getElementById('mobile-landscape-header');
-      if (!viewport || !header) return;
-
-      let lastScrollY = viewport.scrollTop;
-      
-      viewport.addEventListener('scroll', () => {
-        // Only apply when in mobile landscape
-        const isMobileLandscape = window.innerWidth <= 950 && window.innerHeight < window.innerWidth;
-        
-        if (isMobileLandscape) {
-          const currentScrollY = viewport.scrollTop;
-          
-          if (currentScrollY < lastScrollY && currentScrollY > 10) {
-            // Scrolling up and not at the very top
-            header.classList.add('show');
-          } else {
-            // Scrolling down or at the top
-            header.classList.remove('show');
-          }
-          lastScrollY = currentScrollY;
-        } else {
-          header.classList.remove('show');
-        }
-      }, { passive: true });
+      const root = document.documentElement;
+      document.querySelectorAll('.impact-title-container').forEach((container) => {
+        container.addEventListener('mousemove', (e) => {
+          root.style.setProperty('--x', e.clientX + 'px');
+          root.style.setProperty('--y', e.clientY + 'px');
+        });
+      });
     });
   </script>
-
 </body>
 
 </html>
-
