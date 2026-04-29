@@ -2813,8 +2813,8 @@
   </style>
   <style id="fixed-canvas-css">
     :root {
-      --stage-w: 1920px;
-      --stage-h: 1080px;
+      --stage-w: 1919px;
+      --stage-h: 872px;
 
       --vw: calc(var(--stage-w) / 100);
       --vh: calc(var(--stage-h) / 100);
@@ -5283,6 +5283,142 @@
     }
   </style>
 
+
+  <style id="final-1536-impact-title-css">
+    /* ===== Final fixed laptop frame: 1536 x 730 ===== */
+    :root {
+      --stage-w: 1919px;
+      --stage-h: 872px;
+      --vw: 15.36px;
+      --vh: 7.3px;
+    }
+
+    #stage,
+    #stage main {
+      width: 1536px !important;
+      min-width: 1536px !important;
+      max-width: none !important;
+    }
+
+    #stage .section {
+      width: 1536px !important;
+      min-width: 1536px !important;
+      min-height: 730px !important;
+      max-width: none !important;
+      overflow: hidden !important;
+    }
+
+    #stage .stage,
+    #stage .a2-stage {
+      width: 1536px !important;
+      min-width: 1536px !important;
+      height: 730px !important;
+      min-height: 730px !important;
+      max-width: none !important;
+    }
+
+    /* Preserve old fixed menu/button sizes. They stay outside the scaled stage. */
+    .opt-toggle,
+    #theme-btn {
+      width: var(--menu-fixed-size) !important;
+      height: var(--menu-fixed-size) !important;
+      min-width: var(--menu-fixed-size) !important;
+      min-height: var(--menu-fixed-size) !important;
+    }
+
+    .opt-toggle img,
+    #theme-btn svg {
+      width: var(--menu-icon-size) !important;
+      height: var(--menu-icon-size) !important;
+    }
+
+    .impact-title {
+      font-family: 'Impact', 'Arial Black', 'Haettenschweiler', 'Franklin Gothic Bold', sans-serif;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      line-height: 1.05;
+      -webkit-text-stroke: 500px #0f3460;
+      paint-order: stroke fill;
+      cursor: default;
+      user-select: none;
+      position: relative;
+      display: inline-block;
+      transition: text-shadow 0.4s ease, filter 0.4s ease;
+      white-space: nowrap;
+    }
+
+    .impact-title:hover {
+      text-shadow:
+        inset 0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 20px rgba(15, 52, 96, 0.6),
+        0 0 40px rgba(15, 52, 96, 0.35),
+        0 0 60px rgba(100, 180, 255, 0.25);
+      filter: brightness(1.15);
+    }
+
+    /* Layout 2 to Layout 6 title sizing, locked to old 1536 x 730 laptop canvas. */
+    .layout2 .a2-about {
+      width: auto !important;
+      right: calc(clamp(18px, calc(4 * var(--vw)), 60px) + 220px) !important;
+      top: clamp(10px, calc(4 * var(--vh)), 40px) !important;
+    }
+
+    .layout2 .a2-about .impact-title {
+      font-size: clamp(48px, calc(6 * var(--vw)), 86px);
+    }
+
+    .layout3 .title-center {
+      width: auto !important;
+    }
+
+    .layout3 .title-center .impact-title {
+      font-size: clamp(50px, calc(6.4 * var(--vw)), 92px);
+    }
+
+    .layout4 .mwj-title-wrap img {
+      display: none !important;
+    }
+
+    .layout4 .mwj-title-wrap .impact-title {
+      font-size: clamp(44px, calc(5.8 * var(--vw)), 84px);
+      text-align: center;
+    }
+
+    .layout5 .s5-title.impact-title {
+      color: #ffffff !important;
+      -webkit-text-stroke: 500px #0f3460 !important;
+      font-size: clamp(54px, calc(7.2 * var(--vw)), 104px) !important;
+      letter-spacing: 3px !important;
+      line-height: 1.05 !important;
+      text-shadow: none;
+    }
+
+    .layout6 .c6-title img {
+      display: none !important;
+    }
+
+    .layout6 .c6-title .impact-title {
+      font-size: clamp(36px, 5vw, 76px);
+    }
+  </style>
+
+
+  <style id="final-request-1919x872-stroke500-css">
+    :root {
+      --stage-w: 1919px !important;
+      --stage-h: 872px !important;
+      --vw: calc(var(--stage-w) / 100) !important;
+      --vh: calc(var(--stage-h) / 100) !important;
+    }
+    #stage-wrap { width: 1919px !important; height: 872px !important; }
+    #stage, #stage main, #stage .section { width: 1919px !important; }
+    #stage .section { min-height: 872px !important; }
+    .impact-title, .layout5 .s5-title.impact-title {
+      -webkit-text-stroke: 500px #0f3460 !important;
+      paint-order: stroke fill !important;
+    }
+  </style>
 </head>
 
 <body class="ocean-mode" oncontextmenu="return false;">
@@ -5480,7 +5616,7 @@
             </div>
             <div class="center-figure">
               <img alt="Minh Center Figure" class="asset figure-img" draggable="false"
-                src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout%201/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png" />
+                src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe04d828a6573683e98cbce4fbcf5fa25dbeafb2/layout%201/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png" />
             </div>
             <button aria-label="Toggle Theme" id="theme-btn">
               <svg id="icon-water" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -5505,8 +5641,7 @@
                   src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/Ng%C6%B0%E1%BB%9Di.png" />
               </div>
               <div class="a2-piece a2-about" style="--d:180ms;">
-                <img alt="ABOUT ME" draggable="false"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/About%20me.png" />
+                <div class="impact-title">ABOUT ME</div>
               </div>
               <div class="a2-piece a2-dob a2-text-block" style="--d:260ms;">
                 <div class="a2-typing-line">
@@ -5541,8 +5676,7 @@
           <section class="section layout3 reveal" id="layout-3">
             <div class="stage">
               <div class="piece title-center" style="--d: 0ms;">
-                <img alt="MY PROJECT" draggable="false"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout3/Project.png" />
+                <div class="impact-title">MY PROJECT</div>
               </div>
               <div aria-label="Projects" class="proj3-ui">
                 <div aria-label="Project categories" class="proj3-tabs" role="tablist"><span aria-hidden="true"
@@ -5604,8 +5738,7 @@
           <section class="section layout4 reveal" id="layout-4">
             <div class="mwj-shell">
               <div class="mwj-title-wrap">
-                <img alt="MY WORK" draggable="false"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout4/my%20work.png" />
+                <div class="impact-title">MY WORK</div>
               </div>
               <p class="mwj-scroll-hint">← scroll to explore timeline →</p>
 
@@ -5778,7 +5911,7 @@
 
           <section class="section layout5 reveal" id="layout-5">
             <div class="s5-wrap">
-              <div class="s5-title">MY SKILLS</div>
+              <div class="s5-title impact-title">MY SKILLS</div>
               <div class="s5-tabs-container">
                 <div class="s5-tabs" role="tablist">
                   <button class="s5-tab is-active" data-s5tab="s5-panel-ba">Business Analysis</button>
@@ -5947,9 +6080,7 @@
           </section>
           <section class="section layout6 reveal" id="layout-6">
             <div class="c6-wrap">
-              <div class="c6-title"><img alt="MY CERTIFICATE" draggable="false"
-                  src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout6/Portlio/Cer.png" />
-              </div>
+              <div class="c6-title"><div class="impact-title">MY CERTIFICATE</div></div>
               <div class="c6-marquee-shell">
                 <div class="c6-marquee-track">
                   <div class="c6-group" id="cert-marquee-1">
@@ -6090,8 +6221,8 @@
   </div>
   <script id="fixed-canvas-js">
     (function () {
-      const BASE_W = 1920;
-      const BASE_H = 1080;
+      const BASE_W = 1536;
+      const BASE_H = 730;
 
       const viewport = document.getElementById('viewport');
       const wrap = document.getElementById('stage-wrap');
@@ -6122,7 +6253,7 @@
         const vw = window.innerWidth;
         const vh = window.innerHeight;
 
-        const s = Math.min(vw / BASE_W, vh / BASE_H);
+        const s = Math.min(vw / BASE_W, vh / BASE_H, 1);
         stage.style.transform = `scale(${s})`;
 
         const stageH = getStageContentHeight();
