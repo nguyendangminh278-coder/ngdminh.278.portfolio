@@ -2,6 +2,13 @@ const portfolioData = {
   projects: {
     group: [
       {
+        ariaLabel: "Open ZMKT Biti's Project",
+        base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/f7fd1a541a68008962b1468aedc1b3a81dbe0c6f/layout3/%5BZMKT6_529%5D_%5BBiti's%5D_%5BRound%201%5D/",
+        max: "18",
+        title: "[ZMKT6_529] Biti's Round 1",
+        imagePath: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/f7fd1a541a68008962b1468aedc1b3a81dbe0c6f/layout3/%5BZMKT6_529%5D_%5BBiti's%5D_%5BRound%201%5D/1.png"
+      },
+      {
         ariaLabel: "Open CANIFA S group project",
         base: "https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/481f053aa5c2dae5eb2dd40725dbb21252522c93/layout3/Canifa%20S.png",
         max: "1",

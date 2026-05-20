@@ -1,359 +1,314 @@
-/* Mobile Responsive Overrides */
+
+/* ============================================================
+   MOBILE PORTFOLIO OVERRIDES (Portrait: 390px - 430px)
+   ============================================================ */
+
 @media (max-width: 768px) and (orientation: portrait) {
-  /* 1. Global / Body adjustments */
+  :root {
+    --mobile-padding: 16px;
+    --section-min-h: 100svh;
+    --navy: #001c55;
+    --impact-title-size: clamp(48px, 12vw, 64px);
+    --impact-stroke: 8px;
+  }
+
   body, html {
-    max-width: 100vw;
+    max-width: 100vw !important;
     overflow-x: hidden !important;
-    touch-action: manipulation;
-  }
-  
-  #viewport, .viewport {
     height: auto !important;
-    min-height: 100svh;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    scroll-snap-type: none !important; 
+  }
+
+  #viewport {
     position: relative !important;
+    overflow-y: visible !important;
+    height: auto !important;
   }
 
-  /* Reduce animation for performance */
-  .bubble, .shooting-star-v2, .meteor, .stars-layer, .bg-star::before, .galactic-disk {
-    display: none !important;
-  }
-
-  /* Fonts */
-  .impact-title, .l5-title, h1, h2 {
-    font-size: clamp(34px, 8vw, 48px) !important;
-    line-height: 1.2 !important;
-    text-align: center !important;
-    margin: 0 auto 24px auto !important;
+  #stage-wrap, #stage {
     width: 100% !important;
-    white-space: normal !important;
-    position: relative !important;
+    height: auto !important;
     transform: none !important;
-    left: 0 !important;
-    top: 0 !important;
+    position: relative !important;
+    margin: 0 !important;
   }
 
-  /* Reset sections to flow naturally */
+  #stage main {
+    width: 100% !important;
+  }
+
   .section {
-    position: relative !important;
-    transform: none !important;
+    min-height: var(--section-min-h) !important;
     height: auto !important;
-    min-height: 100svh;
-    width: 100% !important;
-    left: 0 !important;
-    top: 0 !important;
-    padding: 72px 16px !important; 
+    padding: 80px var(--mobile-padding) !important;
+    margin-bottom: 0 !important;
     display: flex !important;
     flex-direction: column !important;
+    align-items: center !important;
     justify-content: flex-start !important;
-    align-items: center !important;
-    margin-bottom: 48px !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-  }
-
-  /* Reset piece/stage to relative */
-  .stage, .piece, .follio-float, .left-block, .port-title {
     position: relative !important;
-    transform: none !important;
-    left: 0 !important;
-    top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
+  }
+
+  /* TITLE STYLING */
+  .mobile-title {
+    font-family: Impact, 'Arial Black', sans-serif !important;
+    font-size: var(--impact-title-size) !important;
+    text-transform: uppercase !important;
+    color: #fff !important;
+    -webkit-text-stroke: var(--impact-stroke) var(--navy) !important;
+    paint-order: stroke fill !important;
+    letter-spacing: -1px !important;
+    text-align: center !important;
+    margin-bottom: 30px !important;
+    display: block !important;
     width: 100% !important;
-    height: auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+    z-index: 10 !important;
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.3) !important;
   }
 
-  /* Image resets */
-  .piece img, .asset, .text-img {
-    max-width: 100% !important;
-    height: auto !important;
-    object-fit: contain !important;
-  }
-
-  /* ----- LAYOUT 1: HERO ----- */
+  /* LAYOUT 1 - HERO */
   .layout1 {
     justify-content: center !important;
   }
-  .layout1 .follio-float, .layout1 .left-block {
-    margin-bottom: 24px !important;
+  .layout1 .follio-float, 
+  .layout1 .left-block, 
+  .layout1 .right-block,
+  .layout1 .trace-on {
+    display: none !important;
   }
-  .layout1 .card-bg, .layout1 .glass-panel {
-    display: none !important; /* hide heavy bg cards */
+  .layout1 .center-figure {
+    position: relative !important;
+    left: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin: 20px 0 !important;
+    width: 80% !important;
+  }
+  .layout1 .center-figure img {
+    height: auto !important;
+    width: 100% !important;
+  }
+  .layout1 .mobile-hero-sub {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--navy);
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0.8;
   }
 
-  /* ----- LAYOUT 2: ABOUT ME ----- */
-  .layout2 .stage {
-    gap: 20px !important;
-  }
-  .layout2 .p-person {
-    order: 1 !important; /* Xếp ảnh người ở trên */
-    margin-bottom: 20px !important;
-  }
-  .layout2 .p-person img {
-    max-width: 250px !important;
-  }
-  .layout2 .p-about {
-    order: 2 !important;
-  }
-  .layout2 .p-dob, .layout2 .p-story, .layout2 .p-workflow, .layout2 .p-day {
-    order: 3 !important; /* Các box xếp dưới */
-    width: 100% !important;
-    max-width: 340px !important;
-    margin: 0 auto 16px auto !important;
-    border-radius: 18px !important;
-    padding: 16px !important;
+  /* LAYOUT 2 - ABOUT ME */
+  .layout2 .a2-stage, .layout2 .a2-piece {
     position: relative !important;
-    transform: none !important;
-    left: 0 !important;
-    top: 0 !important;
-  }
-
-  /* ----- LAYOUT 3: MY PROJECT ----- */
-  .proj3-ui {
-    position: relative !important;
-    width: 100% !important;
-    transform: none !important;
-    top: 0 !important;
-    left: 0 !important;
-  }
-  .proj3-tabs {
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    padding: 10px !important;
-    height: auto !important;
-  }
-  .proj3-tab {
-    padding: 8px 12px !important;
-    font-size: 14px !important;
-  }
-  .proj3-view {
-    position: relative !important;
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 24px !important;
-  }
-  .proj3-box {
-    position: relative !important;
-    transform: none !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    height: auto !important;
-    padding: 16px !important;
-    border-radius: 18px !important;
-    margin-bottom: 16px !important;
-  }
-  .proj3-box img {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: cover !important;
-  }
-
-  /* ----- LAYOUT 4: MY WORK ----- */
-  .mwj-shell {
-    position: relative !important;
-    width: 100% !important;
-    transform: none !important;
-    top: 0 !important; left: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  .mwj-graph-svg, .mwj-guide-line, .mwj-connector, .mwj-dot {
-    display: none !important; /* Hide the complex graph on mobile */
-  }
-  .mwj-graph-inner {
-    width: 100% !important;
-    height: auto !important;
-  }
-  .mwj-nodes {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 32px !important;
-    width: 100% !important;
-  }
-  .mwj-node {
-    position: relative !important;
-    left: 0 !important; top: 0 !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
     transform: none !important;
     width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 18px;
-    padding: 16px;
-    box-sizing: border-box;
-    margin-bottom: 20px !important;
-  }
-  .mwj-node-lbl {
-    position: relative !important;
-    left: 0 !important; top: 0 !important;
-    transform: none !important;
-    text-align: left !important;
-    margin-bottom: 12px !important;
-    width: 100% !important;
-  }
-  .mwj-logo-card {
-    position: relative !important;
-    left: 0 !important; top: 0 !important;
-    transform: none !important;
-    width: 100% !important;
-  }
-
-  /* ----- LAYOUT 5: MY SKILLS ----- */
-  .s5-wrap {
-    position: relative !important;
-    transform: none !important;
-    width: 100% !important;
-    left: 0 !important; top: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  .s5-tabs {
-    flex-wrap: wrap !important;
-    height: auto !important;
-    gap: 8px !important;
-  }
-  .s5-stage {
-    position: relative !important;
-    transform: none !important;
-    width: 100% !important;
-    height: auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
     align-items: center !important;
   }
-  .s5-person {
-    position: relative !important;
-    transform: none !important;
-    left: 0 !important; top: 0 !important;
-    max-width: 200px !important;
-    margin: 0 auto 24px auto !important;
+  .layout2 .a2-person, .layout2 .a2-dob, .layout2 .a2-day {
+    display: none !important; /* Cleaner mobile version */
   }
-  .s5-panel {
-    position: relative !important;
-    width: 100% !important;
-  }
-  .s5-item {
-    position: relative !important;
-    transform: none !important;
-    left: 0 !important; top: 0 !important;
-    width: 100% !important;
-    margin-bottom: 16px !important;
-    opacity: 1 !important;
-    border-radius: 18px !important;
-    padding: 16px !important;
-  }
-  .carousel-nav, .s5-nav {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 24px !important;
-    position: relative !important;
-    transform: none !important;
-    margin-top: 24px !important;
-  }
-  .carousel-btn, .s5-btn {
-    width: 48px !important;
-    height: 48px !important;
-    font-size: 24px !important;
-    padding: 10px !important;
-  }
-
-  /* ----- LAYOUT 6: CERTIFICATE ----- */
-  .c6-wrap {
-    position: relative !important;
-    transform: none !important;
-    width: 100% !important;
-    left: 0 !important; top: 0 !important;
-  }
-  .c6-marquee-shell {
-    overflow: visible !important;
-    position: relative !important;
-  }
-  .c6-marquee-track {
-    animation: none !important;
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    transform: none !important;
-  }
-  .c6-group {
-    display: flex !important;
-    flex-direction: column !important;
+  .about-options {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
     gap: 20px !important;
     width: 100% !important;
-    padding: 0 !important;
-    position: relative !important;
-    transform: none !important;
+    margin-top: 20px !important;
   }
-  .c6-card {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-    position: relative !important;
-    transform: none !important;
-    margin-bottom: 16px !important;
+  .about-btn-card {
+    background: #fff;
+    border: 3px solid var(--navy);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--navy);
+    box-shadow: 6px 6px 0 0 var(--navy);
+    transition: transform 0.2s;
   }
-
-  /* ----- LAYOUT 7: CONTACT ----- */
-  .ct7-shell {
-    position: relative !important;
-    transform: none !important;
-    width: 100% !important;
-    left: 0 !important; top: 0 !important;
+  .about-btn-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0 0 var(--navy);
   }
-  .ct7-header {
-    position: relative !important;
-    transform: none !important;
-    left: 0 !important; top: 0 !important;
-    margin-bottom: 24px !important;
+  .about-btn-card img {
+    width: 60px;
+    height: auto;
   }
-  .ct7-header img {
-    max-width: 100% !important;
-  }
-  .ct7-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
-    position: relative !important;
-    transform: none !important;
-  }
-  .ct7-card {
-    width: 100% !important;
-    position: relative !important;
-    transform: none !important;
-    padding: 16px !important;
-    border-radius: 18px !important;
+  .about-btn-text {
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
   }
 
-  /* ----- MENU & NAVIGATION ----- */
+  /* LAYOUT 3 - MY PROJECT (STAR) */
+  .layout3 .proj3-ui, .layout3 .title-center {
+    display: none !important;
+  }
+  .star-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .four-point-star {
+    width: 120px;
+    height: 120px;
+    background: var(--navy);
+    clip-path: polygon(50% 0%, 61% 35%, 100% 50%, 61% 65%, 50% 100%, 39% 65%, 0% 50%, 39% 35%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
+    animation: slowRotate 8s linear infinite, starPulse 2s ease-in-out infinite;
+  }
+  @keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes starPulse { 0%, 100% { transform: rotate(var(--rot, 0deg)) scale(1); } 50% { transform: rotate(var(--rot, 0deg)) scale(1.1); } }
+  
+  .project-panel-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    background: #fff;
+    border-top: 5px solid var(--navy);
+    border-radius: 30px 30px 0 0;
+    z-index: 10000;
+    padding: 24px var(--mobile-padding);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .project-panel-mobile.open { transform: translateY(0); }
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+  }
+  .panel-title { font-weight: 900; font-size: 20px; color: var(--navy); }
+  .close-panel { font-size: 24px; font-weight: 900; color: var(--navy); cursor: pointer; padding: 5px; }
+  .panel-scroll { flex: 1; overflow-y: auto; padding-right: 5px; }
+
+  /* LAYOUT 4 - MY WORK TIMELINE */
+  .layout4 .mwj-shell { display: none !important; }
+  .mobile-timeline {
+    width: 100%;
+    position: relative;
+    padding-left: 30px;
+  }
+  .mobile-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #3b82f6, #ec4899);
+    border-radius: 2px;
+  }
+  .timeline-card {
+    background: #fff;
+    border: 2px solid var(--navy);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 30px;
+    box-shadow: 6px 6px 0 0 var(--navy);
+    position: relative;
+    width: calc(100% - 10px);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -31px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 4px solid #3b82f6;
+    border-radius: 50%;
+    z-index: 2;
+  }
+  .t-date { font-size: 12px; font-weight: 800; color: #3b82f6; margin-bottom: 4px; }
+  .t-company { font-weight: 900; font-size: 18px; color: var(--navy); }
+  .t-role { font-size: 14px; font-weight: 600; color: #64748b; margin-bottom: 10px; }
+  .t-logo { width: 100%; height: 120px; object-fit: contain; border-radius: 10px; background: #f8fafc; margin-bottom: 10px; }
+
+  /* LAYOUT 5 - SKILLS TABS */
+  .layout5 .s5-wrap { display: none !important; }
+  .mobile-skills-container { width: 100%; }
+  .skill-tab-btn {
+    width: 100%;
+    background: #fff;
+    border: 3px solid var(--navy);
+    border-radius: 18px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--navy);
+    box-shadow: 4px 4px 0 0 var(--navy);
+    cursor: pointer;
+  }
+  .skill-tab-btn.active { background: var(--navy); color: #fff; transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--navy); }
+  .skill-tab-content {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: none;
+    border: 2px solid var(--navy);
+  }
+  .skill-tab-content.active { display: block; animation: slideDown 0.3s ease-out; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  .skill-group-label { font-size: 12px; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 8px; margin-top: 15px; }
+  .skill-list-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag { background: #f1f5f9; color: var(--navy); padding: 6px 12px; border-radius: 10px; font-size: 14px; font-weight: 700; border: 1px solid #e2e8f0; }
+
+  /* LAYOUT 6 - CONTACT */
+  .layout7 .ct7-shell { display: none !important; }
+  .mobile-contact-list { width: 100%; display: flex; flex-direction: column; gap: 15px; }
+  .contact-btn {
+    background: #fff;
+    border: 3px solid var(--navy);
+    border-radius: 18px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: 900;
+    box-shadow: 6px 6px 0 0 var(--navy);
+    transition: 0.2s;
+  }
+  .contact-btn:active { transform: translate(2px, 2px); box-shadow: 4px 4px 0 0 var(--navy); }
+  .contact-icon { width: 40px; height: 40px; border-radius: 10px; background: #f1f5f9; display: grid; place-items: center; font-size: 20px; }
+
+  /* GENERAL MOBILE TWEAKS */
   #theme-btn {
-    position: fixed !important;
-    bottom: 24px !important;
-    right: 24px !important;
-    transform: scale(0.8) !important; /* Nút menu con mèo nhỏ hơn */
-    z-index: 9999 !important;
+    top: 20px !important;
+    right: 20px !important;
+    bottom: auto !important;
+    width: 44px !important;
+    height: 44px !important;
   }
-  #opt, .opt {
-    position: fixed !important;
-    bottom: 80px !important;
-    right: 24px !important;
-    transform: scale(0.8) !important;
-    z-index: 9998 !important;
-    display: flex !important;
-    flex-direction: column !important;
+  .opt {
+    left: 20px !important;
+    top: 20px !important;
   }
-  .opt-item {
-    display: flex !important;
-    margin-bottom: 12px !important;
-  }
+  .bg-star::before, .nebula-container, .shooting-star-v2 { opacity: 0.05 !important; } /* Lighten animations */
 }
