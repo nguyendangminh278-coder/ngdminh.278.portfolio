@@ -1,0 +1,55 @@
+/* Extend the existing ocean/sky theme and timeline without a separate CV section. */
+:root {
+  --sea-ink: #06394b; --sea-muted: #3d6170; --sea-accent: #076e77;
+  --sea-surface: rgba(255,255,255,.92); --sea-border: rgba(13,115,127,.22);
+}
+body.star-mode {
+  --sea-ink: #e2f6ff; --sea-muted: #accbd8; --sea-accent: #6be1df;
+  --sea-surface: rgba(9,29,52,.94); --sea-border: rgba(106,225,223,.28);
+}
+.bg-ocean {
+  background: linear-gradient(180deg,rgba(229,249,255,.76),rgba(242,252,252,.93) 62%,rgba(159,221,229,.65)),url('assets/ghibli/sky.png') center top / cover;
+}
+.bg-star { background-color: #031326; background-image: radial-gradient(ellipse at 50% 115%,rgba(25,137,153,.4),transparent 65%); }
+.a2-clickable { display: block; text-decoration: none; }
+.a2-clickable:focus-visible,#work-timeline:focus-visible { outline: 3px solid var(--sea-accent); outline-offset: 6px; }
+.layout1 .asset { transition-delay: 0ms !important; }
+.layout4 .mwj-graph-inner { width: 4350px; }
+.layout4 .mwj-node { opacity: 1; }
+.layout4 .mwj-scroll-hint { animation: none; font-size: 18px; color: var(--sea-muted); }
+.mwj-scroll-hint a { color: var(--sea-accent); text-underline-offset: 4px; }
+body.star-mode .layout4 .mwj-lbl-name,body.star-mode .layout4 .mwj-legend-item { color: var(--sea-ink); }
+body.star-mode .layout4 .mwj-lbl-role { color: var(--sea-muted); }
+body.star-mode .layout4 .mwj-guide-line { stroke: rgba(178,219,234,.16); }
+
+/* Timeline additions use the same company-logo cards as the existing journey. */
+.layout4 .mwj-career-logo { font-family:inherit; color:#001c55; background:#fff; text-align:center; }
+.layout4 .mwj-career-logo img { object-fit:contain; padding:10px; }
+.layout4 .mwj-career-logo .mwj-card-footer { display:block; }
+.mwj-career-logo:focus-visible { outline:4px solid var(--sea-accent); outline-offset:6px; }
+#theme-btn { position:fixed; right:22px; top:calc(20px + env(safe-area-inset-top,0px)); bottom:auto; z-index:9999; }
+.work-detail { position:fixed; inset:0; margin:auto; width:min(620px,calc(100vw - 32px)); max-height:calc(100dvh - 48px); box-sizing:border-box; padding:32px; overflow:auto; color:var(--sea-ink); background:var(--sea-surface); border:1px solid var(--sea-border); border-radius:22px; font:16px/1.65 system-ui,sans-serif; box-shadow:0 24px 100px #001c5540; }
+.work-detail::backdrop { background:rgba(2,12,30,.66); backdrop-filter:blur(5px); }
+.work-detail-logo { display:block; width:180px; height:90px; object-fit:contain; background:#fff; padding:12px; border-radius:12px; margin:0 0 24px; }
+.work-detail h2 { font-size:26px; line-height:1.25; letter-spacing:-.025em; margin:8px 0 16px; }
+.work-detail-date { color:var(--sea-accent); font-weight:750; margin:0; }
+.work-detail-company { color:var(--sea-muted); }
+.work-detail ul { padding-left:20px; }
+.work-detail li + li { margin-top:12px; }
+.work-detail-close { position:absolute; top:14px; right:14px; width:40px; height:40px; cursor:pointer; color:var(--sea-ink); background:transparent; border:1px solid var(--sea-border); border-radius:50%; font-size:24px; }
+.work-detail-links { display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
+.work-detail-links a { color:var(--sea-accent); font-weight:700; text-underline-offset:5px; }
+.work-detail a:focus-visible,.work-detail button:focus-visible { outline:3px solid var(--sea-accent); outline-offset:4px; }
+/* This small fixed mascot sits outside the scaled stage and follows scroll. */
+.water-dragon { position:fixed; right:6px; top:20vh; width:148px; height:180px; z-index:300; pointer-events:none; will-change:transform; }
+.water-dragon[hidden] { display:none; }
+.dragon-greet { width:100%; height:100%; padding:0; border:0; background:transparent; cursor:pointer; pointer-events:auto; border-radius:50%; }
+.dragon-greet canvas { display:block; width:100%; height:100%; }
+.dragon-greet:focus-visible { outline:2px dashed var(--sea-accent); outline-offset:-10px; }
+.dragon-hide { position:absolute; top:15px; right:7px; width:28px; height:28px; border:1px solid var(--sea-border); border-radius:50%; background:var(--sea-surface); color:var(--sea-ink); cursor:pointer; pointer-events:auto; opacity:0; font-size:18px; }
+.water-dragon:hover .dragon-hide,.water-dragon:focus-within .dragon-hide { opacity:1; }
+.dragon-direction { position:absolute; bottom:5px; left:50%; transform:translateX(-50%); font:bold 20px system-ui; color:var(--sea-accent); opacity:0; transition:opacity .2s; }
+.water-dragon.is-swimming .dragon-direction { opacity:.8; }
+body:has(dialog[open]) .water-dragon,body:has(.viewer.is-open) .water-dragon { visibility:hidden; }
+@media(max-width:768px) { .water-dragon { width:96px; height:124px; right:0; } .dragon-hide { opacity:.75; width:26px; height:26px; top:3px; right:0; } }
+@media(prefers-reduced-motion:reduce) { #theme-bg *,.layout1 .asset,.layout4 * { animation:none!important; transition:none!important; } #viewport { scroll-behavior:auto; } .water-dragon { will-change:auto; } }

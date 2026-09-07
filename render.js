@@ -1,48 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 0. Loading Screen ---
-  const loaderWrapper = document.getElementById('loader-wrapper');
-  const loaderPercentage = document.getElementById('loader-percentage');
-  const loaderProgress = document.getElementById('loader-progress');
-  
-  if (loaderWrapper && loaderPercentage && loaderProgress) {
-    // Check if body has star-mode from local storage
-    if (localStorage.getItem('theme') === 'star') {
-        document.body.classList.add('star-mode');
-        document.body.classList.remove('ocean-mode');
-    }
-    
-    // If there is a hash (e.g., navigating back to a specific layout), skip the preloader instantly.
-    if (window.location.hash) {
-      loaderPercentage.innerText = 100;
-      loaderProgress.style.width = '100%';
-      loaderWrapper.classList.add('hidden');
-      document.body.style.overflow = ''; 
-    } else {
-      let progress = 0;
-      const targetTime = 3600; // 3.6 seconds loading
-      const interval = 30;
-      const increment = 100 / (targetTime / interval);
-      
-      // Prevent scrolling while loading
-      document.body.style.overflow = 'hidden'; 
-      
-      const loadingInterval = setInterval(() => {
-        progress += increment;
-        if (progress >= 100) {
-          progress = 100;
-          clearInterval(loadingInterval);
-          setTimeout(() => {
-            loaderWrapper.classList.add('hidden');
-            document.body.style.overflow = ''; // restore scrolling
-          }, 300);
-        }
-        loaderPercentage.innerText = Math.floor(progress);
-        loaderProgress.style.width = progress + '%';
-      }, interval);
-    }
-  }
-
   // --- 1. My Project (Layout 3) ---
   const renderProjectCard = (p) => {
     let linksHtml = '';

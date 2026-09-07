@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="vi">
 
 <head>
   <meta charset="utf-8" />
@@ -4929,147 +4929,6 @@
       transform: translate(calc(var(--day-move-x) * 1vw), 22vh) scale(var(--meta-scale)) !important;
     }
   </style>
-  <style id="loader-css">
-    #loader-wrapper {
-      position: fixed;
-      inset: 0;
-      z-index: 999999;
-      background-color: var(--bg-ocean-bot, #ffffff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-    }
-
-    body.star-mode #loader-wrapper {
-      background-color: var(--deep-space, #020b26);
-    }
-
-    .loader-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .loader-text {
-      font-size: 54px;
-      font-weight: 900;
-      color: var(--navy, #001c55);
-      font-family: ui-rounded, "SF Pro Rounded", "Nunito", "Quicksand", system-ui, sans-serif;
-    }
-
-    body.star-mode .loader-text {
-      color: #fff;
-      text-shadow: 0 0 14px rgba(0, 242, 255, 0.4);
-    }
-
-    .loader-bar {
-      width: 250px;
-      height: 6px;
-      background: rgba(0, 28, 85, 0.1);
-      border-radius: 999px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    body.star-mode .loader-bar {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .loader-progress {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 0%;
-      background: var(--navy, #001c55);
-      border-radius: 999px;
-      transition: width 0.1s linear;
-    }
-
-    body.star-mode .loader-progress {
-      background: #00f2ff;
-      box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
-    }
-
-    .loader-credits {
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.6;
-      letter-spacing: 0.5px;
-      animation: fadeInCredits 1s ease 0.3s both;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-width: 96vw;
-    }
-
-    .loader-credits-top {
-      margin-bottom: 20px;
-    }
-
-    .loader-credits-bot {
-      margin-top: 20px;
-    }
-
-    @keyframes fadeInCredits {
-      0% {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .credit-vn {
-      color: #e5828b;
-    }
-
-    .credit-en {
-      color: #76a8d6;
-    }
-
-    .credit-ko {
-      color: #72c28d;
-    }
-
-    .credit-zh {
-      color: #c9a363;
-    }
-
-    body.star-mode .credit-vn {
-      color: #ffb3ba;
-      text-shadow: 0 0 8px rgba(255, 179, 186, 0.4);
-    }
-
-    body.star-mode .credit-en {
-      color: #bae1ff;
-      text-shadow: 0 0 8px rgba(186, 225, 255, 0.4);
-    }
-
-    body.star-mode .credit-ko {
-      color: #baffc9;
-      text-shadow: 0 0 8px rgba(186, 255, 201, 0.4);
-    }
-
-    body.star-mode .credit-zh {
-      color: #ffdfba;
-      text-shadow: 0 0 8px rgba(255, 223, 186, 0.4);
-    }
-
-    #loader-wrapper.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-  </style>
-
   <style id="layout4-timeline-upgrade-css">
     .layout4 {
       background: transparent;
@@ -5424,26 +5283,15 @@
     }
   </style>
 
+  <link rel="stylesheet" href="portfolio-updates.css">
 </head>
 
-<body class="ocean-mode" oncontextmenu="return false;">
-  <div id="loader-wrapper">
-    <div class="loader-content">
-      <div class="loader-credits loader-credits-top">
-        <span class="credit-vn">Trang web được tạo bởi chính chủ và GPT, Gemeni, Claude, và Google AI Studio</span>
-        <span class="credit-en">The website was created by the owner and GPT, Gemini, Claude, and Google AI
-          Studio</span>
-      </div>
-      <div class="loader-text"><span id="loader-percentage">0</span>%</div>
-      <div class="loader-bar">
-        <div class="loader-progress" id="loader-progress"></div>
-      </div>
-      <div class="loader-credits loader-credits-bot">
-        <span class="credit-ko">이 웹사이트는 소유자와 GPT, Gemini, Claude 및 Google AI Studio에 의해 제작되었습니다</span>
-        <span class="credit-zh">该网站由所有者以及 GPT、Gemini、Claude 和 Google AI Studio 共同提供支持</span>
-      </div>
-    </div>
-  </div>
+<body class="ocean-mode">
+  <script>
+    try {
+      if (localStorage.getItem('theme') === 'star') document.body.classList.replace('ocean-mode', 'star-mode');
+    } catch (_) { /* Storage is optional. */ }
+  </script>
   <div aria-hidden="true" id="transition-overlay">
     <canvas id="meteorCanvas"></canvas>
     <div class="meteor-wrap" id="meteorWrap"></div>
@@ -5561,11 +5409,23 @@
     <a class="opt-item" style="--id: 6;" data-target="#layout-7" href="#layout-7">Contact Me!</a>
   </div>
   <a aria-label="Back to top" class="btn-top" href="#layout-1" id="backTop">↑</a>
+            <button aria-label="Bật hoặc tắt chế độ trời đêm" aria-pressed="false" id="theme-btn">
+              <svg id="icon-water" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C16.9706 22 21 17.9706 21 13C21 10.3809 19.8804 8.02675 18.1064 6.32626C16.4883 4.77526 13.9113 2.50209 12.655 1.40141C12.28 1.07289 11.72 1.07289 11.345 1.40141C10.0887 2.50209 7.5117 4.77526 5.8936 6.32626C4.11964 8.02675 3 10.3809 3 13C3 17.9706 7.02944 22 12 22Z">
+                </path>
+              </svg>
+              <svg id="icon-star" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z">
+                </path>
+              </svg>
+            </button>
   <div id="viewport">
     <div id="stage-wrap">
       <div id="stage">
         <main>
-          <section class="section layout1" id="layout-1">
+          <section class="section layout1 phase-cards phase-text phase-figure" id="layout-1">
             <div class="follio-float">
               <div aria-hidden="true" class="trace-on">
                 <div class="trace-mask"
@@ -5623,18 +5483,7 @@
               <img alt="Minh Center Figure" class="asset figure-img" draggable="false"
                 src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe04d828a6573683e98cbce4fbcf5fa25dbeafb2/layout%201/My%20p%E1%BB%8Dt%20fo%20li%20%E1%BB%93.png" />
             </div>
-            <button aria-label="Toggle Theme" id="theme-btn">
-              <svg id="icon-water" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M12 22C16.9706 22 21 17.9706 21 13C21 10.3809 19.8804 8.02675 18.1064 6.32626C16.4883 4.77526 13.9113 2.50209 12.655 1.40141C12.28 1.07289 11.72 1.07289 11.345 1.40141C10.0887 2.50209 7.5117 4.77526 5.8936 6.32626C4.11964 8.02675 3 10.3809 3 13C3 17.9706 7.02944 22 12 22Z">
-                </path>
-              </svg>
-              <svg id="icon-star" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z">
-                </path>
-              </svg>
-            </button>
+
           </section>
           <section class="section layout2 reveal" id="layout-2">
             <div class="a2-stage">
@@ -5655,20 +5504,20 @@
                 </div>
                 <div class="a2-subtext"><span class="pink">♍ Virgo</span></div>
               </div>
-              <div class="a2-piece a2-story a2-clickable" data-href="story.html" style="--d:280ms;">
+              <a class="a2-piece a2-story a2-clickable" id="my-story" href="story.html" style="--d:280ms;">
                 <img alt="MY STORY"
                   data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/Story.png"
                   data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png"
                   draggable="false"
                   src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/story.png" />
-              </div>
-              <div class="a2-piece a2-workflow a2-clickable" data-href="workflow.html" style="--d:340ms;">
+              </a>
+              <a class="a2-piece a2-workflow a2-clickable" id="my-workflow" href="workflow.html" style="--d:340ms;">
                 <img alt="MY WORKFLOW"
                   data-dark-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/fe880321bdaad3f5689786100401ea161eebfa1c/layout2/Darkmode/workflow.png"
                   data-light-src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png"
                   draggable="false"
                   src="https://raw.githubusercontent.com/nguyendangminh278-coder/ngdminh.278.portfolio/473a7ff5c13a923fa09388409c09ce638e8ecb4e/layout2/work.png" />
-              </div>
+              </a>
               <div class="a2-piece a2-day a2-text-block" style="--d:360ms;">
                 <div class="a2-typing-line a2-right">
                   <span class="a2-typing" data-text="WORKING 24/7"></span>
@@ -5740,16 +5589,16 @@
             </div>
           </section>
 
-          <section class="section layout4 reveal" id="layout-4">
+          <section class="section layout4 inview is-animated" id="layout-4">
             <div class="mwj-shell">
               <div class="mwj-title-wrap">
                 <span class="impact-title-container"><span class="impact-title" data-text="MY WORK">MY WORK</span><span class="cursor-glow"></span></span>
               </div>
-              <p class="mwj-scroll-hint">← scroll to explore timeline →</p>
+              <p class="mwj-scroll-hint">← Cuộn ngang để khám phá hành trình →</p>
 
-              <div class="mwj-graph-outer">
+              <div class="mwj-graph-outer" id="work-timeline" tabindex="0" aria-label="Dòng thời gian công việc, có thể cuộn ngang">
                 <div class="mwj-graph-inner">
-                  <svg class="mwj-graph-svg" viewBox="0 0 3050 840" preserveAspectRatio="none">
+                  <svg class="mwj-graph-svg" viewBox="0 0 4350 840" preserveAspectRatio="none">
                     <defs>
                       <linearGradient id="mwj-lg" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stop-color="#3b82f6" />
@@ -5760,10 +5609,10 @@
                       </linearGradient>
                     </defs>
 
-                    <line class="mwj-guide-line" x1="0" y1="190" x2="3050" y2="190" />
-                    <line class="mwj-guide-line" x1="0" y1="400" x2="3050" y2="400" />
-                    <line class="mwj-guide-line" x1="0" y1="520" x2="3050" y2="520" />
-                    <line class="mwj-guide-line" x1="0" y1="640" x2="3050" y2="640" />
+                    <line class="mwj-guide-line" x1="0" y1="190" x2="4350" y2="190" />
+                    <line class="mwj-guide-line" x1="0" y1="400" x2="4350" y2="400" />
+                    <line class="mwj-guide-line" x1="0" y1="520" x2="4350" y2="520" />
+                    <line class="mwj-guide-line" x1="0" y1="640" x2="4350" y2="640" />
 
                     <rect x="70" y="82" width="1450" height="680" fill="rgba(59,130,246,0.04)"
                       stroke="rgba(59,130,246,0.18)" stroke-width="1.5" stroke-dasharray="8 5" rx="28" />
@@ -5779,7 +5628,9 @@
                       C 1050 375, 1230 215, 1450 190
                       C 1680 168, 1840 600, 2100 640
                       C 2290 666, 2550 415, 2790 400
-                      L 3050 400
+                      C 3050 400, 3130 300, 3350 280
+                      C 3600 260, 3700 190, 3980 170
+                      L 4350 150
                     " />
                   </svg>
 
@@ -5892,6 +5743,33 @@
                       <span class="mwj-badge mwj-badge-go">↑ Recovery</span>
                     </div>
                   </div>
+
+                  <div class="mwj-node above visible" id="experience-stavian" style="left:3350px; top:280px;">
+                    <button type="button" class="mwj-logo-card mwj-career-logo" data-work-detail="detail-stavian" aria-haspopup="dialog" aria-label="Xem công việc tại Stavian Industrial Metal">
+                      <img src="assets/logos/stavian-industrial-metal.png" alt="Stavian Industrial Metal">
+                      <span class="mwj-card-footer"><span class="mwj-card-phase">STAVIAN · Quant Trading</span></span>
+                    </button>
+                    <div class="mwj-connector" style="height:40px;"></div><div class="mwj-dot"></div>
+                    <div class="mwj-node-lbl">
+                      <div class="mwj-lbl-date">06/2026 – 09/2026</div>
+                      <div class="mwj-lbl-name">STAVIAN INDUSTRIAL METAL</div>
+                      <div class="mwj-lbl-role">Thực tập sinh Phái sinh</div>
+                      <span class="mwj-badge mwj-badge-go">Thống kê → Dự đoán giá ↑</span>
+                    </div>
+                  </div>
+                  <div class="mwj-node above visible" id="experience-fpt" style="left:3980px; top:170px;">
+                    <button type="button" class="mwj-logo-card mwj-career-logo" data-work-detail="detail-fpt" aria-haspopup="dialog" aria-label="Xem công việc tại FPT IS">
+                      <img src="assets/logos/fpt-is.svg" alt="FPT IS">
+                      <span class="mwj-card-footer"><span class="mwj-card-phase">FPT IS · Business Analysis</span></span>
+                    </button>
+                    <div class="mwj-connector" style="height:40px;"></div><div class="mwj-dot"></div>
+                    <div class="mwj-node-lbl">
+                      <div class="mwj-lbl-date">09/2026 – Hiện tại</div>
+                      <div class="mwj-lbl-name">FPT IS</div>
+                      <div class="mwj-lbl-role">Thực tập sinh Phân tích nghiệp vụ</div>
+                      <span class="mwj-badge mwj-badge-go">FPT IS × BIDV · Test Automation ↑</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -5911,6 +5789,7 @@
                   Project
                 </div>
               </div>
+
             </div>
           </section>
 
@@ -6475,6 +6354,9 @@
             body.classList.add('ocean-mode');
           }
           applyThemeAssets();
+          try { localStorage.setItem('theme', goingToDark ? 'star' : 'ocean'); } catch (_) {}
+          themeBtn.setAttribute('aria-pressed', String(goingToDark));
+          document.dispatchEvent(new Event('portfolio:theme'));
 
           // Remove blending helpers
           body.classList.remove('theme-blending', 'blend-to-star', 'blend-to-ocean');
@@ -6500,8 +6382,9 @@
         requestAnimationFrame(tick);
       });
 
-      // Ensure assets match initial mode
+      // Restore the stored preference before showing theme assets.
       applyThemeAssets();
+      themeBtn.setAttribute('aria-pressed', String(body.classList.contains('star-mode')));
     })();
   </script>
   <script id="base-js">
@@ -6517,7 +6400,7 @@
             obs.unobserve(e.target);
           }
         });
-      }, { threshold: 0.35, root: viewport || null });
+      }, { threshold: 0.08, root: viewport || null });
 
       revealSections.forEach(sec => io.observe(sec));
     })();
@@ -6541,7 +6424,7 @@
           e.preventDefault();
           const targetSel = a.getAttribute('data-target') || a.getAttribute('href');
           const target = targetSel ? document.querySelector(targetSel) : null;
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (target) { history.replaceState(null, '', targetSel); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
           opt.classList.remove('open');
         });
       });
@@ -6564,41 +6447,13 @@
 
       topBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        history.replaceState(null, '', '#layout-1');
         document.querySelector('#layout-1')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     })();
   </script>
-  <script id="layout1-js">
-    function parseMs(v, fallback) {
-      const n = parseInt(String(v).trim(), 10);
-      return Number.isFinite(n) ? n : fallback;
-    }
 
-    window.addEventListener('load', () => {
-      const root = getComputedStyle(document.documentElement);
-      const tCards = parseMs(root.getPropertyValue('--t-cards'), 1500);
-      const tText = parseMs(root.getPropertyValue('--t-text'), 1000);
 
-      const layout1 = document.querySelector('.layout1');
-      if (!layout1) return;
-
-      requestAnimationFrame(() => {
-        layout1.classList.add('phase-cards');
-      });
-
-      setTimeout(() => layout1.classList.add('phase-text'), tCards);
-      setTimeout(() => layout1.classList.add('phase-figure'), tCards + tText);
-    });
-  </script>
-  <script id="layout2-js">
-    (function () {
-      const story = document.querySelector('.layout2 .p-story');
-      const workflow = document.querySelector('.layout2 .p-workflow');
-
-      if (story) story.addEventListener('click', () => { window.location.href = 'story.html'; });
-      if (workflow) workflow.addEventListener('click', () => { window.location.href = 'workflow.html'; });
-    })();
-  </script>
   <script id="layout3-tabs-js">
     (function () {
       const tabs = Array.from(document.querySelectorAll('.proj3-tab'));
@@ -6919,15 +6774,10 @@
       const viewport = document.getElementById('viewport');
       const root = viewport || null;
 
-      // Layout 2 typewriter + click handlers on enter
+      // Layout 2 typewriter on enter
       const l2 = document.getElementById('layout-2');
       if (l2) {
-        l2.querySelectorAll('.a2-clickable').forEach(el => {
-          el.addEventListener('click', () => {
-            const href = el.getAttribute('data-href');
-            if (href) window.location.href = href;
-          });
-        });
+
 
         const typeSection = () => {
           if (l2.dataset.typed === '1') return;
@@ -7024,6 +6874,33 @@
       });
     });
   </script>
+
+  <dialog class="work-detail" id="detail-stavian" aria-labelledby="stavian-detail-title">
+    <form method="dialog"><button class="work-detail-close" aria-label="Đóng chi tiết công việc">×</button></form>
+    <img class="work-detail-logo" src="assets/logos/stavian-industrial-metal.png" alt="Stavian Industrial Metal">
+    <p class="work-detail-date">06/2026 – 09/2026</p>
+    <h2 id="stavian-detail-title">Thực tập sinh Phái sinh</h2>
+    <p class="work-detail-company">Stavian Industrial Metal · Thành viên Tập đoàn Stavian, hoạt động trong lĩnh vực vật liệu kim loại công nghiệp.</p>
+    <ul><li>Lập báo cáo thống kê định kỳ, cập nhật tin tức thị trường phục vụ phòng ban và ban lãnh đạo.</li><li>Nghiên cứu, ứng dụng Quant Trading theo hướng predictive nhằm dự đoán giá.</li></ul>
+    <div class="work-detail-links"><a href="https://nguyendangminh278-coder.github.io/sim-report-stavian/?tab=doc-anh" target="_blank" rel="noopener noreferrer">Báo cáo SIM ↗</a><a href="https://radiant-light-2785.github.io/stavian/" target="_blank" rel="noopener noreferrer">Báo cáo thị trường ↗</a></div>
+  </dialog>
+  <dialog class="work-detail" id="detail-fpt" aria-labelledby="fpt-detail-title">
+    <form method="dialog"><button class="work-detail-close" aria-label="Đóng chi tiết công việc">×</button></form>
+    <img class="work-detail-logo" src="assets/logos/fpt-is.svg" alt="FPT IS">
+    <p class="work-detail-date">09/2026 – Hiện tại</p>
+    <h2 id="fpt-detail-title">Thực tập sinh Phân tích nghiệp vụ</h2>
+    <p class="work-detail-company">FPT IS × BIDV</p>
+    <p>Tham gia dự án hợp tác FPT IS × BIDV, làm việc với các sản phẩm test automation.</p>
+  </dialog>
+  <aside id="water-dragon" class="water-dragon" hidden aria-label="Linh vật rồng nước">
+    <button id="dragon-greet" class="dragon-greet" aria-label="Chào rồng nước" title="Chào rồng nước"></button>
+    <button id="dragon-hide" class="dragon-hide" aria-label="Ẩn linh vật" title="Ẩn linh vật">×</button>
+    <span class="dragon-direction" aria-hidden="true">↓</span>
+  </aside>
+  <script src="work-details.js"></script>
+  <script src="portfolio-navigation.js"></script>
+  <script type="importmap">{"imports":{"three":"./assets/vendor/three/build/three.module.js"}}</script>
+  <script type="module" src="water-dragon.js"></script>
 </body>
 
 </html>

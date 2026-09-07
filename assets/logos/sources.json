@@ -1,0 +1,20 @@
+[
+  {
+    "height": 316,
+    "source": "https://stavianmetal.com/wp-content/uploads/2026/06/logo-doc.png",
+    "width": 601,
+    "role": "Current homepage header logo",
+    "file": "stavian-industrial-metal.png",
+    "format": "PNG",
+    "transparency": true,
+    "sourcePage": "https://stavianmetal.com/"
+  },
+  {
+    "viewBox": "0 0 50.1 24.9",
+    "file": "fpt-is.svg",
+    "role": "Current homepage color header logo",
+    "source": "https://cdn.fpt-is.com/vi/FPT-IS-set-logo-08-1715516291.svg",
+    "sourcePage": "https://fpt-is.com/",
+    "format": "SVG"
+  }
+]

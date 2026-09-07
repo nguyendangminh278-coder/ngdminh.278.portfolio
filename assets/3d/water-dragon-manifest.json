@@ -1,0 +1,62 @@
+{
+  "file": "water-dragon.glb",
+  "bytes": 176976,
+  "vertices": 4686,
+  "triangles": 8164,
+  "meshCount": 22,
+  "materialCount": 7,
+  "bounds": {
+    "min": [
+      -1.2496933611840544,
+      -1.3997562899436353,
+      -0.48265847744427304
+    ],
+    "max": [
+      0.8566113182330111,
+      1.46,
+      1.204
+    ]
+  },
+  "dimensions": [
+    2.1063046794170655,
+    2.8597562899436353,
+    1.686658477444273
+  ],
+  "materials": [
+    {
+      "name": "Dragon lagoon",
+      "srgb": "#3BC4D0",
+      "roughness": 0.32
+    },
+    {
+      "name": "Dragon seafoam",
+      "srgb": "#B9F1DF",
+      "roughness": 0.5
+    },
+    {
+      "name": "Pearl horns",
+      "srgb": "#F8E6B7",
+      "roughness": 0.38
+    },
+    {
+      "name": "Eye white",
+      "srgb": "#FFFDF4",
+      "roughness": 0.2
+    },
+    {
+      "name": "Eye deep navy",
+      "srgb": "#092E45",
+      "roughness": 0.18
+    },
+    {
+      "name": "Cheeks peach",
+      "srgb": "#F7A89B",
+      "roughness": 0.45
+    },
+    {
+      "name": "Fins blue",
+      "srgb": "#238EBC",
+      "roughness": 0.4
+    }
+  ]
+}
